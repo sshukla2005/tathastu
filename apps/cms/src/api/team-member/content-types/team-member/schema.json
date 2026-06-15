@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "team_members",
+  "info": {
+    "singularName": "team-member",
+    "pluralName": "team-members",
+    "displayName": "Team Member",
+    "description": "Tathastu team profiles"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "role": { "type": "string" },
+    "photo": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "bio": { "type": "text" },
+    "order": { "type": "integer", "default": 0 }
+  }
+}

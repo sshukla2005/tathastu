@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_testimonials",
+  "info": {
+    "displayName": "Testimonials Section",
+    "icon": "quote"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string" },
+    "subtitle": { "type": "text" },
+    "testimonials": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::testimonial.testimonial"
+    }
+  }
+}

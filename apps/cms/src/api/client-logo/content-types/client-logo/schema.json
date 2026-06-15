@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "client_logos",
+  "info": {
+    "singularName": "client-logo",
+    "pluralName": "client-logos",
+    "displayName": "Client Logo",
+    "description": "Partner and client brand logos"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "logo": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "url": { "type": "string" },
+    "order": { "type": "integer", "default": 0 }
+  }
+}

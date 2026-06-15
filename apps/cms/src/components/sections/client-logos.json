@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_sections_client_logos",
+  "info": {
+    "displayName": "Client Logos",
+    "icon": "star"
+  },
+  "options": {},
+  "attributes": {
+    "logos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::client-logo.client-logo"
+    }
+  }
+}

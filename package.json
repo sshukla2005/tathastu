@@ -1,0 +1,20 @@
+{
+  "name": "tathastu",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:cms": "npm run develop --workspace=apps/cms",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "build:cms": "npm run build --workspace=apps/cms",
+    "build:web": "npm run build --workspace=apps/web",
+    "seed": "npm run seed --workspace=apps/cms"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "kind": "singleType",
+  "collectionName": "site_settings",
+  "info": {
+    "singularName": "site-setting",
+    "pluralName": "site-settings",
+    "displayName": "Site Settings",
+    "description": "Global site settings: nav, footer, contact info"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "logo": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "headerCtaLabel": { "type": "string", "default": "Get In Touch" },
+    "headerCtaHref": { "type": "string", "default": "/contact" },
+    "phone": { "type": "string" },
+    "email": { "type": "email" },
+    "address": { "type": "text" },
+    "copyrightText": { "type": "string" },
+    "nav": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.nav-item"
+    },
+    "footerColumns": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.footer-column"
+    },
+    "socialLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.social-link"
+    }
+  }
+}

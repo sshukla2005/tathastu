@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "industries",
+  "info": {
+    "singularName": "industry",
+    "pluralName": "industries",
+    "displayName": "Industry",
+    "description": "Industry verticals served by Tathastu"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "slug": { "type": "uid", "targetField": "name", "required": true },
+    "shortDescription": { "type": "text" },
+    "icon": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images", "files"] },
+    "heroImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "body": { "type": "blocks" },
+    "order": { "type": "integer", "default": 0 }
+  }
+}

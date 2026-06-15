@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "portfolio_items",
+  "info": {
+    "singularName": "portfolio-item",
+    "pluralName": "portfolio-items",
+    "displayName": "Portfolio Item",
+    "description": "Hardware, software, and plugin products"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "slug": { "type": "uid", "targetField": "title", "required": true },
+    "category": {
+      "type": "enumeration",
+      "enum": ["Hardware", "Software", "Plugin"],
+      "required": true
+    },
+    "image": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "summary": { "type": "text" },
+    "body": { "type": "blocks" }
+  }
+}

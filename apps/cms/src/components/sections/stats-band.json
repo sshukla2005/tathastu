@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_sections_stats_bands",
+  "info": {
+    "displayName": "Stats Band",
+    "icon": "chartCircle"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string" },
+    "stats": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::stat.stat"
+    }
+  }
+}

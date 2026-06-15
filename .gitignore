@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.npm/
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+
+# Strapi
+apps/cms/.tmp/
+apps/cms/public/uploads/
+apps/cms/exports/
+
+# Environment — never commit these
+.env
+apps/cms/.env
+apps/web/.env
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/settings.json
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+
+# Docker
+docker-compose.override.yml

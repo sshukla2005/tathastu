@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_blog_teasers",
+  "info": {
+    "displayName": "Blog Teaser",
+    "icon": "feather"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string" },
+    "ctaLabel": { "type": "string" },
+    "ctaHref": { "type": "string" },
+    "count": { "type": "integer", "default": 3 }
+  }
+}

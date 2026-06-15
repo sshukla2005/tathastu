@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_feature_cards",
+  "info": {
+    "displayName": "Feature Cards",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "subtitle": { "type": "text" },
+    "cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.feature-card"
+    }
+  }
+}
