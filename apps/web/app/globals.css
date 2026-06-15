@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f1e8e2;
+  --foreground: #0b0625;
+  --font-sans: var(--font-open-sans);
+}
+
+@theme {
+  --color-brand-primary: #4b95ff;
+  --color-brand-dark: #0b0625;
+  --color-brand-light: #f1e8e2;
+  --color-brand-orange: #eb5e0d;
+  --color-brand-yellow: #ecd026;
+  --color-brand-border-blue: #679ae2;
+
+  --font-sans: var(--font-open-sans), sans-serif;
+
+  --background-image-hero-gradient: linear-gradient(173deg, rgba(24, 76, 16, 0.5) 0%, #0b0625 100%);
+  --background-image-top-stripe: linear-gradient(90deg, #3bc057 0%, #e53b1b 35%, #f9de1b 61%, #0794e6 100%);
+  --background-image-header-stripe: linear-gradient(90deg, #eb5e0d 0%, #ecd026 38%, #8ceda4 71%, #9bc4ff 97%);
+  --background-image-btn-blue: linear-gradient(90deg, #1d385e 0%, #4b95ff 100%);
+  --background-image-btn-orange: linear-gradient(90deg, #eb5b0c 0%, #ecd027 45%, #8aea06 100%);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Base custom focus states and interactive elements */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
