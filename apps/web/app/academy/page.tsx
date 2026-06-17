@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import AcademyFAQ from "./AcademyFAQ";
 
 export async function generateMetadata() {
   return {
@@ -13,13 +12,17 @@ export async function generateMetadata() {
 
 /* ── Design Tokens ────────────────────────────────────────────────── */
 const RED = "#E02020";
-const RED_DARK = "#B81818";
 const DARK = "#0D0D0D";
-const DARK2 = "#141414";
-const CARD_BG = "#1A1A1A";
 const BORDER = "rgba(224,32,32,0.35)";
 
-/* ── Reusable small components ───────────────────────────────────── */
+// About Section Color Palette (Figma node 154:132)
+const ABOUT_BG = "#F3EFE9"; // Warm light grey/beige
+const ABOUT_TEXT_PRIMARY = "#1A1A1A";
+const ABOUT_TEXT_SECONDARY = "#4D4D4D";
+const ABOUT_ACCENT_RED = "#D93829";
+const ABOUT_ACCENT_GOLD = "#C97D24";
+
+/* ── Reusable Buttons ────────────────────────────────────────────── */
 function RedBtn({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
@@ -72,108 +75,11 @@ function OutlineBtn({ href, children }: { href: string; children: React.ReactNod
   );
 }
 
-/* ── Course card data ─────────────────────────────────────────────── */
-const COURSES = [
-  {
-    tag: "FLAGSHIP",
-    tagColor: RED,
-    duration: "6 months",
-    badge: "DEEP TRAINING",
-    title: "Houdini FX Masterclass",
-    desc: "The complete production pipeline — from procedural modeling and VEX scripting to RBD, pyro, FLIP fluids, Vellum, and USD-based rendering. Designed for artists serious about studio careers.",
-    modules: ["Procedural Modeling & VEX", "RBD & Pyro Simulations", "FLIP Fluids & Vellum", "Crowd Systems & USD"],
-    cta: "/contact?source=Academy&course=houdini-masterclass",
-  },
-  {
-    tag: "INTENSIVE",
-    tagColor: "#C07000",
-    duration: "3 months",
-    badge: "FAST TRACK",
-    title: "Houdini Core Intensive",
-    desc: "An accelerated deep-dive for artists who already know 3D. Master the fundamentals of Houdini's node-based workflow, SOPs, DOPs, and build a production-grade showreel piece.",
-    modules: ["SOP Fundamentals & CHOPs", "Dynamics & DOPs", "Rendering with Karma", "Showreel Production"],
-    cta: "/contact?source=Academy&course=houdini-core",
-  },
-  {
-    tag: "SPECIALIZATION",
-    tagColor: "#1a6bbf",
-    duration: "6–8 weeks",
-    badge: "10+ TRACKS",
-    title: "Specialization Tracks",
-    desc: "Targeted modules for artists who want to deepen a specific skill. Choose from Pyro & Smoke, FLIP Fluids, Crowd Sims, Procedural Characters, USD/Karma, and more.",
-    modules: ["Pyro & Smoke FX", "FLIP & Ocean Simulations", "Crowd Systems", "USD & Karma Rendering"],
-    cta: "/contact?source=Academy&course=specialization",
-  },
-];
-
-/* ── Why choose cards ─────────────────────────────────────────────── */
-const WHY = [
-  {
-    icon: "🎓",
-    title: "Production-Ready Mentors",
-    desc: "Learn directly from Senior VFX TDs who have shipped feature films and episodic VFX. Real pipelines, real feedback.",
-  },
-  {
-    icon: "🎬",
-    title: "Project-Driven Learning",
-    desc: "Every concept is taught through a project. You graduate with a polished, studio-quality demo reel — not just a certificate.",
-  },
-  {
-    icon: "👥",
-    title: "Small Batches of 15",
-    desc: "Intimate cohorts mean your mentor knows your work and can tailor feedback. No lost students in a crowd of hundreds.",
-  },
-  {
-    icon: "🌐",
-    title: "100% Online & Live",
-    desc: "All sessions are live, not pre-recorded. Attend from anywhere — Asia, Europe, Americas. Recordings available for all sessions.",
-  },
-  {
-    icon: "🏢",
-    title: "Studio Network",
-    desc: "Our alumni network spans world-class VFX studios. We make warm introductions and facilitate placement for top graduates.",
-  },
-  {
-    icon: "📜",
-    title: "SideFX Certified Path",
-    desc: "Our curriculum aligns with SideFX's official Houdini certification pathway — a recognized credential in the industry.",
-  },
-];
-
-/* ── FAQ data ─────────────────────────────────────────────────────── */
-const FAQS = [
-  {
-    q: "Do I need prior Houdini experience?",
-    a: "For the Masterclass and Core Intensive, a background in any 3D software (Maya, Blender, Cinema 4D) is sufficient. Specialization tracks require at least basic Houdini familiarity.",
-  },
-  {
-    q: "How are sessions conducted?",
-    a: "All sessions are live via Zoom/Google Meet. Each batch has fixed weekly live sessions plus open office hours. Recordings are shared within 24 hours.",
-  },
-  {
-    q: "What is the batch size?",
-    a: "All batches are capped at 15 artists to ensure personal mentorship and real feedback on your work.",
-  },
-  {
-    q: "Is there a payment plan?",
-    a: "Yes. We offer EMI options and installment-based payment for all programs. Book a call to discuss the options that fit your situation.",
-  },
-  {
-    q: "Will I get placement support?",
-    a: "Top graduates are introduced to our studio network. We provide portfolio review, resume guidance, and warm referrals — but we do not guarantee placement.",
-  },
-];
-
-// FAQ rendered via separate client component (AcademyFAQ.tsx)
-
-/* ═══════════════════════════════════════════════════════════════════
-   PAGE
-═══════════════════════════════════════════════════════════════════ */
 export default function AcademyPage() {
   return (
     <div style={{ background: DARK, minHeight: "100vh", fontFamily: "'Open Sans', sans-serif" }}>
 
-      {/* ── HERO ─────────────────────────────────────────────────── */}
+      {/* ── 1. HERO — DARK ─────────────────────────────────────────── */}
       <section
         style={{
           position: "relative",
@@ -382,243 +288,136 @@ export default function AcademyPage() {
         </div>
       </section>
 
-      {/* ── PROGRAMS ─────────────────────────────────────────────── */}
-      <section id="programs" style={{ padding: "96px 80px", background: DARK2 }} className="academy-section">
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          {/* Section header */}
-          <div style={{ textAlign: "center", marginBottom: "56px" }}>
-            <span
-              style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "11px",
-                fontWeight: 700,
-                color: RED,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                display: "block",
-                marginBottom: "12px",
-              }}
-            >
-              Our Programs
-            </span>
-            <h2
-              style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "clamp(28px, 3vw, 44px)",
-                fontWeight: 800,
-                color: "#FFFFFF",
-                margin: 0,
-                lineHeight: 1.2,
-              }}
-            >
-              Choose your <span style={{ color: RED }}>path</span>
-            </h2>
-          </div>
-
-          {/* Course cards */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "24px",
-            }}
-            className="academy-courses-grid"
-          >
-            {COURSES.map((c, i) => (
+      {/* ── 2. TICKER — node 154:3 — DARK STRIP ─────────────────────── */}
+      <section
+        style={{
+          overflow: "hidden",
+          width: "100%",
+          background: "#0D0D0D",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          borderBottom: "1px solid rgba(255,255,255,0.08)",
+          height: "46px",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <div
+          className="ticker-track"
+          style={{
+            display: "flex",
+            whiteSpace: "nowrap",
+            width: "max-content",
+            alignItems: "center",
+            gap: "64px",
+          }}
+        >
+          {/* Two identical groups of elements for seamless looping */}
+          {Array(2)
+            .fill(null)
+            .map((_, groupIdx) => (
               <div
-                key={i}
+                key={groupIdx}
                 style={{
-                  background: CARD_BG,
-                  borderRadius: "16px",
-                  border: `1px solid rgba(255,255,255,0.08)`,
-                  padding: "28px",
                   display: "flex",
-                  flexDirection: "column",
-                  gap: "20px",
+                  alignItems: "center",
+                  gap: "64px",
                 }}
               >
-                {/* Top row */}
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                {/* Item 1 */}
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke={ABOUT_ACCENT_RED}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
                   <span
-                    style={{
-                      background: c.tagColor,
-                      color: "#fff",
-                      fontSize: "10px",
-                      fontWeight: 800,
-                      letterSpacing: "0.15em",
-                      padding: "4px 10px",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    {c.tag}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "'Open Sans', sans-serif",
-                      fontSize: "12px",
-                      color: "rgba(255,255,255,0.45)",
-                      fontWeight: 600,
-                    }}
-                  >
-                    {c.duration}
-                  </span>
-                </div>
-
-                <div>
-                  <h3
-                    style={{
-                      fontFamily: "'Open Sans', sans-serif",
-                      fontSize: "20px",
-                      fontWeight: 800,
-                      color: "#FFFFFF",
-                      margin: "0 0 10px 0",
-                    }}
-                  >
-                    {c.title}
-                  </h3>
-                  <p
                     style={{
                       fontFamily: "'Open Sans', sans-serif",
                       fontSize: "13px",
-                      color: "rgba(255,255,255,0.6)",
-                      lineHeight: 1.7,
-                      margin: 0,
+                      color: "rgba(255,255,255,0.8)",
+                      fontWeight: 600,
+                      letterSpacing: "0.03em",
                     }}
                   >
-                    {c.desc}
-                  </p>
+                    Trusted by world-class studios
+                  </span>
                 </div>
-
-                {/* Modules */}
-                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "8px" }}>
-                  {c.modules.map((m, j) => (
-                    <li
-                      key={j}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                        fontFamily: "'Open Sans', sans-serif",
-                        fontSize: "13px",
-                        color: "rgba(255,255,255,0.75)",
-                        fontWeight: 500,
-                      }}
-                    >
-                      <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: RED, flexShrink: 0 }} />
-                      {m}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={c.cta}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "12px 24px",
-                    background: "transparent",
-                    border: `1.5px solid ${RED}`,
-                    color: RED,
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontWeight: 700,
-                    fontSize: "13px",
-                    borderRadius: "6px",
-                    textDecoration: "none",
-                    marginTop: "auto",
-                    letterSpacing: "0.03em",
-                  }}
-                >
-                  Enquire →
-                </Link>
+                {/* Item 2 */}
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke={ABOUT_ACCENT_RED}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                  <span
+                    style={{
+                      fontFamily: "'Open Sans', sans-serif",
+                      fontSize: "13px",
+                      color: "rgba(255,255,255,0.8)",
+                      fontWeight: 600,
+                      letterSpacing: "0.03em",
+                    }}
+                  >
+                    Batches of 15 artists
+                  </span>
+                </div>
+                {/* Item 3 */}
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke={ABOUT_ACCENT_RED}
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                    <line x1="8" y1="21" x2="16" y2="21" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                  </svg>
+                  <span
+                    style={{
+                      fontFamily: "'Open Sans', sans-serif",
+                      fontSize: "13px",
+                      color: "rgba(255,255,255,0.8)",
+                      fontWeight: 600,
+                      letterSpacing: "0.03em",
+                    }}
+                  >
+                    100% online
+                  </span>
+                </div>
               </div>
             ))}
-          </div>
         </div>
       </section>
 
-      {/* ── WHY TATHASTU ACADEMY ────────────────────────────────── */}
-      <section style={{ padding: "96px 80px", background: DARK }} className="academy-section">
-        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "56px" }}>
-            <span
-              style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "11px",
-                fontWeight: 700,
-                color: RED,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                display: "block",
-                marginBottom: "12px",
-              }}
-            >
-              Why Us
-            </span>
-            <h2
-              style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "clamp(28px, 3vw, 44px)",
-                fontWeight: 800,
-                color: "#FFFFFF",
-                margin: 0,
-              }}
-            >
-              Built for artists, by <span style={{ color: RED }}>artists</span>
-            </h2>
-          </div>
-
-          <div
-            style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "24px" }}
-            className="academy-why-grid"
-          >
-            {WHY.map((w, i) => (
-              <div
-                key={i}
-                style={{
-                  background: CARD_BG,
-                  borderRadius: "14px",
-                  border: "1px solid rgba(255,255,255,0.07)",
-                  padding: "28px 24px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "14px",
-                }}
-              >
-                <span style={{ fontSize: "32px" }}>{w.icon}</span>
-                <h3
-                  style={{
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: "16px",
-                    fontWeight: 800,
-                    color: "#FFFFFF",
-                    margin: 0,
-                  }}
-                >
-                  {w.title}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: "13px",
-                    color: "rgba(255,255,255,0.55)",
-                    lineHeight: 1.7,
-                    margin: 0,
-                  }}
-                >
-                  {w.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SOCIAL PROOF STRIP ───────────────────────────────────── */}
+      {/* ── 3. ABOUT — node 154:132 — LIGHT THEME ───────────────────── */}
       <section
         style={{
-          background: RED_DARK,
-          padding: "48px 80px",
+          background: ABOUT_BG,
+          padding: "120px 80px 140px",
+          color: ABOUT_TEXT_PRIMARY,
+          overflow: "hidden",
         }}
         className="academy-section"
       >
@@ -627,168 +426,405 @@ export default function AcademyPage() {
             maxWidth: "1280px",
             margin: "0 auto",
             display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: "32px",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "96px",
             alignItems: "center",
           }}
-          className="academy-stats-grid"
+          className="about-grid"
         >
-          {[
-            { val: "120+", label: "Graduates placed" },
-            { val: "15", label: "Artists per batch" },
-            { val: "98%", label: "Completion rate" },
-            { val: "10+", label: "Specialization tracks" },
-          ].map((s, i) => (
+          {/* Left Column — Overlapping Images */}
+          <div
+            style={{
+              position: "relative",
+              width: "100%",
+              maxWidth: "460px",
+              justifySelf: "center",
+            }}
+          >
+            {/* Brain Graphic (Base) */}
             <div
-              key={i}
               style={{
-                textAlign: "center",
-                borderRight: i < 3 ? "1px solid rgba(255,255,255,0.2)" : "none",
+                position: "relative",
+                width: "100%",
+                aspectRatio: "1/1",
+                borderRadius: "24px",
+                overflow: "hidden",
+                boxShadow: "0 20px 40px rgba(0,0,0,0.06)",
               }}
             >
-              <div
+              <Image
+                src="/images/academy/about-brain.png"
+                alt="Floating 3D brain network illustration"
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 1024px) 100vw, 460px"
+              />
+            </div>
+
+            {/* SideFX Badge */}
+            <div
+              style={{
+                position: "absolute",
+                top: "55%",
+                right: "-24px",
+                transform: "translateY(-50%)",
+                zIndex: 20,
+                background: "#FFFFFF",
+                borderRadius: "14px",
+                padding: "16px 24px",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.08)",
+                border: "1px solid rgba(0, 0, 0, 0.04)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "3px",
+                minWidth: "170px",
+              }}
+            >
+              <span
                 style={{
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "clamp(32px, 3.5vw, 48px)",
+                  color: ABOUT_ACCENT_RED,
                   fontWeight: 900,
-                  color: "#FFFFFF",
+                  fontSize: "21px",
+                  fontFamily: "'Open Sans', sans-serif",
+                  letterSpacing: "0.02em",
                   lineHeight: 1,
                 }}
               >
-                {s.val}
-              </div>
-              <div
+                SideFX
+              </span>
+              <div style={{ width: "100%", height: "1.5px", background: "#E5E7EB", margin: "4px 0" }}></div>
+              <span
                 style={{
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "13px",
-                  fontWeight: 500,
-                  color: "rgba(255,255,255,0.75)",
-                  marginTop: "6px",
-                  textTransform: "uppercase",
+                  color: "#6B7280",
+                  fontSize: "9px",
+                  fontWeight: 700,
                   letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  fontFamily: "'Open Sans', sans-serif",
                 }}
               >
-                {s.label}
+                Official Partner
+              </span>
+            </div>
+
+            {/* VR User Graphic */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-48px",
+                right: "-36px",
+                width: "60%",
+                aspectRatio: "1/1",
+                borderRadius: "24px",
+                overflow: "hidden",
+                boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
+                border: `6px solid ${ABOUT_BG}`,
+                zIndex: 10,
+              }}
+            >
+              <Image
+                src="/images/academy/about-vr.jpg"
+                alt="Artist interacting with VR environment"
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 1024px) 60vw, 280px"
+              />
+            </div>
+          </div>
+
+          {/* Right Column — Mission & Feature rows */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
+            {/* Tagline */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                color: ABOUT_ACCENT_GOLD,
+                fontSize: "12px",
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+              }}
+            >
+              <span style={{ width: "24px", height: "2px", background: ABOUT_ACCENT_GOLD }}></span>
+              OUR MISSION
+            </div>
+
+            {/* Heading */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <h2
+                style={{
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "clamp(32px, 3.2vw, 44px)",
+                  fontWeight: 800,
+                  lineHeight: 1.15,
+                  color: ABOUT_TEXT_PRIMARY,
+                  margin: 0,
+                }}
+              >
+                Not just teaching. <br />
+                <span style={{ color: ABOUT_ACCENT_RED }}>Building careers.</span>
+              </h2>
+              {/* Thick divider */}
+              <div
+                style={{
+                  width: "56px",
+                  height: "4px",
+                  background: ABOUT_ACCENT_RED,
+                  marginTop: "16px",
+                }}
+              ></div>
+            </div>
+
+            {/* Paragraphs */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+                fontSize: "15px",
+                lineHeight: 1.7,
+                color: ABOUT_TEXT_SECONDARY,
+              }}
+            >
+              <p style={{ margin: 0 }}>
+                At Tathastu Academy, we understand the biggest challenge studios face — finding Houdini artists who are{" "}
+                <strong style={{ color: ABOUT_TEXT_PRIMARY, fontWeight: 700 }}>
+                  technically skilled and production ready from day one.
+                </strong>
+              </p>
+              <p style={{ margin: 0 }}>
+                Backed by our official SideFX partnership, we deliver studio-focused training that equips artists with
+                technical expertise, creative vision, and the problem-solving skills demanded by modern VFX pipelines.
+              </p>
+            </div>
+
+            {/* Feature Row Cards */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+              {/* Feature 1 */}
+              <div
+                style={{
+                  background: "#FFFFFF",
+                  borderRadius: "16px",
+                  padding: "20px 24px",
+                  display: "flex",
+                  gap: "20px",
+                  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "12px",
+                    background: "#FDF2F2",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    color: ABOUT_ACCENT_RED,
+                  }}
+                >
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="6" />
+                    <circle cx="12" cy="12" r="2" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 style={{ margin: "0 0 4px 0", fontSize: "16px", fontWeight: 700, color: ABOUT_TEXT_PRIMARY }}>
+                    Project-Driven Learning
+                  </h4>
+                  <p style={{ margin: 0, fontSize: "13px", color: ABOUT_TEXT_SECONDARY, lineHeight: 1.5 }}>
+                    Every module builds toward real deliverables studios actually expect.
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 2 */}
+              <div
+                style={{
+                  background: "#FFFFFF",
+                  borderRadius: "16px",
+                  padding: "20px 24px",
+                  display: "flex",
+                  gap: "20px",
+                  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "12px",
+                    background: "#FEF3C7",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    color: ABOUT_ACCENT_GOLD,
+                  }}
+                >
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 style={{ margin: "0 0 4px 0", fontSize: "16px", fontWeight: 700, color: ABOUT_TEXT_PRIMARY }}>
+                    Studio-Aligned Curriculum
+                  </h4>
+                  <p style={{ margin: 0, fontSize: "13px", color: ABOUT_TEXT_SECONDARY, lineHeight: 1.5 }}>
+                    Courses designed in collaboration with real production pipelines.
+                  </p>
+                </div>
+              </div>
+
+              {/* Feature 3 */}
+              <div
+                style={{
+                  background: "#FFFFFF",
+                  borderRadius: "16px",
+                  padding: "20px 24px",
+                  display: "flex",
+                  gap: "20px",
+                  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
+                  alignItems: "center",
+                }}
+              >
+                <div
+                  style={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "12px",
+                    background: "#FDF2F2",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    color: ABOUT_ACCENT_RED,
+                  }}
+                >
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 style={{ margin: "0 0 4px 0", fontSize: "16px", fontWeight: 700, color: ABOUT_TEXT_PRIMARY }}>
+                    Talent Pipeline for Studios
+                  </h4>
+                  <p style={{ margin: 0, fontSize: "13px", color: ABOUT_TEXT_SECONDARY, lineHeight: 1.5 }}>
+                    Book seats in advance and hire trained, ready-to-deploy artists.
+                  </p>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ── FAQ ──────────────────────────────────────────────────── */}
-      <section style={{ padding: "96px 80px", background: DARK2 }} className="academy-section">
-        <div
-          style={{
-            maxWidth: "860px",
-            margin: "0 auto",
-          }}
-        >
-          <div style={{ textAlign: "center", marginBottom: "48px" }}>
-            <span
-              style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "11px",
-                fontWeight: 700,
-                color: RED,
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                display: "block",
-                marginBottom: "12px",
-              }}
-            >
-              FAQ
-            </span>
-            <h2
-              style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "clamp(26px, 2.8vw, 40px)",
-                fontWeight: 800,
-                color: "#FFFFFF",
-                margin: 0,
-              }}
-            >
-              Common <span style={{ color: RED }}>questions</span>
-            </h2>
+            {/* Talk to Us Button */}
+            <div style={{ marginTop: "12px" }}>
+              <Link
+                href="/contact?source=Academy"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "16px 36px",
+                  background: ABOUT_ACCENT_RED,
+                  color: "#FFFFFF",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "15px",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  boxShadow: "0 4px 14px rgba(217, 56, 41, 0.25)",
+                  transition: "background 0.2s ease, transform 0.2s ease",
+                }}
+                className="talk-us-btn"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                Talk to Us
+              </Link>
+            </div>
           </div>
-          <AcademyFAQ />
-        </div>
-      </section>
-
-      {/* ── BOTTOM CTA ───────────────────────────────────────────── */}
-      <section
-        style={{
-          padding: "96px 80px",
-          background: DARK,
-          textAlign: "center",
-          position: "relative",
-          overflow: "hidden",
-        }}
-        className="academy-section"
-      >
-        {/* Red glow blob */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "-80px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            width: "600px",
-            height: "300px",
-            background: "radial-gradient(ellipse, rgba(224,32,32,0.18) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }}
-        />
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "640px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "24px", alignItems: "center" }}>
-          <h2
-            style={{
-              fontFamily: "'Open Sans', sans-serif",
-              fontSize: "clamp(28px, 3.5vw, 48px)",
-              fontWeight: 900,
-              color: "#FFFFFF",
-              margin: 0,
-              lineHeight: 1.15,
-            }}
-          >
-            Ready to become <span style={{ color: RED }}>production ready</span>?
-          </h2>
-          <p
-            style={{
-              fontFamily: "'Open Sans', sans-serif",
-              fontSize: "16px",
-              color: "rgba(255,255,255,0.6)",
-              lineHeight: 1.7,
-              margin: 0,
-            }}
-          >
-            Applications for the next batch are open. Seats are limited to 15 artists — book a
-            free discovery call to see if you are a good fit.
-          </p>
-          <RedBtn href="/contact?source=Academy">Book a Free Call</RedBtn>
         </div>
       </section>
 
       {/* Responsive overrides */}
       <style>{`
+        @keyframes ticker-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .ticker-track {
+          animation: ticker-scroll 25s linear infinite;
+        }
+        .ticker-track:hover {
+          animation-play-state: paused;
+        }
+        .talk-us-btn:hover {
+          background: #C22F22 !important;
+          transform: translateY(-2px);
+        }
         @media (max-width: 1024px) {
           .academy-hero-grid {
             grid-template-columns: 1fr !important;
             padding: 100px 32px 60px !important;
           }
-          .academy-courses-grid,
-          .academy-why-grid {
+          .about-grid {
             grid-template-columns: 1fr !important;
-          }
-          .academy-stats-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 120px !important;
+            padding: 0 16px !important;
           }
         }
         @media (max-width: 640px) {
           .academy-section {
             padding-left: 24px !important;
             padding-right: 24px !important;
-          }
-          .academy-stats-grid {
-            grid-template-columns: 1fr !important;
+            padding-top: 80px !important;
+            padding-bottom: 80px !important;
           }
         }
       `}</style>
