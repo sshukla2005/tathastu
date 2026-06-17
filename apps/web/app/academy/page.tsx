@@ -1422,6 +1422,316 @@ export default function AcademyPage() {
         </div>
       </section>
 
+      {/* ── 5. WHY US — node 154:389 — LIGHT THEME ─────────────────── */}
+      <section
+        id="why-us"
+        style={{
+          background: ABOUT_BG, // Warm light grey/beige
+          color: ABOUT_TEXT_PRIMARY,
+          padding: "120px 80px 140px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+        className="academy-section"
+      >
+        <div
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "1fr 1.2fr",
+            gap: "80px",
+            alignItems: "flex-start",
+          }}
+          className="why-us-grid"
+        >
+          {/* Left Column */}
+          <div style={{ display: "flex", flexDirection: "column", gap: "28px" }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                color: ABOUT_ACCENT_GOLD,
+                fontSize: "12px",
+                fontWeight: 700,
+                letterSpacing: "0.15em",
+                textTransform: "uppercase",
+              }}
+            >
+              <span style={{ width: "24px", height: "2px", background: ABOUT_ACCENT_GOLD }}></span>
+              WHY TATHASTU
+            </div>
+
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <h2
+                style={{
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "clamp(32px, 3.2vw, 44px)",
+                  fontWeight: 900,
+                  lineHeight: 1.15,
+                  color: ABOUT_TEXT_PRIMARY,
+                  margin: 0,
+                }}
+              >
+                Transform potential into <span style={{ color: ABOUT_ACCENT_RED }}>reality</span>
+              </h2>
+              <div
+                style={{
+                  width: "56px",
+                  height: "4px",
+                  background: ABOUT_ACCENT_RED,
+                  marginTop: "16px",
+                }}
+              ></div>
+            </div>
+
+            <p
+              style={{
+                margin: 0,
+                fontSize: "16px",
+                lineHeight: 1.7,
+                color: ABOUT_TEXT_SECONDARY,
+              }}
+            >
+              We are not just another training institute. We are the bridge between where you are and where the industry needs you to be.
+            </p>
+
+            <div style={{ marginTop: "8px" }}>
+              <Link
+                href="/contact?source=WhyUs"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "16px 36px",
+                  background: ABOUT_ACCENT_RED,
+                  color: "#FFFFFF",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "15px",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  boxShadow: "0 4px 14px rgba(217, 56, 41, 0.25)",
+                  transition: "background 0.2s ease, transform 0.2s ease",
+                }}
+                className="talk-advisor-btn"
+              >
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+                Talk to an Advisor
+              </Link>
+            </div>
+
+            {/* Dark Workstation Placeholder Image */}
+            <div
+              style={{
+                position: "relative",
+                width: "100%",
+                aspectRatio: "16/10",
+                background: "#161B18", // Dark solid placeholder color
+                borderRadius: "20px",
+                border: "1px solid rgba(0,0,0,0.15)",
+                boxShadow: "0 20px 45px rgba(0,0,0,0.08)",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "12px",
+                padding: "24px",
+                marginTop: "16px",
+              }}
+              className="why-us-image-placeholder"
+            >
+              <svg
+                width="36"
+                height="36"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="rgba(255, 255, 255, 0.25)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                <line x1="8" y1="21" x2="16" y2="21" />
+                <line x1="12" y1="17" x2="12" y2="21" />
+              </svg>
+              <span
+                style={{
+                  color: "rgba(255, 255, 255, 0.5)",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  letterSpacing: "0.02em",
+                  textAlign: "center",
+                }}
+              >
+                Workstation Image
+              </span>
+              <span
+                style={{
+                  color: "rgba(255, 255, 255, 0.3)",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  textAlign: "center",
+                }}
+              >
+                Pending Figma Download (Rate Limited)
+              </span>
+            </div>
+          </div>
+
+          {/* Right Column — 2x3 Grid */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: "24px",
+            }}
+            className="why-us-grid-right"
+          >
+            {[
+              {
+                title: "Authorized SideFX Partner",
+                desc: "Officially recognized by SideFX for delivering world-class Houdini training in India.",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <path d="m9 12 2 2 4-4" />
+                  </svg>
+                )
+              },
+              {
+                title: "Project-Driven Learning",
+                desc: "Learn by doing, not by theory. Every lesson feeds into real, studio-grade deliverables.",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="6" />
+                    <circle cx="12" cy="12" r="2" />
+                  </svg>
+                )
+              },
+              {
+                title: "Studio-Aligned Curriculum",
+                desc: "Courses designed with actual studios grounded in real production pipelines.",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
+                  </svg>
+                )
+              },
+              {
+                title: "Expert Industry Mentors",
+                desc: "Learn from trainers with direct, hands-on experience from top studio productions.",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                    <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5" />
+                  </svg>
+                )
+              },
+              {
+                title: "Talent Pipeline for Studios",
+                desc: "Studios can reserve seats ahead of time and hire artists ready to contribute from day one.",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                )
+              },
+              {
+                title: "Capped at 15 Per Batch",
+                desc: "Small cohorts ensure every student receives personal guidance and focused mentorship.",
+                icon: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                )
+              }
+            ].map((card, idx) => (
+              <div
+                key={idx}
+                style={{
+                  background: "#FFFFFF",
+                  borderRadius: "16px",
+                  padding: "24px 28px",
+                  boxShadow: "0 10px 25px rgba(0, 0, 0, 0.02)",
+                  border: "1px solid rgba(0, 0, 0, 0.03)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                }}
+                className="why-us-card"
+              >
+                <div
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    borderRadius: "10px",
+                    background: "#FDF2F2",
+                    color: ABOUT_ACCENT_RED,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  {card.icon}
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <h4
+                    style={{
+                      margin: 0,
+                      fontSize: "16px",
+                      fontWeight: 700,
+                      color: ABOUT_TEXT_PRIMARY,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {card.title}
+                  </h4>
+                  <p
+                    style={{
+                      margin: 0,
+                      fontSize: "13.5px",
+                      color: ABOUT_TEXT_SECONDARY,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {card.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Responsive overrides */}
       <style>{`
         @keyframes ticker-scroll {
@@ -1450,6 +1760,14 @@ export default function AcademyPage() {
           color: #FFFFFF !important;
           text-decoration: underline !important;
         }
+        .talk-advisor-btn:hover {
+          background: #C22F22 !important;
+          transform: translateY(-2px);
+        }
+        .why-us-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 15px 30px rgba(0,0,0,0.06) !important;
+        }
         @media (max-width: 1024px) {
           .academy-hero-grid {
             grid-template-columns: 1fr !important;
@@ -1466,6 +1784,14 @@ export default function AcademyPage() {
           }
           .programs-container {
             padding: 100px 32px 100px !important;
+          }
+          .why-us-grid {
+            grid-template-columns: 1fr !important;
+            gap: 64px !important;
+          }
+          .why-us-grid-right {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
           }
         }
         @media (max-width: 640px) {
