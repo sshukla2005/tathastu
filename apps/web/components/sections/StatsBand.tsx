@@ -7,34 +7,140 @@ interface StatsBandProps {
   section: StatsBandSection;
 }
 
+/*
+  Figma node 40:1699 — Stats band
+  - Dark band with faint workstation photo behind + dark gradient (darker left)
+  - Left: white bold two-line text "Join the" / "community of Millions", left-aligned
+  - Thin vertical divider to its right
+  - Three stats in a row: "20+" "Number of Hardwares" · "80+" "Number of Plugins" · "4100+" "Clients Served"
+  - Big number bold white, small label white beneath
+  No: gradient stat values, hover scales on stat boxes, orange decorators
+*/
+
 export default function StatsBand({ section }: StatsBandProps) {
   return (
-    <section className="relative overflow-hidden bg-brand-dark text-white py-16 px-6">
-      {/* Decorative Network Grid Dots */}
-      <div className="absolute inset-0 opacity-5 z-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]" />
-      
-      <div className="relative z-10 max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-12">
-        {/* Left Headline */}
-        <div className="lg:max-w-md text-center lg:text-left">
-          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-            {section.heading}
-          </h2>
-          <div className="w-20 h-1 bg-brand-orange mt-4 mx-auto lg:mx-0 rounded-full" />
+    <section
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        backgroundColor: "#0a0e1a",
+        padding: "64px 80px",
+      }}
+    >
+      {/* Faint photo background */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          backgroundImage: "url('/images/hero/hero-photo.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          filter: "brightness(0.15)",
+          zIndex: 0,
+        }}
+      />
+      {/* Darker-left gradient overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(90deg, rgba(5,8,20,0.95) 0%, rgba(10,20,40,0.6) 100%)",
+          zIndex: 1,
+        }}
+      />
+
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          maxWidth: "1280px",
+          margin: "0 auto",
+          display: "flex",
+          alignItems: "center",
+          gap: "0",
+          flexWrap: "wrap",
+        }}
+      >
+        {/* Left headline */}
+        <div
+          style={{
+            flexShrink: 0,
+            paddingRight: "48px",
+          }}
+        >
+          <p
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "clamp(22px, 2.5vw, 36px)",
+              fontWeight: 700,
+              color: "#FFFFFF",
+              lineHeight: 1.25,
+              margin: 0,
+            }}
+          >
+            {section.heading || (
+              <>
+                Join the<br />
+                community of Millions
+              </>
+            )}
+          </p>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 w-full lg:w-auto shrink-0">
+        {/* Vertical divider */}
+        <div
+          style={{
+            width: "1px",
+            height: "80px",
+            backgroundColor: "rgba(255,255,255,0.25)",
+            flexShrink: 0,
+            marginRight: "48px",
+          }}
+        />
+
+        {/* Stats row */}
+        <div
+          style={{
+            display: "flex",
+            gap: "64px",
+            flexWrap: "wrap",
+            alignItems: "center",
+          }}
+        >
           {section.stats.map((stat, idx) => (
             <div
               key={stat.id || idx}
-              className="flex flex-col items-center justify-center p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 hover:border-brand-primary/30 transition-all duration-300 text-center min-w-[180px] group"
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+              }}
             >
-              {/* Stat Value */}
-              <span className="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-brand-orange to-brand-primary bg-clip-text text-transparent transform group-hover:scale-110 transition-transform duration-300">
+              {/* Big number */}
+              <span
+                style={{
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "clamp(36px, 3.5vw, 52px)",
+                  fontWeight: 800,
+                  color: "#FFFFFF",
+                  lineHeight: 1.1,
+                }}
+              >
                 {stat.value}
               </span>
-              {/* Stat Label */}
-              <span className="text-gray-400 text-sm font-semibold mt-2 tracking-wide uppercase">
+              {/* Label */}
+              <span
+                style={{
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 400,
+                  color: "rgba(255,255,255,0.75)",
+                  marginTop: "6px",
+                  lineHeight: 1.4,
+                }}
+              >
                 {stat.label}
               </span>
             </div>

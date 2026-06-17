@@ -1,45 +1,115 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { ClientLogosSection } from "@tathastu/types";
 
 interface ClientLogosProps {
   section: ClientLogosSection;
 }
 
+/*
+  Figma node 40:4602 — Client logos
+  - Row of partner logos (grayscale/muted) on light bg: HP, Adobe, SideFX, Toon Boom Storyboard Pro, Dell
+  - No "Trusted by Industry Leaders Worldwide" label
+  - No hover color effects (logos are grayscale/muted, static)
+*/
+
+// Figma-matched logo asset paths
+const LOGO_ASSET_PATHS: Record<string, string> = {
+  hp: "/images/client-logos/hp.png",
+  adobe: "/images/client-logos/adobe.png",
+  sidefx: "/images/client-logos/sidefx.png",
+  houdini: "/images/client-logos/sidefx.png",
+  "toon boom": "/images/client-logos/toon-boom.png",
+  "storyboard": "/images/client-logos/toon-boom.png",
+  dell: "/images/client-logos/dell.png",
+};
+
+function getLogoPath(name: string): string | null {
+  const lower = name.toLowerCase();
+  for (const [key, val] of Object.entries(LOGO_ASSET_PATHS)) {
+    if (lower.includes(key)) return val;
+  }
+  return null;
+}
+
 export default function ClientLogos({ section }: ClientLogosProps) {
-  // Return generic beautiful visual representation of the partners if image assets are not loaded
-  const getBrandLogo = (name: string) => {
-    return (
-      <span className="text-xl sm:text-2xl font-black tracking-widest uppercase bg-gradient-to-r from-gray-500 to-gray-700 bg-clip-text text-transparent group-hover:from-brand-orange group-hover:to-brand-primary transition-all duration-300">
-        {name}
-      </span>
-    );
-  };
-
   return (
-    <section className="py-16 px-6 bg-white border-t border-b border-gray-100">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-8">
-          <span className="text-xs font-extrabold uppercase tracking-widest text-gray-400">
-            Trusted by Industry Leaders Worldwide
-          </span>
-        </div>
+    <section
+      style={{
+        padding: "48px 80px",
+        backgroundColor: "#F8F8F8",
+        borderTop: "1px solid #EBEBEB",
+        borderBottom: "1px solid #EBEBEB",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+        }}
+      >
+        {/* Logos flex row — grayscale, muted, static */}
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "48px",
+          }}
+        >
+          {section.logos &&
+            section.logos.map((logo, idx) => {
+              const assetPath = logo.image?.url || getLogoPath(logo.name);
 
-        {/* Logos Flex Row */}
-        <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16 lg:gap-24 opacity-60 hover:opacity-100 transition-opacity duration-300">
-          {section.logos && section.logos.map((logo, idx) => (
-            <a
-              key={logo.id || idx}
-              href={logo.url || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center justify-center p-4 transition-transform duration-300 transform hover:scale-110"
-              aria-label={`Partner: ${logo.name}`}
-            >
-              {getBrandLogo(logo.name)}
-            </a>
-          ))}
+              return (
+                <a
+                  key={logo.id || idx}
+                  href={logo.url || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Partner: ${logo.name}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    textDecoration: "none",
+                    opacity: 0.55,
+                  }}
+                >
+                  {assetPath ? (
+                    <Image
+                      src={assetPath}
+                      alt={logo.name}
+                      width={120}
+                      height={48}
+                      style={{
+                        objectFit: "contain",
+                        filter: "grayscale(100%)",
+                        maxHeight: "48px",
+                        width: "auto",
+                      }}
+                    />
+                  ) : (
+                    /* Fallback text if no logo image */
+                    <span
+                      style={{
+                        fontFamily: "'Open Sans', sans-serif",
+                        fontSize: "18px",
+                        fontWeight: 800,
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase",
+                        color: "#555555",
+                      }}
+                    >
+                      {logo.name}
+                    </span>
+                  )}
+                </a>
+              );
+            })}
         </div>
       </div>
     </section>

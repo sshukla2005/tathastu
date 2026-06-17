@@ -1,78 +1,276 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { TestimonialsSection } from "@tathastu/types";
-import { Quote } from "lucide-react";
 
 interface TestimonialsProps {
   section: TestimonialsSection;
 }
 
-export default function Testimonials({ section }: TestimonialsProps) {
-  const getInitials = (name: string) => {
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
-  };
+/*
+  Figma node 40:4625 — Words Of Trust (Testimonials)
+  - White bg
+  - Left-aligned heading "Words Of Trust" (two-tone, "Trust" blue)
+  - Subtitle: "Trusted by customers, backed by results."
+  - Carousel arrows top-right (square buttons ‹ ›)
+  - 2 cards, light-blue tinted background (#ddeeff-ish), rounded
+  - Small blue triangle accent in top-right corner of each card
+  - Each card: circular avatar photo, name (bold), role/company (gray), 5 orange stars, quote (gray)
+  No: lucide Quote icon bg, initials avatar, brand-light bg, big centered heading
+*/
 
+const AVATAR_PATHS: Record<string, string> = {
+  "keitan": "/images/testimonials/keitan-yadav.jpg",
+  "anisha": "/images/testimonials/anisha-karthik.jpg",
+};
+
+function getAvatarPath(name: string): string {
+  const lower = name.toLowerCase();
+  for (const [key, val] of Object.entries(AVATAR_PATHS)) {
+    if (lower.includes(key)) return val;
+  }
+  return "/images/testimonials/avatar-placeholder.jpg";
+}
+
+function StarRating({ count = 5 }: { count?: number }) {
   return (
-    <section className="py-20 px-6 bg-brand-light relative overflow-hidden">
-      {/* Big quote symbol background decoration */}
-      <div className="absolute top-10 right-10 text-gray-200/50 -z-0 pointer-events-none">
-        <Quote size={300} strokeWidth={0.5} />
-      </div>
+    <div style={{ display: "flex", gap: "2px" }}>
+      {Array.from({ length: count }).map((_, i) => (
+        <svg
+          key={i}
+          width="18"
+          height="18"
+          viewBox="0 0 18 18"
+          fill="#F59E0B"
+        >
+          <polygon points="9,1 11.5,6.5 17.5,7.3 13,11.6 14.3,17.5 9,14.5 3.7,17.5 5,11.6 0.5,7.3 6.5,6.5" />
+        </svg>
+      ))}
+    </div>
+  );
+}
 
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Header content */}
-        <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-4">
-          <span className="text-sm font-extrabold tracking-widest text-brand-primary uppercase">
-            {section.heading}
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark leading-tight">
-            {section.subtitle}
-          </h2>
-          <div className="w-20 h-1.5 bg-brand-orange mx-auto rounded-full mt-2" />
+export default function Testimonials({ section }: TestimonialsProps) {
+  return (
+    <section
+      style={{
+        padding: "80px 80px",
+        backgroundColor: "#FFFFFF",
+      }}
+    >
+      <div
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+        }}
+      >
+        {/* Top row: left-aligned heading + carousel arrows top-right */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            marginBottom: "48px",
+            flexWrap: "wrap",
+            gap: "16px",
+          }}
+        >
+          {/* Left-aligned two-tone heading */}
+          <div>
+            <h2
+              style={{
+                fontFamily: "'Open Sans', sans-serif",
+                fontSize: "clamp(32px, 3vw, 48px)",
+                fontWeight: 700,
+                lineHeight: 1.2,
+                margin: "0 0 12px 0",
+              }}
+            >
+              <span style={{ color: "#0b0625" }}>Words Of </span>
+              <span style={{ color: "#4B95FF" }}>Trust</span>
+            </h2>
+            <p
+              style={{
+                fontFamily: "'Open Sans', sans-serif",
+                fontSize: "15px",
+                color: "#6B7280",
+                margin: 0,
+              }}
+            >
+              {section.subtitle || "Trusted by customers, backed by results."}
+            </p>
+          </div>
+
+          {/* Carousel arrows — square buttons */}
+          <div
+            style={{
+              display: "flex",
+              gap: "8px",
+              alignSelf: "center",
+            }}
+          >
+            <button
+              aria-label="Previous testimonial"
+              style={{
+                width: "44px",
+                height: "44px",
+                border: "1.5px solid #0b0625",
+                borderRadius: "4px",
+                background: "#FFFFFF",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "20px",
+                color: "#0b0625",
+              }}
+            >
+              ‹
+            </button>
+            <button
+              aria-label="Next testimonial"
+              style={{
+                width: "44px",
+                height: "44px",
+                border: "1.5px solid #0b0625",
+                borderRadius: "4px",
+                background: "#FFFFFF",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "20px",
+                color: "#0b0625",
+              }}
+            >
+              ›
+            </button>
+          </div>
         </div>
 
-        {/* Testimonials grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-          {section.testimonials && section.testimonials.map((t, idx) => (
-            <div
-              key={t.id || idx}
-              className="bg-white rounded-[32px] p-8 sm:p-10 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col justify-between"
-            >
-              {/* Quote text */}
-              <div className="flex flex-col gap-4">
-                <div className="text-brand-primary">
-                  <Quote size={40} className="fill-current opacity-20" />
+        {/* 2-column card grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "24px",
+          }}
+          className="testimonial-grid"
+        >
+          {section.testimonials &&
+            section.testimonials.map((t, idx) => (
+              <div
+                key={t.id || idx}
+                style={{
+                  position: "relative",
+                  backgroundColor: "#ddeeff",
+                  borderRadius: "16px",
+                  padding: "32px",
+                  overflow: "hidden",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "16px",
+                }}
+              >
+                {/* Blue triangle accent — top-right corner */}
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    width: 0,
+                    height: 0,
+                    borderStyle: "solid",
+                    borderWidth: "0 48px 48px 0",
+                    borderColor: "transparent #4B95FF transparent transparent",
+                  }}
+                />
+
+                {/* Avatar + name + role row */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "16px",
+                  }}
+                >
+                  {/* Circular avatar */}
+                  <div
+                    style={{
+                      width: "64px",
+                      height: "64px",
+                      borderRadius: "50%",
+                      overflow: "hidden",
+                      flexShrink: 0,
+                      border: "3px solid #4B95FF",
+                      position: "relative",
+                    }}
+                  >
+                    <Image
+                      src={t.avatar?.url
+                        ? t.avatar.url
+                        : getAvatarPath(t.authorName)}
+                      alt={t.authorName}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="64px"
+                    />
+                  </div>
+
+                  <div>
+                    <p
+                      style={{
+                        fontFamily: "'Open Sans', sans-serif",
+                        fontSize: "16px",
+                        fontWeight: 700,
+                        color: "#0b0625",
+                        margin: "0 0 4px 0",
+                      }}
+                    >
+                      {t.authorName}
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "'Open Sans', sans-serif",
+                        fontSize: "13px",
+                        color: "#6B7280",
+                        margin: 0,
+                      }}
+                    >
+                      {t.authorTitle}
+                      {t.company ? ` - ${t.company}` : ""}
+                    </p>
+                  </div>
                 </div>
-                <p className="text-gray-600 text-base sm:text-lg italic leading-relaxed">
-                  "{t.quote}"
+
+                {/* 5 orange stars */}
+                <StarRating count={5} />
+
+                {/* Quote text */}
+                <p
+                  style={{
+                    fontFamily: "'Open Sans', sans-serif",
+                    fontSize: "14px",
+                    color: "#4B5563",
+                    lineHeight: 1.7,
+                    margin: 0,
+                  }}
+                >
+                  {t.quote}
                 </p>
               </div>
-
-              {/* Author info */}
-              <div className="flex items-center gap-4 mt-8 pt-6 border-t border-gray-100">
-                {/* Initials Avatar */}
-                <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-brand-orange to-brand-primary flex items-center justify-center text-white font-extrabold text-lg shadow-md shrink-0">
-                  {getInitials(t.authorName)}
-                </div>
-
-                <div className="flex flex-col">
-                  <span className="font-extrabold text-brand-dark text-lg leading-tight">
-                    {t.authorName}
-                  </span>
-                  <span className="text-sm text-gray-500 font-semibold mt-0.5">
-                    {t.authorTitle}, <span className="text-brand-primary">{t.company}</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .testimonial-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

@@ -2,35 +2,113 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { CtaBandSection } from "@tathastu/types";
 
 interface CtaBandProps {
   section: CtaBandSection;
 }
 
+/*
+  Figma node 40:3142 — CTA band
+  - Dark photograph background (circuit board) + dark overlay
+  - Centered, white: heading "Design Support for All Your Creative Needs"
+  - Gray subtext (2 lines): "Get a free introduction and discover how you and your team..."
+  - "Request Demo" blue gradient pill centered
+  No: gradient orange-to-blue rounded banner container, glowing circles, hover tricks
+*/
+
 export default function CtaBand({ section }: CtaBandProps) {
   return (
-    <section className="py-12 px-6">
-      <div className="max-w-7xl mx-auto relative overflow-hidden rounded-[40px] bg-gradient-to-r from-brand-orange to-brand-primary py-16 px-8 sm:px-16 text-white text-center shadow-2xl flex flex-col items-center gap-6 group">
-        {/* Glowing floating decorative circles */}
-        <div className="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-xl group-hover:scale-125 transition-transform duration-500" />
-        <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-black/10 rounded-full blur-xl group-hover:scale-125 transition-transform duration-500" />
+    <section
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        padding: "100px 80px",
+        textAlign: "center",
+        backgroundColor: "#0a0e1a",
+      }}
+    >
+      {/* Circuit board / workstation photo background */}
+      <Image
+        src="/images/cta/cta-bg.jpg"
+        alt=""
+        fill
+        style={{ objectFit: "cover", zIndex: 0 }}
+        aria-hidden
+      />
 
-        <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight max-w-3xl relative z-10 leading-tight">
+      {/* Dark overlay */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(5,8,20,0.82)",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Content */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          maxWidth: "800px",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "20px",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: "clamp(28px, 3vw, 44px)",
+            fontWeight: 700,
+            color: "#FFFFFF",
+            lineHeight: 1.3,
+            margin: 0,
+          }}
+        >
           {section.heading}
         </h2>
-        <p className="text-lg sm:text-xl text-white/90 max-w-2xl leading-relaxed relative z-10 font-medium">
+
+        <p
+          style={{
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: "clamp(15px, 1.4vw, 18px)",
+            fontWeight: 400,
+            color: "rgba(255,255,255,0.65)",
+            lineHeight: 1.7,
+            margin: 0,
+            maxWidth: "620px",
+          }}
+        >
           {section.subtext}
         </p>
 
-        <div className="relative z-10 mt-4">
-          <Link
-            href={section.ctaHref}
-            className="inline-flex items-center justify-center px-10 py-4 bg-white hover:bg-gray-50 text-brand-dark hover:text-brand-primary font-bold rounded-full transition-all duration-300 transform hover:scale-105 active:scale-95 text-lg shadow-lg hover:shadow-xl cursor-pointer"
-          >
-            {section.ctaLabel}
-          </Link>
-        </div>
+        {/* "Request Demo" blue gradient pill */}
+        <Link
+          href={section.ctaHref}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "14px 36px",
+            marginTop: "12px",
+            background: "linear-gradient(90deg, #1d385e 0%, #4b95ff 100%)",
+            color: "#FFFFFF",
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: "16px",
+            fontWeight: 700,
+            borderRadius: "999px",
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {section.ctaLabel}
+        </Link>
       </div>
     </section>
   );

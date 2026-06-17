@@ -2,12 +2,50 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { BlogTeaserSection, BlogPost } from "@tathastu/types";
 import { fetchStrapi } from "@/lib/api";
-import { ArrowRight, Calendar, Tag } from "lucide-react";
+import { getStrapiMediaUrl } from "@/lib/api";
 
 interface BlogTeaserProps {
   section: BlogTeaserSection;
+}
+
+/*
+  Figma node 40:1630 — Latest at Tathastu (Blog)
+  - Light gray bg, faint dotted pattern top-left
+  - Centered heading "Latest at Tathastu" (two-tone, "Tathastu" blue)
+  - 3 cards: image top (rounded top), white body
+    - Calendar icon + "March 07, 2026  05:30PM"
+    - Bold title (up to 2 lines)
+    - Gray excerpt
+    - "View Details →" (blue link)
+    - Subtle blue bottom border
+  - Centered "View All" blue gradient pill below grid
+  No: "View All" top-right link with ArrowRight icon, Tag icon, orange underline
+*/
+
+const PLACEHOLDER_BLOG_IMAGES = [
+  "/images/blog/circuit-board.jpg",
+  "/images/blog/developer.jpg",
+  "/images/blog/technician.jpg",
+];
+
+function formatBlogDate(dateStr: string) {
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString("en-US", {
+      month: "long",
+      day: "2-digit",
+      year: "numeric",
+    }) + "  " + d.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+  } catch {
+    return dateStr;
+  }
 }
 
 export default function BlogTeaser({ section }: BlogTeaserProps) {
@@ -33,101 +71,293 @@ export default function BlogTeaser({ section }: BlogTeaserProps) {
     loadPosts();
   }, [section.count]);
 
-  const formatDate = (dateStr: string) => {
-    try {
-      const d = new Date(dateStr);
-      return d.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      });
-    } catch {
-      return dateStr;
+  const getCardImage = (post: BlogPost, idx: number): string => {
+    if (post.image?.url) {
+      return getStrapiMediaUrl(post.image.url);
     }
+    return PLACEHOLDER_BLOG_IMAGES[idx % PLACEHOLDER_BLOG_IMAGES.length];
   };
 
   return (
-    <section className="py-20 px-6 bg-white">
-      <div className="max-w-7xl mx-auto">
-        {/* Header content */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
-          <div className="flex flex-col gap-4">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-brand-dark tracking-tight leading-tight">
-              {section.heading}
-            </h2>
-            <div className="w-20 h-1.5 bg-brand-orange rounded-full" />
-          </div>
+    <section
+      style={{
+        padding: "80px 80px",
+        backgroundColor: "#F0F0F0",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Faint dotted pattern top-left */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "200px",
+          height: "200px",
+          backgroundImage:
+            "radial-gradient(circle, rgba(75,149,255,0.15) 1.5px, transparent 1.5px)",
+          backgroundSize: "16px 16px",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
 
-          {section.ctaLabel && (
-            <Link
-              href={section.ctaHref}
-              className="inline-flex items-center gap-1.5 text-base font-bold text-brand-primary hover:text-brand-orange transition-colors group cursor-pointer"
-            >
-              <span>{section.ctaLabel}</span>
-              <ArrowRight size={18} className="transform group-hover:translate-x-1 transition-transform" />
-            </Link>
-          )}
+      <div
+        style={{
+          maxWidth: "1280px",
+          margin: "0 auto",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        {/* Centered two-tone heading */}
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "56px",
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "clamp(32px, 3vw, 48px)",
+              fontWeight: 700,
+              lineHeight: 1.2,
+              margin: 0,
+            }}
+          >
+            <span style={{ color: "#0b0625" }}>Latest at </span>
+            <span style={{ color: "#4B95FF" }}>Tathastu</span>
+          </h2>
         </div>
 
-        {/* Loading Skeletons */}
+        {/* Cards grid */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "24px",
+            }}
+          >
             {[1, 2, 3].map((s) => (
-              <div key={s} className="bg-gray-50 rounded-3xl h-96 animate-pulse" />
+              <div
+                key={s}
+                style={{
+                  height: "400px",
+                  backgroundColor: "#e5e7eb",
+                  borderRadius: "16px",
+                  animation: "pulse 2s infinite",
+                }}
+              />
             ))}
           </div>
         ) : posts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(3, 1fr)",
+              gap: "24px",
+            }}
+            className="blog-cards-grid"
+          >
             {posts.map((post, idx) => (
               <article
                 key={post.id || idx}
-                className="group bg-brand-light rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex flex-col justify-between"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: "16px",
+                  overflow: "hidden",
+                  boxShadow: "0 2px 12px rgba(0,0,0,0.07)",
+                  border: "1px solid #f0f0f0",
+                  borderBottom: "3px solid #4B95FF",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
               >
-                <div>
-                  {/* Category & Date bar */}
-                  <div className="p-6 pb-2 flex items-center justify-between text-xs font-bold text-gray-500 uppercase tracking-widest">
-                    <span className="flex items-center gap-1 text-brand-primary">
-                      <Tag size={12} />
-                      {post.category || "General"}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Calendar size={12} />
-                      {formatDate(post.publishedDate)}
-                    </span>
-                  </div>
-
-                  {/* Title & Excerpt */}
-                  <div className="px-6 py-2 flex flex-col gap-3">
-                    <h3 className="text-xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors leading-snug">
-                      <Link href={`/blog/${post.slug}`} className="cursor-pointer">
-                        {post.title}
-                      </Link>
-                    </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                  </div>
+                {/* Image at top */}
+                <div
+                  style={{
+                    position: "relative",
+                    width: "100%",
+                    height: "200px",
+                    flexShrink: 0,
+                    overflow: "hidden",
+                  }}
+                >
+                  <Image
+                    src={getCardImage(post, idx)}
+                    alt={post.title}
+                    fill
+                    style={{ objectFit: "cover" }}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
                 </div>
 
-                {/* View Details CTA */}
-                <div className="p-6 pt-4 border-t border-gray-200/50">
+                {/* White body */}
+                <div
+                  style={{
+                    padding: "20px 20px 24px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                    flex: 1,
+                  }}
+                >
+                  {/* Calendar icon + date */}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontFamily: "'Open Sans', sans-serif",
+                      fontSize: "12px",
+                      color: "#6B7280",
+                    }}
+                  >
+                    {/* Calendar SVG icon */}
+                    <svg
+                      width="13"
+                      height="13"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      style={{ flexShrink: 0 }}
+                    >
+                      <rect
+                        x="1"
+                        y="2"
+                        width="14"
+                        height="13"
+                        rx="2"
+                        stroke="#6B7280"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M1 6h14"
+                        stroke="#6B7280"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M5 1v2M11 1v2"
+                        stroke="#6B7280"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                    <span>{formatBlogDate(post.publishedDate)}</span>
+                  </div>
+
+                  {/* Bold title */}
+                  <h3
+                    style={{
+                      fontFamily: "'Open Sans', sans-serif",
+                      fontSize: "16px",
+                      fontWeight: 700,
+                      color: "#0b0625",
+                      lineHeight: 1.4,
+                      margin: 0,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      style={{ color: "inherit", textDecoration: "none" }}
+                    >
+                      {post.title}
+                    </Link>
+                  </h3>
+
+                  {/* Gray excerpt */}
+                  <p
+                    style={{
+                      fontFamily: "'Open Sans', sans-serif",
+                      fontSize: "13px",
+                      color: "#6B7280",
+                      lineHeight: 1.6,
+                      margin: 0,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden",
+                      flex: 1,
+                    }}
+                  >
+                    {post.excerpt}
+                  </p>
+
+                  {/* "View Details →" blue link */}
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="text-xs font-bold text-brand-dark group-hover:text-brand-primary flex items-center gap-1 group-hover:gap-2 transition-all cursor-pointer"
+                    style={{
+                      fontFamily: "'Open Sans', sans-serif",
+                      fontSize: "13px",
+                      fontWeight: 600,
+                      color: "#4B95FF",
+                      textDecoration: "none",
+                      marginTop: "4px",
+                    }}
                   >
-                    <span>View Details</span>
-                    <span>→</span>
+                    View Details →
                   </Link>
                 </div>
               </article>
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 text-gray-500 font-medium bg-gray-50 rounded-2xl">
+          <div
+            style={{
+              textAlign: "center",
+              padding: "48px",
+              color: "#6B7280",
+              backgroundColor: "#FFFFFF",
+              borderRadius: "16px",
+            }}
+          >
             No articles published yet.
           </div>
         )}
+
+        {/* Centered "View All" blue gradient pill */}
+        {section.ctaLabel && (
+          <div
+            style={{
+              textAlign: "center",
+              marginTop: "48px",
+            }}
+          >
+            <Link
+              href={section.ctaHref || "/blog"}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "14px 36px",
+                background: "linear-gradient(90deg, #1d385e 0%, #4b95ff 100%)",
+                color: "#FFFFFF",
+                fontFamily: "'Open Sans', sans-serif",
+                fontSize: "15px",
+                fontWeight: 700,
+                borderRadius: "999px",
+                textDecoration: "none",
+              }}
+            >
+              {section.ctaLabel}
+            </Link>
+          </div>
+        )}
       </div>
+
+      <style jsx>{`
+        @media (max-width: 900px) {
+          .blog-cards-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

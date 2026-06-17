@@ -44,28 +44,38 @@ export async function generateMetadata() {
   };
 }
 
-export default async function Home() {
-  // Fetch layout settings & homepage content in parallel
-  const [settingsRes, industriesRes, homepageRes] = await Promise.all([
-    fetchStrapi<{ data: SiteSettings }>("/site-setting?populate[nav][populate]=*&populate[footerColumns][populate]=*&populate[socialLinks][populate]=*&populate[logo][populate]=*"),
-    fetchStrapi<{ data: Industry[] }>("/industries?sort=order:asc"),
-    fetchStrapi<{ data: HomepageData }>("/homepage?populate[sections][populate]=*"),
-  ]);
+// Static fallback used when Strapi is unavailable (dev/preview mode)
+const FALLBACK_SETTINGS: SiteSettings = {
+  siteName: "Tathastu Techno Solution",
+  headerCtaHref: "/contact",
+  whatsappNumber: "+919820192970",
+  phone: "+91 98201 92970",
+  email: "info@tathastu.global.com",
+  address: "",
+  footerColumns: [],
+  socialLinks: [],
+} as unknown as SiteSettings;
 
-  const siteSettings = settingsRes?.data;
+export default async function Home() {
+  // Fetch layout settings & homepage content in parallel; gracefully fall back if Strapi is down
+  let settingsRes: { data: SiteSettings } | null = null;
+  let industriesRes: { data: Industry[] } | null = null;
+  let homepageRes: { data: HomepageData } | null = null;
+
+  try {
+    [settingsRes, industriesRes, homepageRes] = await Promise.all([
+      fetchStrapi<{ data: SiteSettings }>("/site-setting?populate[nav][populate]=*&populate[footerColumns][populate]=*&populate[socialLinks][populate]=*&populate[logo][populate]=*"),
+      fetchStrapi<{ data: Industry[] }>("/industries?sort=order:asc"),
+      fetchStrapi<{ data: HomepageData }>("/homepage?populate[sections][populate]=*"),
+    ]);
+  } catch (err) {
+    console.warn("Strapi unavailable — rendering with fallback data:", err);
+  }
+
+  const siteSettings = settingsRes?.data ?? FALLBACK_SETTINGS;
   const industries = industriesRes?.data || [];
   const homepage = homepageRes?.data;
 
-  if (!siteSettings) {
-    return (
-      <div className="flex items-center justify-center min-h-screen text-brand-dark">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold">Maintenance Mode</h1>
-          <p className="text-gray-500 mt-2">Could not load website settings. Please check backend connection.</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <>
