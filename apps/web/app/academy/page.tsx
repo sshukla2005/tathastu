@@ -1732,6 +1732,206 @@ export default function AcademyPage() {
         </div>
       </section>
 
+      {/* ── 6. SPECIALIZATION — node ~208:2162 — DARK THEME ─────────── */}
+      <section
+        id="specialization"
+        style={{
+          background: "#0B0F0C", // Deep dark green-black background
+          color: "#FFFFFF",
+          padding: "120px 80px 140px",
+          position: "relative",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "60px",
+        }}
+        className="academy-section"
+      >
+        {/* Faint Silhouette Caption (Pending Figma Download) */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "20px",
+            right: "24px",
+            color: "rgba(255, 255, 255, 0.08)",
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: "10px",
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            pointerEvents: "none",
+          }}
+        >
+          Silhouette Background Photo (Pending Figma Download)
+        </div>
+
+        {/* Section Header */}
+        <div
+          style={{
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "18px",
+            maxWidth: "800px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              color: "#E02020",
+              fontSize: "12px",
+              fontWeight: 700,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+            }}
+          >
+            <span style={{ width: "24px", height: "2px", background: "#E02020" }}></span>
+            SPECIALIZATION AREAS
+            <span style={{ width: "24px", height: "2px", background: "#E02020" }}></span>
+          </div>
+
+          <h2
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "clamp(32px, 3.2vw, 44px)",
+              fontWeight: 900,
+              lineHeight: 1.15,
+              color: "#FFFFFF",
+              margin: 0,
+            }}
+          >
+            Every Houdini workflow, <span style={{ color: "#E02020" }}>covered.</span>
+          </h2>
+          <div
+            style={{
+              width: "56px",
+              height: "4px",
+              background: "#E02020",
+              marginTop: "8px",
+            }}
+          ></div>
+        </div>
+
+        {/* Two Rows of rounded dark pill tags */}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "20px",
+            width: "100%",
+            maxWidth: "1200px",
+            alignItems: "center",
+          }}
+          className="specialization-rows-container"
+        >
+          {/* Row 1 */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: "16px",
+              width: "100%",
+            }}
+            className="specialization-row"
+          >
+            {[
+              "Flip Simulations",
+              "Pyro & Smoke",
+              "Destruction & RBD",
+              "Environment & FX",
+              "Groom",
+              "Tech Animation",
+            ].map((tag, idx) => (
+              <div
+                key={idx}
+                style={{
+                  background: "#131915",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  borderRadius: "100px",
+                  padding: "14px 28px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  transition: "all 0.3s ease",
+                  cursor: "default",
+                }}
+                className="spec-pill"
+              >
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="#E02020" style={{ flexShrink: 0 }}>
+                  <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9Z" />
+                </svg>
+                <span
+                  style={{
+                    fontSize: "14.5px",
+                    fontWeight: 600,
+                    color: "rgba(255, 255, 255, 0.85)",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {tag}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          {/* Row 2 */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: "16px",
+              width: "100%",
+            }}
+            className="specialization-row"
+          >
+            {[
+              "Shading & Lighting",
+              "USD Workflows",
+              "Procedural Modeling",
+              "VEX Scripting",
+              "Particles & DOPs",
+              "Pipeline Integration",
+            ].map((tag, idx) => (
+              <div
+                key={idx}
+                style={{
+                  background: "#131915",
+                  border: "1px solid rgba(255, 255, 255, 0.08)",
+                  borderRadius: "100px",
+                  padding: "14px 28px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  transition: "all 0.3s ease",
+                  cursor: "default",
+                }}
+                className="spec-pill"
+              >
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="#E02020" style={{ flexShrink: 0 }}>
+                  <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9Z" />
+                </svg>
+                <span
+                  style={{
+                    fontSize: "14.5px",
+                    fontWeight: 600,
+                    color: "rgba(255, 255, 255, 0.85)",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {tag}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Responsive overrides */}
       <style>{`
         @keyframes ticker-scroll {
@@ -1768,6 +1968,12 @@ export default function AcademyPage() {
           transform: translateY(-4px);
           box-shadow: 0 15px 30px rgba(0,0,0,0.06) !important;
         }
+        .spec-pill:hover {
+          background: #17201a !important;
+          border-color: rgba(224, 32, 32, 0.3) !important;
+          transform: scale(1.03);
+          box-shadow: 0 4px 15px rgba(224, 32, 32, 0.05);
+        }
         @media (max-width: 1024px) {
           .academy-hero-grid {
             grid-template-columns: 1fr !important;
@@ -1793,6 +1999,9 @@ export default function AcademyPage() {
             grid-template-columns: 1fr !important;
             gap: 24px !important;
           }
+          .specialization-row {
+            gap: 12px !important;
+          }
         }
         @media (max-width: 640px) {
           .academy-section {
@@ -1800,6 +2009,12 @@ export default function AcademyPage() {
             padding-right: 24px !important;
             padding-top: 80px !important;
             padding-bottom: 80px !important;
+          }
+          .spec-pill {
+            padding: 12px 20px !important;
+          }
+          .specialization-rows-container {
+            gap: 12px !important;
           }
         }
       `}</style>
