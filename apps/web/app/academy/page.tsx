@@ -1932,6 +1932,189 @@ export default function AcademyPage() {
         </div>
       </section>
 
+      {/* ── 7. TEAM — node 154:561 — LIGHT THEME ───────────────────── */}
+      <section
+        id="team"
+        style={{
+          background: ABOUT_BG, // Warm cream background
+          color: ABOUT_TEXT_PRIMARY,
+          padding: "120px 80px 140px",
+          position: "relative",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "60px",
+        }}
+        className="academy-section"
+      >
+        {/* Section Header */}
+        <div
+          style={{
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "18px",
+            maxWidth: "800px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              color: ABOUT_ACCENT_GOLD,
+              fontSize: "12px",
+              fontWeight: 700,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+            }}
+          >
+            <span style={{ width: "24px", height: "2px", background: ABOUT_ACCENT_GOLD }}></span>
+            OUR TEAM
+            <span style={{ width: "24px", height: "2px", background: ABOUT_ACCENT_GOLD }}></span>
+          </div>
+
+          <h2
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "clamp(32px, 3.2vw, 44px)",
+              fontWeight: 900,
+              lineHeight: 1.15,
+              color: ABOUT_TEXT_PRIMARY,
+              margin: 0,
+            }}
+          >
+            The people behind <span style={{ color: ABOUT_ACCENT_RED }}>Tathastu Academy</span>
+          </h2>
+          <div
+            style={{
+              width: "56px",
+              height: "4px",
+              background: ABOUT_ACCENT_RED,
+              marginTop: "8px",
+            }}
+          ></div>
+        </div>
+
+        {/* 3 cards centered grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "30px",
+            width: "100%",
+            maxWidth: "1200px",
+          }}
+          className="team-grid"
+        >
+          {[
+            {
+              initials: "CJ",
+              name: "Chetan Jain",
+              role: "FOUNDER & CEO",
+            },
+            {
+              initials: "VV",
+              name: "Venu Victor",
+              role: "HEAD OF TRAINING & PRODUCTION STRATEGY",
+            },
+            {
+              initials: "NG",
+              name: "Nikitha Gaikwad",
+              role: "MARKETING MANAGER",
+            },
+          ].map((member, idx) => (
+            <div
+              key={idx}
+              style={{
+                background: "#FFFFFF",
+                borderRadius: "20px",
+                padding: "40px 32px",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.02)",
+                border: "1px solid rgba(0, 0, 0, 0.03)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                textAlign: "center",
+                gap: "24px",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              }}
+              className="team-card"
+            >
+              {/* Initials Circle */}
+              <div
+                style={{
+                  width: "84px",
+                  height: "84px",
+                  borderRadius: "50%",
+                  background: "#FDF2F2",
+                  color: ABOUT_ACCENT_RED,
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "24px",
+                  fontWeight: 800,
+                  letterSpacing: "0.02em",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "inset 0 2px 8px rgba(217, 56, 41, 0.05)",
+                }}
+              >
+                {member.initials}
+              </div>
+
+              {/* Text metadata */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "8px",
+                }}
+              >
+                <h4
+                  style={{
+                    margin: 0,
+                    fontSize: "18px",
+                    fontWeight: 800,
+                    color: ABOUT_TEXT_PRIMARY,
+                  }}
+                >
+                  {member.name}
+                </h4>
+                <p
+                  style={{
+                    margin: 0,
+                    fontSize: "12px",
+                    fontWeight: 700,
+                    color: ABOUT_TEXT_SECONDARY,
+                    letterSpacing: "0.05em",
+                    lineHeight: 1.4,
+                    minHeight: "34px", // Keep card heights consistent despite role wrap
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {member.role}
+                </p>
+              </div>
+
+              {/* Small Red Underline */}
+              <div
+                style={{
+                  width: "32px",
+                  height: "3px",
+                  background: ABOUT_ACCENT_RED,
+                  borderRadius: "2px",
+                }}
+              ></div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Responsive overrides */}
       <style>{`
         @keyframes ticker-scroll {
@@ -1974,6 +2157,11 @@ export default function AcademyPage() {
           transform: scale(1.03);
           box-shadow: 0 4px 15px rgba(224, 32, 32, 0.05);
         }
+        .team-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.05) !important;
+          border-color: rgba(217,56,41,0.15) !important;
+        }
         @media (max-width: 1024px) {
           .academy-hero-grid {
             grid-template-columns: 1fr !important;
@@ -2001,6 +2189,12 @@ export default function AcademyPage() {
           }
           .specialization-row {
             gap: 12px !important;
+          }
+          .team-grid {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+            max-width: 450px !important;
+            margin: 0 auto !important;
           }
         }
         @media (max-width: 640px) {
