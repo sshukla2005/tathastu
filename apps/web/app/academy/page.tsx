@@ -2115,6 +2115,276 @@ export default function AcademyPage() {
         </div>
       </section>
 
+      {/* ── 8. CTA — node 154:595 — DARK THEME ────────────────────── */}
+      <section
+        id="cta"
+        style={{
+          background: "#0B0F0C", // Deep dark green-black background
+          color: "#FFFFFF",
+          padding: "140px 80px",
+          position: "relative",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "80px",
+        }}
+        className="academy-section"
+      >
+        {/* Workstation/Mountain Background Photo Placeholder (Pending Figma Download) */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: "20px",
+            right: "24px",
+            color: "rgba(255, 255, 255, 0.08)",
+            fontFamily: "'Open Sans', sans-serif",
+            fontSize: "10px",
+            fontWeight: 700,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            pointerEvents: "none",
+          }}
+        >
+          Workstation/Mountain Background Photo (Pending Figma Download)
+        </div>
+
+        {/* Content Block */}
+        <div
+          style={{
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "28px",
+            maxWidth: "800px",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              color: "#E02020",
+              fontSize: "12px",
+              fontWeight: 700,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+            }}
+          >
+            <span style={{ width: "24px", height: "2px", background: "#E02020" }}></span>
+            READY TO BEGIN?
+            <span style={{ width: "24px", height: "2px", background: "#E02020" }}></span>
+          </div>
+
+          <h2
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "clamp(34px, 3.6vw, 48px)",
+              fontWeight: 900,
+              lineHeight: 1.15,
+              color: "#FFFFFF",
+              margin: 0,
+            }}
+          >
+            Launch your <span style={{ color: "#E02020" }}>Houdini career</span> today
+          </h2>
+
+          <p
+            style={{
+              margin: 0,
+              fontSize: "16px",
+              lineHeight: 1.8,
+              color: "rgba(255, 255, 255, 0.7)",
+              maxWidth: "680px",
+            }}
+          >
+            The demand for production-ready Houdini artists is higher than ever. Whether you're an aspiring professional or a studio looking to upskill your team, Tathastu Academy is here to help.
+          </p>
+
+          {/* Action buttons */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "18px",
+              marginTop: "12px",
+            }}
+            className="cta-buttons-container"
+          >
+            <Link
+              href="/contact?source=CTA"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "16px 36px",
+                background: "#E02020",
+                color: "#FFFFFF",
+                fontFamily: "'Open Sans', sans-serif",
+                fontWeight: 700,
+                fontSize: "15px",
+                borderRadius: "8px",
+                textDecoration: "none",
+                boxShadow: "0 4px 14px rgba(224, 32, 32, 0.3)",
+                transition: "background 0.2s ease, transform 0.2s ease",
+              }}
+              className="cta-btn-primary"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+              Book a Call Now
+            </Link>
+
+            <Link
+              href="#programs"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                padding: "16px 36px",
+                background: "transparent",
+                color: "#FFFFFF",
+                fontFamily: "'Open Sans', sans-serif",
+                fontWeight: 700,
+                fontSize: "15px",
+                borderRadius: "8px",
+                textDecoration: "none",
+                border: "2px solid rgba(255, 255, 255, 0.2)",
+                transition: "all 0.2s ease",
+              }}
+              className="cta-btn-secondary"
+            >
+              Explore Programs
+            </Link>
+          </div>
+        </div>
+
+        {/* 3 Dark Contact Cards */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "30px",
+            width: "100%",
+            maxWidth: "1200px",
+          }}
+          className="contact-grid"
+        >
+          {[
+            {
+              label: "GENERAL ENQUIRIES",
+              name: "Anusha Kuncham",
+              phone: "+91 81256 13838",
+              email: "academy@tathastu.global",
+            },
+            {
+              label: "FOUNDER & CEO",
+              name: "Chetan Jain",
+              phone: "+91 98201 92970",
+              email: null,
+            },
+            {
+              label: "HEAD OF TRAINING",
+              name: "Venu Victor",
+              phone: "+91 96111 04802",
+              email: null,
+            },
+          ].map((card, idx) => (
+            <div
+              key={idx}
+              style={{
+                background: "#131915",
+                borderRadius: "16px",
+                padding: "32px 36px",
+                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.1)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+                display: "flex",
+                flexDirection: "column",
+                gap: "18px",
+                transition: "transform 0.3s ease, border-color 0.3s ease",
+              }}
+              className="contact-card"
+            >
+              <div
+                style={{
+                  color: "#E02020",
+                  fontSize: "10.5px",
+                  fontWeight: 800,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                }}
+              >
+                {card.label}
+              </div>
+
+              <h4
+                style={{
+                  margin: 0,
+                  fontSize: "18px",
+                  fontWeight: 800,
+                  color: "#FFFFFF",
+                }}
+              >
+                {card.name}
+              </h4>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "10px",
+                  marginTop: "4px",
+                }}
+              >
+                <a
+                  href={`tel:${card.phone.replace(/\s+/g, "")}`}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: "rgba(255, 255, 255, 0.65)",
+                    fontSize: "14px",
+                    textDecoration: "none",
+                    fontWeight: 600,
+                    transition: "color 0.2s",
+                  }}
+                  className="contact-link"
+                >
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E02020" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                  {card.phone}
+                </a>
+
+                {card.email && (
+                  <a
+                    href={`mailto:${card.email}`}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      color: "rgba(255, 255, 255, 0.65)",
+                      fontSize: "14px",
+                      textDecoration: "none",
+                      fontWeight: 600,
+                      transition: "color 0.2s",
+                    }}
+                    className="contact-link"
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#E02020" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    {card.email}
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Responsive overrides */}
       <style>{`
         @keyframes ticker-scroll {
@@ -2162,6 +2432,23 @@ export default function AcademyPage() {
           box-shadow: 0 20px 40px rgba(0,0,0,0.05) !important;
           border-color: rgba(217,56,41,0.15) !important;
         }
+        .cta-btn-primary:hover {
+          background: #C22F22 !important;
+          transform: translateY(-2px);
+        }
+        .cta-btn-secondary:hover {
+          background: rgba(255,255,255,0.08) !important;
+          border-color: #FFFFFF !important;
+          transform: translateY(-2px);
+        }
+        .contact-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(224, 32, 32, 0.25) !important;
+        }
+        .contact-link:hover {
+          color: #FFFFFF !important;
+          text-decoration: underline !important;
+        }
         @media (max-width: 1024px) {
           .academy-hero-grid {
             grid-template-columns: 1fr !important;
@@ -2196,6 +2483,12 @@ export default function AcademyPage() {
             max-width: 450px !important;
             margin: 0 auto !important;
           }
+          .contact-grid {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+            max-width: 450px !important;
+            margin: 0 auto !important;
+          }
         }
         @media (max-width: 640px) {
           .academy-section {
@@ -2209,6 +2502,16 @@ export default function AcademyPage() {
           }
           .specialization-rows-container {
             gap: 12px !important;
+          }
+          .cta-buttons-container {
+            flex-direction: column !important;
+            width: 100% !important;
+            align-items: stretch !important;
+            gap: 12px !important;
+          }
+          .cta-buttons-container a {
+            justify-content: center !important;
+            width: 100% !important;
           }
         }
       `}</style>
