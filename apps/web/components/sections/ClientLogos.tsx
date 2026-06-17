@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import { ClientLogosSection } from "@tathastu/types";
 
 interface ClientLogosProps {
@@ -15,15 +14,15 @@ interface ClientLogosProps {
   - No hover color effects (logos are grayscale/muted, static)
 */
 
-// Figma-matched logo asset paths
+// Figma-matched logo asset paths (images/clients/)
 const LOGO_ASSET_PATHS: Record<string, string> = {
-  hp: "/images/client-logos/hp.png",
-  adobe: "/images/client-logos/adobe.png",
-  sidefx: "/images/client-logos/sidefx.png",
-  houdini: "/images/client-logos/sidefx.png",
-  "toon boom": "/images/client-logos/toon-boom.png",
-  "storyboard": "/images/client-logos/toon-boom.png",
-  dell: "/images/client-logos/dell.png",
+  hp: "/images/clients/hp.svg",
+  adobe: "/images/clients/adobe.svg",
+  sidefx: "/images/clients/sidefx.svg",
+  houdini: "/images/clients/sidefx.svg",
+  "toon boom": "/images/clients/toon-boom.svg",
+  "storyboard": "/images/clients/toon-boom.svg",
+  dell: "/images/clients/dell.svg",
 };
 
 function getLogoPath(name: string): string | null {
@@ -39,9 +38,9 @@ export default function ClientLogos({ section }: ClientLogosProps) {
     <section
       style={{
         padding: "48px 80px",
-        backgroundColor: "#F8F8F8",
-        borderTop: "1px solid #EBEBEB",
-        borderBottom: "1px solid #EBEBEB",
+        background: "linear-gradient(180deg, #EFF6FF 0%, #F2E9E3 100%)",
+        borderTop: "1px solid #E5E7EB",
+        borderBottom: "1px solid #E5E7EB",
       }}
     >
       <div
@@ -80,16 +79,16 @@ export default function ClientLogos({ section }: ClientLogosProps) {
                   }}
                 >
                   {assetPath ? (
-                    <Image
+                    <img
                       src={assetPath}
                       alt={logo.name}
-                      width={120}
-                      height={48}
                       style={{
+                        height: "48px",
+                        width: "auto",
+                        maxWidth: "140px",
                         objectFit: "contain",
                         filter: "grayscale(100%)",
-                        maxHeight: "48px",
-                        width: "auto",
+                        display: "block",
                       }}
                     />
                   ) : (

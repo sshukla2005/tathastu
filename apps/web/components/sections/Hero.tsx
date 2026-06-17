@@ -45,7 +45,7 @@ export default function Hero({ section }: HeroProps) {
           backgroundImage: "url('/images/hero/hero-photo.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          filter: "blur(2px) brightness(0.3)",
+          filter: "blur(1px) brightness(0.55)",
           transform: "scale(1.05)",
           zIndex: 0,
         }}
@@ -56,7 +56,7 @@ export default function Hero({ section }: HeroProps) {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(135deg, rgba(5,8,20,0.92) 0%, rgba(10,20,45,0.85) 100%)",
+            "linear-gradient(135deg, rgba(5,8,20,0.7) 0%, rgba(10,20,45,0.55) 100%)",
           zIndex: 1,
         }}
       />

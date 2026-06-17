@@ -35,7 +35,7 @@ export default function StatsBand({ section }: StatsBandProps) {
           backgroundImage: "url('/images/hero/hero-photo.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          filter: "brightness(0.15)",
+          filter: "brightness(0.32)",
           zIndex: 0,
         }}
       />
@@ -45,7 +45,7 @@ export default function StatsBand({ section }: StatsBandProps) {
           position: "absolute",
           inset: 0,
           background:
-            "linear-gradient(90deg, rgba(5,8,20,0.95) 0%, rgba(10,20,40,0.6) 100%)",
+            "linear-gradient(90deg, rgba(5,8,20,0.8) 0%, rgba(10,20,40,0.6) 100%)",
           zIndex: 1,
         }}
       />
@@ -73,18 +73,14 @@ export default function StatsBand({ section }: StatsBandProps) {
             style={{
               fontFamily: "'Open Sans', sans-serif",
               fontSize: "clamp(22px, 2.5vw, 36px)",
-              fontWeight: 700,
+              fontWeight: 800,
               color: "#FFFFFF",
               lineHeight: 1.25,
               margin: 0,
             }}
           >
-            {section.heading || (
-              <>
-                Join the<br />
-                community of Millions
-              </>
-            )}
+            Join the<br />
+            community of Millions
           </p>
         </div>
 

@@ -190,43 +190,46 @@ async function seed() {
 
   // ─── Blog Posts ──────────────────────────────────────────────────────────────
   console.log("  Creating blog posts...");
+
+  // Delete all existing blog posts so we start fresh with exactly these 3
+  const allExistingPosts = await app.documents("api::blog-post.blog-post").findMany({});
+  for (const post of allExistingPosts) {
+    await app.documents("api::blog-post.blog-post").delete({ documentId: post.documentId });
+  }
+
+  const FIGMA_EXCERPT =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua quis nostrud exercitation.";
+  const FIGMA_DATE = "2026-03-07T05:30:00.000Z";
+
   const blogPostsData = [
     {
-      title: "Houdini 20.5: What's New for VFX Artists",
-      slug: "houdini-20-5-whats-new",
-      excerpt:
-        "SideFX has released Houdini 20.5 with major improvements to USD workflows, KineFX rigging, and real-time rendering. Here's a breakdown of the features that matter most to production artists.",
-      category: "Software",
-      publishedDate: new Date("2026-05-15").toISOString(),
-    },
-    {
-      title: "Why Your Studio Needs a Certified VFX Workstation",
-      slug: "certified-vfx-workstation-guide",
-      excerpt:
-        "Off-the-shelf consumer PCs might handle light work, but serious VFX production demands ISV-certified hardware. We explain what certification means and why it matters for your pipeline.",
+      title: "Circuit board close-up with different components",
+      slug: "circuit-board-close-up-with-different-components",
+      excerpt: FIGMA_EXCERPT,
       category: "Hardware",
-      publishedDate: new Date("2026-04-28").toISOString(),
+      publishedDate: FIGMA_DATE,
     },
     {
-      title: "Tathastu Academy: Our First Houdini Batch Graduates",
-      slug: "tathastu-academy-first-houdini-batch",
-      excerpt:
-        "We're proud to announce that our inaugural Houdini FX certification batch has graduated. Read about their journey from beginner to production-ready in just 16 weeks.",
-      category: "Academy",
-      publishedDate: new Date("2026-06-01").toISOString(),
+      title: "Professional software developer types code on a laptop",
+      slug: "professional-software-developer-types-code-on-a-laptop",
+      excerpt: FIGMA_EXCERPT,
+      category: "Software",
+      publishedDate: FIGMA_DATE,
+    },
+    {
+      title: "It technician repairing hardware equipment on wooden table",
+      slug: "it-technician-repairing-hardware-equipment-on-wooden-table",
+      excerpt: FIGMA_EXCERPT,
+      category: "Hardware",
+      publishedDate: FIGMA_DATE,
     },
   ];
 
   for (const post of blogPostsData) {
-    const existing = await app.documents("api::blog-post.blog-post").findMany({
-      filters: { slug: post.slug },
+    await app.documents("api::blog-post.blog-post").create({
+      data: post,
+      status: "published",
     });
-    if (existing.length === 0) {
-      await app.documents("api::blog-post.blog-post").create({
-        data: post,
-        status: "published",
-      });
-    }
   }
 
   // ─── Site Settings ────────────────────────────────────────────────────────────

@@ -26,7 +26,7 @@ export default function ProductPortfolio({ section }: ProductPortfolioProps) {
     <section
       style={{
         padding: "80px 80px",
-        backgroundColor: "#F8F8F8",
+        background: "linear-gradient(180deg, #eaf2fc 0%, #f6f9fd 100%)",
       }}
     >
       <div
@@ -146,7 +146,7 @@ export default function ProductPortfolio({ section }: ProductPortfolioProps) {
               position: "absolute",
               inset: 0,
               background:
-                "linear-gradient(90deg, rgba(10,14,26,0.3) 0%, rgba(10,14,26,0.75) 100%)",
+                "linear-gradient(90deg, rgba(13,30,70,0.25) 0%, rgba(13,40,90,0.78) 100%)",
             }}
           />
 

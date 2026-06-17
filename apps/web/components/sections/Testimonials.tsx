@@ -30,7 +30,7 @@ function getAvatarPath(name: string): string {
   for (const [key, val] of Object.entries(AVATAR_PATHS)) {
     if (lower.includes(key)) return val;
   }
-  return "/images/testimonials/avatar-placeholder.jpg";
+  return "/images/testimonials/avatar-placeholder.svg";
 }
 
 function StarRating({ count = 5 }: { count?: number }) {
