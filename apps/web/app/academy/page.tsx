@@ -2385,6 +2385,337 @@ export default function AcademyPage() {
         </div>
       </section>
 
+      {/* ── 9. ACADEMY FOOTER — node 189:7387 — LIGHT THEME ─────────── */}
+      <footer
+        id="academy-footer"
+        style={{
+          background: "linear-gradient(135deg, #EBF3EF 0%, #FDF5F2 100%)", // soft light greenish -> peach gradient
+          color: ABOUT_TEXT_PRIMARY,
+          padding: "100px 80px 40px",
+          position: "relative",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          gap: "80px",
+          borderTop: "1px solid rgba(0, 0, 0, 0.05)",
+        }}
+        className="academy-section"
+      >
+        {/* Top 3 Columns Grid */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1.2fr 1.5fr 1fr",
+            gap: "60px",
+            width: "100%",
+            maxWidth: "1200px",
+            margin: "0 auto",
+          }}
+          className="footer-grid"
+        >
+          {/* Column 1: Information */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "24px",
+              alignItems: "flex-start",
+            }}
+          >
+            {/* Logo Mark */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+              <span
+                style={{
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "22px",
+                  fontWeight: 900,
+                  color: "#1A1A1A",
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
+                }}
+              >
+                TATHASTU ACADEMY
+              </span>
+              <span
+                style={{
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "10.5px",
+                  fontWeight: 700,
+                  color: "#D93829",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                }}
+              >
+                Learn. Rise. Lead.
+              </span>
+            </div>
+
+            <p
+              style={{
+                margin: 0,
+                fontSize: "14px",
+                lineHeight: 1.7,
+                color: ABOUT_TEXT_SECONDARY,
+                maxWidth: "320px",
+              }}
+            >
+              A division of Tathastu Techno Solution and an authorized SideFX partner in India.
+            </p>
+          </div>
+
+          {/* Column 2: Contact Us */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+            }}
+          >
+            <h5
+              style={{
+                margin: 0,
+                fontSize: "12px",
+                fontWeight: 800,
+                color: ABOUT_ACCENT_GOLD,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+              }}
+            >
+              CONTACT US
+            </h5>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "12px",
+              }}
+            >
+              {/* Email */}
+              <a
+                href="mailto:academy@tathastu.global"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  color: ABOUT_TEXT_PRIMARY,
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                }}
+                className="footer-link-dark"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D93829" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                Email: academy@tathastu.global
+              </a>
+
+              {/* Anusha */}
+              <a
+                href="tel:+918125613838"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  color: ABOUT_TEXT_PRIMARY,
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                }}
+                className="footer-link-dark"
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D93829" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                Phone: Anusha Kuncham +91 81256 13838
+              </a>
+
+              {/* Chetan */}
+              <a
+                href="tel:+919820192970"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  color: ABOUT_TEXT_PRIMARY,
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  paddingLeft: "25px", // align with phone icon text
+                }}
+                className="footer-link-dark"
+              >
+                Phone: Chetan Jain +91 98201 92970
+              </a>
+
+              {/* Venu */}
+              <a
+                href="tel:+919611104802"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  color: ABOUT_TEXT_PRIMARY,
+                  fontSize: "14px",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  transition: "color 0.2s ease",
+                  paddingLeft: "25px", // align with phone icon text
+                }}
+                className="footer-link-dark"
+              >
+                Phone: Venu Victor +91 96111 04802
+              </a>
+
+              {/* Location */}
+              <div
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  color: ABOUT_TEXT_PRIMARY,
+                  fontSize: "14px",
+                  fontWeight: 600,
+                }}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#D93829" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                Location: India
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3: Follow us */}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+            }}
+          >
+            <h5
+              style={{
+                margin: 0,
+                fontSize: "12px",
+                fontWeight: 800,
+                color: ABOUT_ACCENT_GOLD,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+              }}
+            >
+              FOLLOW US
+            </h5>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+              }}
+            >
+              {[
+                {
+                  name: "Facebook",
+                  href: "https://facebook.com/tathastuglobal",
+                  // FB Icon
+                  path: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z",
+                },
+                {
+                  name: "Instagram",
+                  href: "https://instagram.com/tathastuglobal",
+                  // Instagram Icon
+                  path: "M17 2H7a5 5 0 0 0-5 5v10a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5V7a5 5 0 0 0-5-5zm-5 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm6.5-6.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z",
+                  isCircle: true,
+                },
+                {
+                  name: "LinkedIn",
+                  href: "https://linkedin.com/company/tathastu-techno-solution",
+                  // LinkedIn Icon
+                  path: "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z M2 9h4v12H2z M4 6a2 2 0 1 1 0-4 2 2 0 0 1 0 4z",
+                },
+                {
+                  name: "X",
+                  href: "https://x.com/tathastuglobal",
+                  // X Icon
+                  path: "M4 4l11.733 16h4.267l-11.733 -16z M4 20l6.768 -6.768 M20 4l-6.768 6.768",
+                  useStroke: true,
+                },
+              ].map((social, idx) => (
+                <a
+                  key={idx}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "50%",
+                    background: "#FFFFFF",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    border: "1px solid rgba(0, 0, 0, 0.05)",
+                    transition: "all 0.2s ease",
+                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.02)",
+                  }}
+                  className="social-icon-btn"
+                  title={social.name}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill={social.useStroke ? "none" : "#4D4D4D"}
+                    stroke={social.useStroke ? "#4D4D4D" : "none"}
+                    strokeWidth={social.useStroke ? "2.5" : "0"}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="social-svg"
+                    style={{ transition: "all 0.2s ease" }}
+                  >
+                    {social.isCircle && (
+                      <circle cx="12" cy="12" r="3" fill="none" stroke="#4D4D4D" strokeWidth="2.5" />
+                    )}
+                    <path d={social.path} />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom copyright bar */}
+        <div
+          style={{
+            borderTop: "1px solid rgba(0, 0, 0, 0.06)",
+            paddingTop: "32px",
+            textAlign: "center",
+            width: "100%",
+            maxWidth: "1200px",
+            margin: "0 auto",
+          }}
+        >
+          <p
+            style={{
+              margin: 0,
+              fontSize: "12px",
+              lineHeight: 1.6,
+              color: ABOUT_TEXT_SECONDARY,
+              fontWeight: 500,
+            }}
+          >
+            © 2026 Tathastu Academy. A division of Tathastu Techno Solution. Authorized SideFX partner in India.
+          </p>
+        </div>
+      </footer>
+
       {/* Responsive overrides */}
       <style>{`
         @keyframes ticker-scroll {
@@ -2449,6 +2780,20 @@ export default function AcademyPage() {
           color: #FFFFFF !important;
           text-decoration: underline !important;
         }
+        .footer-link-dark:hover {
+          color: #D93829 !important;
+          text-decoration: underline !important;
+        }
+        .social-icon-btn:hover {
+          transform: translateY(-3px);
+          background: #D93829 !important;
+          border-color: #D93829 !important;
+          box-shadow: 0 4px 12px rgba(217, 56, 41, 0.2) !important;
+        }
+        .social-icon-btn:hover .social-svg {
+          fill: #FFFFFF !important;
+          stroke: #FFFFFF !important;
+        }
         @media (max-width: 1024px) {
           .academy-hero-grid {
             grid-template-columns: 1fr !important;
@@ -2488,6 +2833,10 @@ export default function AcademyPage() {
             gap: 24px !important;
             max-width: 450px !important;
             margin: 0 auto !important;
+          }
+          .footer-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
           }
         }
         @media (max-width: 640px) {
