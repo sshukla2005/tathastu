@@ -735,7 +735,7 @@ export default async function StudioPage() {
           </div>
         </section>
 
-        {/* ── 6. MEET THE TEAM — LIGHT SECTION ───────────────────────── */}
+        {/* ── 6. MEET THE TEAM ─────────────────────────────────────── */}
         <section
           style={{
             position: "relative",
@@ -768,7 +768,7 @@ export default async function StudioPage() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: "24px",
+                gap: "16px",
                 textAlign: "center",
                 maxWidth: "800px",
               }}
@@ -784,7 +784,7 @@ export default async function StudioPage() {
                 }}
                 className="studio-meet-title"
               >
-                Meet the Team
+                Meet <span style={{ color: "#D61814" }}>the Team</span>
               </h2>
               <p
                 style={{
@@ -801,38 +801,28 @@ export default async function StudioPage() {
               </p>
             </div>
 
-            {/* Members Row */}
+            {/* Members Row — 4 cards */}
             <div className="studio-meet-row">
               {[
-                { key: "chetan", name: "Chetan Jain", role: "Founder & CEO" },
-                { key: "venu", name: "Venu Victor", role: "Co-founder and VFX Supervisor" },
-                { key: "nikitha", name: "Nikitha Gaikwad", role: "Marketing Manager" },
+                { key: "nikitha",  name: "Nikitha Gaikwad", role: "Marketing Manager",           bg: "#D6EAF8" },
+                { key: "chetan",   name: "Chetan Jain",     role: "Founder & CEO",               bg: "#D5F5E3" },
+                { key: "nikitha2", name: "Nikitha Gaikwad", role: "President of Sales",          bg: "#E8DAEF" },
+                { key: "venu",     name: "Venu Victor",     role: "Co-founder and VFX Supervisor", bg: "#FDEBD0" },
               ].map((member, idx) => (
                 <div key={idx} className="studio-member-card">
-                  <div className="studio-member-avatar-container">
-                    <img
-                      src={`/images/studio/member-${member.key}.png`}
-                      alt={member.name}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        display: "block",
-                      }}
-                    />
-                  </div>
+                  {/* Name & role — ABOVE the photo */}
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      gap: "8px",
+                      gap: "4px",
                       alignItems: "center",
                       textAlign: "center",
                     }}
                   >
                     <h3
                       style={{
-                        fontSize: "22px",
+                        fontSize: "18px",
                         fontWeight: 700,
                         color: "#000000",
                         margin: 0,
@@ -843,9 +833,9 @@ export default async function StudioPage() {
                     </h3>
                     <p
                       style={{
-                        fontSize: "16px",
-                        fontWeight: 600,
-                        color: "#D61814",
+                        fontSize: "13px",
+                        fontWeight: 500,
+                        color: "#555555",
                         margin: 0,
                         fontFamily: "'Open Sans', sans-serif",
                       }}
@@ -853,23 +843,41 @@ export default async function StudioPage() {
                       {member.role}
                     </p>
                   </div>
+
+                  {/* Arch / oval card with photo */}
+                  <div
+                    className="studio-member-arch"
+                    style={{ backgroundColor: member.bg }}
+                  >
+                    <img
+                      src={`/images/studio/member-${member.key}.png`}
+                      alt={member.name}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: "top center",
+                        display: "block",
+                      }}
+                    />
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── 7. OUR PURPOSE — DARK BAND ─────────────────────────────── */}
+        {/* ── 7. OUR PURPOSE — LIGHT CREAM SECTION ─────────────────── */}
         <section
           style={{
             position: "relative",
-            background: "#0A080C",
+            background: "#F5F0EB",
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             padding: "120px 80px",
-            color: "#FFFFFF",
+            color: "#000000",
           }}
           className="studio-purpose-section"
         >
@@ -882,78 +890,117 @@ export default async function StudioPage() {
               width: "100%",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
-              gap: "56px",
+              gap: "48px",
             }}
           >
-            {/* Header */}
+            {/* Header row — title left, arrows right */}
             <div
               style={{
                 display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
                 gap: "24px",
-                textAlign: "center",
-                maxWidth: "900px",
+                flexWrap: "wrap",
               }}
+              className="studio-purpose-header"
             >
-              <h2
+              <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                <h2
+                  style={{
+                    fontSize: "54px",
+                    fontWeight: 700,
+                    lineHeight: "68px",
+                    color: "#000000",
+                    margin: 0,
+                    fontFamily: "'Open Sans', sans-serif",
+                  }}
+                  className="studio-purpose-title"
+                >
+                  Our <span style={{ color: "#D61814" }}>Purpose</span>
+                </h2>
+                <p
+                  style={{
+                    fontSize: "18px",
+                    lineHeight: "28px",
+                    color: "#555555",
+                    margin: 0,
+                    fontFamily: "'Open Sans', sans-serif",
+                    fontWeight: 400,
+                    maxWidth: "700px",
+                  }}
+                  className="studio-purpose-subtitle"
+                >
+                  To build a dynamic, scalable, and globally connected Houdini FX production ecosystem that:
+                </p>
+              </div>
+
+              {/* Carousel arrows */}
+              <div
                 style={{
-                  fontSize: "54px",
-                  fontWeight: 700,
-                  lineHeight: "68px",
-                  color: "#FFFFFF",
-                  margin: 0,
-                  fontFamily: "'Open Sans', sans-serif",
+                  display: "flex",
+                  gap: "8px",
+                  alignSelf: "center",
+                  flexShrink: 0,
                 }}
-                className="studio-purpose-title"
               >
-                Our Purpose
-              </h2>
-              <p
-                style={{
-                  fontSize: "20px",
-                  lineHeight: "32px",
-                  color: "#CCCCCC",
-                  margin: 0,
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontWeight: 400,
-                }}
-                className="studio-purpose-subtitle"
-              >
-                To build a dynamic, scalable, and globally connected Houdini FX production ecosystem that:
-              </p>
+                <button
+                  aria-label="Previous"
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    border: "1.5px solid #0b0625",
+                    borderRadius: "4px",
+                    background: "#FFFFFF",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "20px",
+                    color: "#0b0625",
+                  }}
+                >
+                  ‹
+                </button>
+                <button
+                  aria-label="Next"
+                  style={{
+                    width: "44px",
+                    height: "44px",
+                    border: "1.5px solid #0b0625",
+                    borderRadius: "4px",
+                    background: "#FFFFFF",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "20px",
+                    color: "#0b0625",
+                  }}
+                >
+                  ›
+                </button>
+              </div>
             </div>
 
-            {/* Why Cards Grid */}
+            {/* Cards Grid — 3 top + 2 bottom */}
             <div className="studio-purpose-grid">
               {[
                 "Delivers high-quality FX services to filmmakers, studios, and content creators",
                 "Leverages top freelance talent from India and beyond",
+                "Removes infrastructure barriers with a fully virtual pipeline",
                 "Empowers artists through flexibility, creativity, and project-based work culture",
                 "Adapts to changing needs with agile, scalable solutions",
-                "Removes infrastructure barriers with a fully virtual pipeline",
               ].map((text, idx) => (
                 <div key={idx} className="studio-purpose-card">
-                  <div
-                    style={{
-                      fontSize: "36px",
-                      fontWeight: 800,
-                      color: "#D61814",
-                      fontFamily: "'Open Sans', sans-serif",
-                      marginBottom: "16px",
-                    }}
-                  >
-                    {`0${idx + 1}`}
-                  </div>
                   <p
                     style={{
-                      fontSize: "18px",
-                      lineHeight: "28px",
-                      color: "#FFFFFF",
+                      fontSize: "16px",
+                      lineHeight: "26px",
+                      color: "#222222",
                       margin: 0,
                       fontFamily: "'Open Sans', sans-serif",
                       fontWeight: 500,
+                      textAlign: "center",
                     }}
                   >
                     {text}
@@ -964,20 +1011,41 @@ export default async function StudioPage() {
           </div>
         </section>
 
-        {/* ── 8. WHAT YOU'LL FIND INSIDE — LIGHT SECTION ────────────── */}
+        {/* ── 8. WHAT YOU'LL FIND INSIDE ───────────────────────────── */}
         <section
           style={{
             position: "relative",
-            background: "#FFFFFF",
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             padding: "120px 80px",
-            color: "#000000",
+            color: "#FFFFFF",
           }}
           className="studio-find-section"
         >
+          {/* Background image */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+            <img
+              src="/images/studio/trusted-bg.jpg"
+              alt=""
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+          </div>
+          {/* Dark overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "rgba(0, 0, 0, 0.78)",
+              zIndex: 1,
+            }}
+          />
           {/* Radio inputs for CSS-based toggling */}
           <input
             type="radio"
@@ -1022,13 +1090,13 @@ export default async function StudioPage() {
                   fontSize: "54px",
                   fontWeight: 700,
                   lineHeight: "68px",
-                  color: "#000000",
+                  color: "#FFFFFF",
                   margin: 0,
                   fontFamily: "'Open Sans', sans-serif",
                 }}
                 className="studio-find-title"
               >
-                What You'll Find Inside
+                What You&apos;ll Find <span style={{ color: "#D61814" }}>Inside</span>
               </h2>
             </div>
 
@@ -1052,16 +1120,7 @@ export default async function StudioPage() {
             <div className="studio-cards-container">
               {/* Card 1: Email */}
               <div className="studio-contact-card">
-                <div className="studio-contact-icon-wrapper">
-                  {/* Mail icon SVG */}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D61814" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="4" width="20" height="16" rx="2" />
-                    <path d="M22 6l-10 7L2 6" />
-                  </svg>
-                </div>
                 <div className="studio-contact-content">
-                  <h4 className="for-studios-only studio-contact-label">General Inquiries</h4>
-                  <h4 className="for-freelancers-only studio-contact-label">Artist Onboarding</h4>
                   <p className="studio-contact-name">Email</p>
                   <a href="mailto:academy@tathastu.global" className="studio-contact-value">academy@tathastu.global</a>
                   <a href="tel:+918125613838" className="studio-contact-value">+91 81256 13838</a>
@@ -1070,33 +1129,16 @@ export default async function StudioPage() {
 
               {/* Card 2: Chetan Jain */}
               <div className="studio-contact-card">
-                <div className="studio-contact-icon-wrapper">
-                  {/* User icon SVG */}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D61814" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                    <circle cx="12" cy="7" r="4" />
-                  </svg>
-                </div>
                 <div className="studio-contact-content">
-                  <h4 className="for-studios-only studio-contact-label">Founder & CEO</h4>
-                  <h4 className="for-freelancers-only studio-contact-label">Talent Acquisition</h4>
                   <p className="studio-contact-name">Chetan Jain</p>
                   <a href="tel:+919820192970" className="studio-contact-value">+91 98201 92970</a>
+                  <a href="mailto:chetan@tathastu.global" className="studio-contact-value">chetan@tathastu.global</a>
                 </div>
               </div>
 
               {/* Card 3: Venu Victor */}
               <div className="studio-contact-card">
-                <div className="studio-contact-icon-wrapper">
-                  {/* User/Briefcase icon SVG */}
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D61814" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-                  </svg>
-                </div>
                 <div className="studio-contact-content">
-                  <h4 className="for-studios-only studio-contact-label">Co-founder & VFX Supervisor</h4>
-                  <h4 className="for-freelancers-only studio-contact-label">Portfolio Review</h4>
                   <p className="studio-contact-name">Venu Victor</p>
                   <a href="tel:+919611104802" className="studio-contact-value">+91 96111 04802</a>
                 </div>
@@ -1106,7 +1148,187 @@ export default async function StudioPage() {
         </section>
       </main>
 
-      <Footer siteSettings={siteSettings} />
+      {/* ── 9. STUDIO-SPECIFIC FOOTER — LIGHT CREAM GRADIENT ────────── */}
+      <footer
+        style={{
+          background: "linear-gradient(135deg, #F0EDE8 0%, #E8E4DE 40%, #D4EDD8 100%)",
+          color: "#000000",
+          padding: "80px 80px 40px 80px",
+          position: "relative",
+          overflow: "hidden",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+        className="studio-footer"
+      >
+        <div
+          style={{
+            maxWidth: "1280px",
+            margin: "0 auto",
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "32px",
+            textAlign: "center",
+            zIndex: 10,
+          }}
+        >
+          {/* Tagline — 2 lines */}
+          <h2
+            style={{
+              fontSize: "48px",
+              fontWeight: 700,
+              lineHeight: "60px",
+              color: "#000000",
+              margin: 0,
+              fontFamily: "'Open Sans', sans-serif",
+            }}
+            className="studio-footer-tagline"
+          >
+            Tathastu Studio isn&apos;t a trend.<br />
+            It&apos;s a <span style={{ color: "#D61814" }}>turning point</span>
+          </h2>
+
+          {/* CTA subtext */}
+          <p
+            style={{
+              fontSize: "16px",
+              fontWeight: 400,
+              lineHeight: "26px",
+              color: "#444444",
+              margin: 0,
+              maxWidth: "700px",
+              fontFamily: "'Open Sans', sans-serif",
+              letterSpacing: "0.3px",
+            }}
+            className="studio-footer-cta"
+          >
+            THE FUTURE OF HOUDINI FREELANCING IS HERE. LET&apos;S BUILD THE NEXT GENERATION OF HIGH-END VFX TOGETHER
+          </p>
+
+          {/* Subtext with mixed colors */}
+          <p
+            style={{
+              fontSize: "18px",
+              color: "#000000",
+              margin: 0,
+              fontFamily: "'Open Sans', sans-serif",
+              fontWeight: 400,
+            }}
+            className="studio-footer-subtext"
+          >
+            <span style={{ color: "#D61814", fontWeight: 600 }}>Your story,</span>
+            {" "}our innovation — let&apos;s make it{" "}
+            <span style={{ color: "#D61814", fontWeight: 600 }}>unforgettable.</span>
+          </p>
+
+          {/* Social Icons — 5 icons */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "20px",
+              marginTop: "8px",
+            }}
+          >
+            {[
+              {
+                platform: "facebook",
+                url: "https://facebook.com",
+                svg: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.95z" />
+                  </svg>
+                ),
+              },
+              {
+                platform: "instagram",
+                url: "https://instagram.com",
+                svg: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                  </svg>
+                ),
+              },
+              {
+                platform: "linkedin",
+                url: "https://linkedin.com",
+                svg: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                ),
+              },
+              {
+                platform: "twitter",
+                url: "https://x.com",
+                svg: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                ),
+              },
+              {
+                platform: "youtube",
+                url: "https://youtube.com",
+                svg: (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                  </svg>
+                ),
+              },
+            ].map((social, sIdx) => (
+              <a
+                key={sIdx}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Follow us on ${social.platform}`}
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  borderRadius: "50%",
+                  backgroundColor: "#000000",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#FFFFFF",
+                  textDecoration: "none",
+                  transition: "background-color 0.3s ease",
+                }}
+                className="studio-social-icon"
+              >
+                {social.svg}
+              </a>
+            ))}
+          </div>
+
+          {/* Copyright */}
+          <div
+            style={{
+              borderTop: "1px solid rgba(0, 0, 0, 0.12)",
+              paddingTop: "24px",
+              width: "100%",
+              marginTop: "16px",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "'Open Sans', sans-serif",
+                fontSize: "14px",
+                color: "#666666",
+                margin: 0,
+                lineHeight: "22px",
+              }}
+            >
+              © 2025 Tathastu Academy. A division of Tathastu Techno Solution. Authorized SideFX partner in India.
+            </p>
+          </div>
+        </div>
+      </footer>
       <WhatsAppFAB />
 
       <style>{`
@@ -1206,42 +1428,45 @@ export default async function StudioPage() {
         .studio-meet-row {
           display: flex;
           justify-content: center;
-          align-items: flex-start;
-          gap: 64px;
+          align-items: flex-end;
+          gap: 24px;
           width: 100%;
         }
         .studio-member-card {
           display: flex;
           flex-direction: column;
           align-items: center;
-          gap: 24px;
+          gap: 16px;
           flex: 1;
-          max-width: 320px;
+          max-width: 260px;
         }
-        .studio-member-avatar-container {
-          width: 200px;
-          height: 200px;
-          border-radius: 50%;
+        .studio-member-arch {
+          width: 100%;
+          height: 320px;
+          border-radius: 999px 999px 0 0;
           overflow: hidden;
-          background-color: #F5F5F5;
-          border: 3px solid #D61814;
+          position: relative;
         }
         .studio-purpose-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 32px;
+          gap: 20px;
           width: 100%;
         }
         .studio-purpose-card {
-          background-color: #151218;
-          border-top: 4px solid #D61814;
-          padding: 32px;
-          border-radius: 0 0 12px 12px;
+          background-color: #FFFFFF;
+          border: 1.5px solid #E0E0E0;
+          padding: 32px 24px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100px;
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .studio-purpose-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
         .studio-toggle-bar {
           display: flex;
@@ -1260,7 +1485,7 @@ export default async function StudioPage() {
           border-radius: 50px;
           font-size: 18px;
           font-weight: 600;
-          color: #666666;
+          color: #BBBBBB;
           cursor: pointer;
           transition: background-color 0.3s ease, color 0.3s ease;
           user-select: none;
@@ -1294,62 +1519,49 @@ export default async function StudioPage() {
           width: 100%;
         }
         .studio-contact-card {
-          background-color: #F9F9FB;
-          border: 1px solid #EEEEEE;
-          border-radius: 16px;
-          padding: 40px 32px;
+          background-color: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.15);
+          border-radius: 12px;
+          padding: 28px 24px;
           display: flex;
           flex-direction: column;
-          align-items: center;
-          text-align: center;
-          gap: 20px;
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          align-items: flex-start;
+          text-align: left;
+          gap: 12px;
+          transition: background-color 0.3s ease;
+          backdrop-filter: blur(8px);
         }
         .studio-contact-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-        .studio-contact-icon-wrapper {
-          width: 64px;
-          height: 64px;
-          border-radius: 50%;
-          background-color: rgba(214, 24, 20, 0.08);
-          display: flex;
-          align-items: center;
-          justify-content: center;
+          background-color: rgba(255, 255, 255, 0.13);
         }
         .studio-contact-content {
           display: flex;
           flex-direction: column;
-          align-items: center;
+          align-items: flex-start;
           gap: 8px;
           width: 100%;
         }
-        .studio-contact-label {
-          font-size: 14px;
-          font-weight: 700;
-          color: #D61814;
-          text-transform: uppercase;
-          margin: 0;
-          letter-spacing: 0.5px;
-        }
         .studio-contact-name {
-          font-size: 22px;
+          font-size: 20px;
           font-weight: 700;
-          color: #000000;
+          color: #FFFFFF;
           margin: 0;
+          font-family: "'Open Sans', sans-serif";
         }
         .studio-contact-value {
-          font-size: 16px;
-          color: #555555;
+          font-size: 15px;
+          color: #BBBBBB;
           text-decoration: none;
-          transition: color 0.2s ease;
           display: block;
-          margin-top: 4px;
-          font-weight: 500;
+          font-weight: 400;
+          transition: color 0.2s ease;
         }
         .studio-contact-value:hover {
-          color: #D61814;
+          color: #FFFFFF;
+        }
+        .studio-social-icon:hover {
+          background-color: #D61814 !important;
+          color: #FFFFFF !important;
         }
         @media (max-width: 1024px) {
           .studio-hero-section {
@@ -1516,12 +1728,14 @@ export default async function StudioPage() {
             line-height: 26px !important;
           }
           .studio-meet-row {
-            flex-direction: column !important;
-            align-items: center !important;
-            gap: 48px !important;
+            flex-wrap: wrap !important;
+            gap: 32px !important;
           }
           .studio-member-card {
-            max-width: 100% !important;
+            max-width: 200px !important;
+          }
+          .studio-member-arch {
+            height: 240px !important;
           }
           .studio-purpose-section {
             padding: 80px 40px !important;
@@ -1536,7 +1750,7 @@ export default async function StudioPage() {
           }
           .studio-purpose-grid {
             grid-template-columns: repeat(2, 1fr) !important;
-            gap: 24px !important;
+            gap: 16px !important;
           }
           .studio-find-section {
             padding: 80px 40px !important;
@@ -1551,6 +1765,17 @@ export default async function StudioPage() {
           }
           .studio-contact-card {
             padding: 32px 24px !important;
+          }
+          .studio-footer {
+            padding: 60px 40px 40px 40px !important;
+          }
+          .studio-footer-tagline {
+            font-size: 36px !important;
+            line-height: 46px !important;
+          }
+          .studio-footer-cta {
+            font-size: 22px !important;
+            line-height: 32px !important;
           }
         }
         @media (max-width: 640px) {
@@ -1669,6 +1894,12 @@ export default async function StudioPage() {
             font-size: 28px !important;
             line-height: 36px !important;
           }
+          .studio-member-card {
+            max-width: 160px !important;
+          }
+          .studio-member-arch {
+            height: 200px !important;
+          }
           .studio-purpose-section {
             padding: 60px 20px !important;
           }
@@ -1678,7 +1909,7 @@ export default async function StudioPage() {
           }
           .studio-purpose-grid {
             grid-template-columns: 1fr !important;
-            gap: 20px !important;
+            gap: 16px !important;
           }
           .studio-find-section {
             padding: 60px 20px !important;
@@ -1689,6 +1920,20 @@ export default async function StudioPage() {
           }
           .studio-toggle-label {
             padding: 10px 20px !important;
+            font-size: 15px !important;
+          }
+          .studio-footer {
+            padding: 40px 20px 30px 20px !important;
+          }
+          .studio-footer-tagline {
+            font-size: 26px !important;
+            line-height: 34px !important;
+          }
+          .studio-footer-cta {
+            font-size: 18px !important;
+            line-height: 26px !important;
+          }
+          .studio-footer-subtext {
             font-size: 15px !important;
           }
         }

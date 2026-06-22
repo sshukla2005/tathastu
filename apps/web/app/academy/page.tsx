@@ -1,6 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import WhatsAppFAB from "@/components/WhatsAppFAB";
+import { fetchStrapi } from "@/lib/api";
+import { SiteSettings, Industry } from "@tathastu/types";
 
 export async function generateMetadata() {
   return {
@@ -75,9 +80,21 @@ function OutlineBtn({ href, children }: { href: string; children: React.ReactNod
   );
 }
 
-export default function AcademyPage() {
+export default async function AcademyPage() {
+  const [settingsRes, industriesRes] = await Promise.all([
+    fetchStrapi<{ data: SiteSettings }>("/site-setting?populate[nav][populate]=*&populate[footerColumns][populate]=*&populate[socialLinks][populate]=*&populate[logo][populate]=*"),
+    fetchStrapi<{ data: Industry[] }>("/industries?sort=order:asc"),
+  ]);
+
+  const siteSettings = settingsRes?.data;
+  const industries = industriesRes?.data || [];
+
+  if (!siteSettings) return null;
+
   return (
-    <div style={{ background: DARK, minHeight: "100vh", fontFamily: "'Open Sans', sans-serif" }}>
+    <>
+      <Header siteSettings={siteSettings} industries={industries} />
+      <div style={{ background: DARK, minHeight: "100vh", fontFamily: "'Open Sans', sans-serif" }}>
 
       {/* ── 1. HERO — DARK ─────────────────────────────────────────── */}
       <section
@@ -2865,5 +2882,8 @@ export default function AcademyPage() {
         }
       `}</style>
     </div>
+      <Footer siteSettings={siteSettings} />
+      <WhatsAppFAB />
+    </>
   );
 }
