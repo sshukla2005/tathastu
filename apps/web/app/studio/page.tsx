@@ -597,6 +597,143 @@ export default async function StudioPage() {
             </div>
           </div>
         </section>
+
+        {/* ── 5. WHAT WE DO — DARK BAND ─────────────────────────────── */}
+        <section
+          style={{
+            position: "relative",
+            background: "#0A080C",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "120px 80px",
+            color: "#FFFFFF",
+          }}
+          className="studio-whatwedo-section"
+        >
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "1440px",
+              margin: "0 auto",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "56px",
+            }}
+          >
+            {/* Title / Intro */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "24px",
+                textAlign: "center",
+                maxWidth: "800px",
+              }}
+              className="studio-whatwedo-header"
+            >
+              <h2
+                style={{
+                  fontSize: "54px",
+                  fontWeight: 700,
+                  lineHeight: "68px",
+                  color: "#FFFFFF",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                }}
+                className="studio-whatwedo-title"
+              >
+                What We Do
+              </h2>
+              <p
+                style={{
+                  fontSize: "20px",
+                  lineHeight: "32px",
+                  color: "#CCCCCC",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 400,
+                }}
+                className="studio-whatwedo-subtitle"
+              >
+                You share your artistic and technical intent — we translate that into dynamic visual FX:
+              </p>
+            </div>
+
+            {/* Grid of 8 FX Cards */}
+            <div className="studio-whatwedo-grid">
+              {[
+                { key: "fire", label: "Fire" },
+                { key: "smoke", label: "Smoke" },
+                { key: "explosions", label: "Explosions" },
+                { key: "water", label: "Water" },
+                { key: "rain", label: "Rain" },
+                { key: "snow", label: "Snow" },
+                { key: "ocean", label: "Ocean simulations" },
+                { key: "dust", label: "Dust" },
+              ].map((card, idx) => (
+                <div key={idx} className="studio-fx-card">
+                  <div className="studio-fx-image-container">
+                    <img
+                      src={`/images/studio/fx-${card.key}.png`}
+                      alt={card.label}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                        transition: "transform 0.4s ease",
+                      }}
+                      className="studio-fx-image"
+                    />
+                  </div>
+                  <h3
+                    style={{
+                      fontSize: "18px",
+                      fontWeight: 600,
+                      color: "#FFFFFF",
+                      margin: 0,
+                      textAlign: "center",
+                      fontFamily: "'Open Sans', sans-serif",
+                    }}
+                  >
+                    {card.label}
+                  </h3>
+                </div>
+              ))}
+            </div>
+
+            {/* View More Button */}
+            <div style={{ marginTop: "16px" }}>
+              <Link
+                href="/portfolio?source=WhatWeDo"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "231px",
+                  height: "74px",
+                  background: "linear-gradient(90deg, #920B08 0%, #D61814 100%)",
+                  boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.25)",
+                  borderRadius: "50px",
+                  color: "#FFFFFF",
+                  fontSize: "22px",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  transition: "transform 0.2s ease, opacity 0.2s ease",
+                }}
+                className="studio-whatwedo-btn"
+              >
+                View More
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer siteSettings={siteSettings} />
@@ -670,6 +807,31 @@ export default async function StudioPage() {
           width: 160px;
           height: 160px;
           z-index: 3;
+        }
+        .studio-whatwedo-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 32px;
+          width: 100%;
+        }
+        .studio-fx-card {
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .studio-fx-image-container {
+          width: 100%;
+          aspect-ratio: 4 / 3;
+          border-radius: 12px;
+          overflow: hidden;
+          position: relative;
+        }
+        .studio-fx-card:hover .studio-fx-image {
+          transform: scale(1.05);
+        }
+        .studio-whatwedo-btn:hover {
+          transform: translateY(-2px);
+          opacity: 0.95;
         }
         @media (max-width: 1024px) {
           .studio-hero-section {
@@ -804,6 +966,26 @@ export default async function StudioPage() {
             right: -10px !important;
             bottom: 10px !important;
           }
+          .studio-whatwedo-section {
+            padding: 80px 40px !important;
+          }
+          .studio-whatwedo-title {
+            font-size: 38px !important;
+            line-height: 48px !important;
+          }
+          .studio-whatwedo-subtitle {
+            font-size: 16px !important;
+            line-height: 26px !important;
+          }
+          .studio-whatwedo-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 24px !important;
+          }
+          .studio-whatwedo-btn {
+            width: 200px !important;
+            height: 64px !important;
+            font-size: 18px !important;
+          }
         }
         @media (max-width: 640px) {
           .studio-hero-section {
@@ -897,6 +1079,22 @@ export default async function StudioPage() {
             height: 80px !important;
             right: -5px !important;
             bottom: 5px !important;
+          }
+          .studio-whatwedo-section {
+            padding: 60px 20px !important;
+          }
+          .studio-whatwedo-title {
+            font-size: 28px !important;
+            line-height: 36px !important;
+          }
+          .studio-whatwedo-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
+          }
+          .studio-whatwedo-btn {
+            width: 180px !important;
+            height: 58px !important;
+            font-size: 16px !important;
           }
         }
       `}</style>
