@@ -203,6 +203,10 @@ export default async function StudioPage() {
                     position: "relative",
                     width: "469px",
                     height: "470px",
+                    borderRadius: "50%",
+                    border: "4px solid #D61814",
+                    overflow: "hidden",
+                    boxShadow: "0px 10px 30px rgba(214, 24, 20, 0.3)",
                   }}
                   className="studio-ellipse-container"
                 >
@@ -210,7 +214,7 @@ export default async function StudioPage() {
                     src="/images/studio/hero-right.png"
                     alt="Houdini VFX illustration"
                     fill
-                    style={{ objectFit: "contain" }}
+                    style={{ objectFit: "cover" }}
                     priority
                   />
                 </div>
