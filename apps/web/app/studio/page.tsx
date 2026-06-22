@@ -326,6 +326,100 @@ export default async function StudioPage() {
             </div>
           </div>
         </section>
+
+        {/* ── 3. TRUSTED BY STUDIOS — RED CTA BAND ───────────────────── */}
+        <section
+          style={{
+            position: "relative",
+            minHeight: "360px",
+            background: "linear-gradient(90deg, #920B08 0%, #D61814 100%)",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "60px 80px",
+            color: "#FFFFFF",
+          }}
+          className="studio-trusted-section"
+        >
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "1440px",
+              margin: "0 auto",
+              width: "100%",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "48px",
+            }}
+            className="studio-trusted-grid"
+          >
+            {/* Left text column */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "16px",
+                maxWidth: "1100px",
+              }}
+              className="studio-trusted-text-column"
+            >
+              <h2
+                style={{
+                  fontSize: "59px",
+                  fontWeight: 800,
+                  lineHeight: "80px",
+                  color: "#FFFFFF",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                }}
+                className="studio-trusted-title"
+              >
+                Trusted by Studios
+              </h2>
+              <p
+                style={{
+                  fontSize: "26px",
+                  lineHeight: "42px",
+                  color: "#FFFFFF",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 400,
+                }}
+                className="studio-trusted-subtitle"
+              >
+                We're proud to be the go-to Houdini resource for both creators and clients across the industry.
+              </p>
+            </div>
+
+            {/* Right button column */}
+            <div style={{ flexShrink: 0 }} className="studio-trusted-btn-container">
+              <Link
+                href="/contact?source=TrustedByStudios"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "231px",
+                  height: "74px",
+                  backgroundColor: "#FFFFFF",
+                  boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.25)",
+                  borderRadius: "50px",
+                  color: "#D93829",
+                  fontSize: "22px",
+                  fontWeight: 600,
+                  textDecoration: "none",
+                  transition: "transform 0.2s ease, background-color 0.2s ease",
+                }}
+                className="studio-trusted-btn"
+              >
+                Contact Now
+              </Link>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer siteSettings={siteSettings} />
@@ -335,6 +429,10 @@ export default async function StudioPage() {
         .studio-contact-btn:hover {
           transform: translateY(-2px);
           opacity: 0.95;
+        }
+        .studio-trusted-btn:hover {
+          transform: translateY(-2px);
+          background-color: #F5F5F5 !important;
         }
         .studio-overlapping-container {
           position: relative;
@@ -435,6 +533,28 @@ export default async function StudioPage() {
             height: 460px !important;
             border-radius: 18px !important;
           }
+          .studio-trusted-section {
+            padding: 60px 40px !important;
+            min-height: auto !important;
+          }
+          .studio-trusted-grid {
+            flex-direction: column !important;
+            text-align: center !important;
+            gap: 32px !important;
+          }
+          .studio-trusted-title {
+            font-size: 44px !important;
+            line-height: 56px !important;
+          }
+          .studio-trusted-subtitle {
+            font-size: 20px !important;
+            line-height: 32px !important;
+          }
+          .studio-trusted-btn {
+            width: 200px !important;
+            height: 64px !important;
+            font-size: 18px !important;
+          }
         }
         @media (max-width: 640px) {
           .studio-hero-section {
@@ -484,6 +604,22 @@ export default async function StudioPage() {
             width: 275px !important;
             height: 287px !important;
             border-radius: 12px !important;
+          }
+          .studio-trusted-section {
+            padding: 50px 20px !important;
+          }
+          .studio-trusted-title {
+            font-size: 32px !important;
+            line-height: 42px !important;
+          }
+          .studio-trusted-subtitle {
+            font-size: 16px !important;
+            line-height: 26px !important;
+          }
+          .studio-trusted-btn {
+            width: 180px !important;
+            height: 58px !important;
+            font-size: 16px !important;
           }
         }
       `}</style>
