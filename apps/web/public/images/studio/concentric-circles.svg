@@ -1,0 +1,17 @@
+<svg width="617" height="617" viewBox="0 0 617 617" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Center is 308.5, 308.5 -->
+  <!-- Circle 1: radius 308.5 (width 617) -->
+  <circle cx="308.5" cy="308.5" r="307" stroke="#2C415E" stroke-width="1.5" stroke-dasharray="8 8"/>
+  <!-- Circle 2: radius 269 (width 538) -->
+  <circle cx="308.5" cy="308.5" r="268.25" stroke="#2C415E" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <!-- Circle 3: radius 229.5 (width 459) -->
+  <circle cx="308.5" cy="308.5" r="228.75" stroke="#2C415E" stroke-width="1.5"/>
+  <!-- Circle 4: radius 190 (width 380) -->
+  <circle cx="308.5" cy="308.5" r="189.25" stroke="#2C415E" stroke-width="1.5" stroke-dasharray="2 6"/>
+  <!-- Circle 5: radius 150.5 (width 301) -->
+  <circle cx="308.5" cy="308.5" r="149.75" stroke="#2C415E" stroke-width="1.5"/>
+  <!-- Circle 6: radius 111 (width 222) -->
+  <circle cx="308.5" cy="308.5" r="110.25" stroke="#D61814" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <!-- Circle 7: radius 71.5 (width 143) -->
+  <circle cx="308.5" cy="308.5" r="70.75" stroke="#D61814" stroke-width="1.5"/>
+</svg>

@@ -1,10 +1,11 @@
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
 import { fetchStrapi } from "@/lib/api";
-import { SiteSettings, Industry, PortfolioItem } from "@tathastu/types";
-import { Cpu, Terminal, Layers, Info } from "lucide-react";
+import { SiteSettings, Industry } from "@tathastu/types";
 
 export const revalidate = 60; // ISR 60s
 
@@ -16,91 +17,278 @@ export async function generateMetadata() {
 }
 
 export default async function StudioPage() {
-  const [settingsRes, industriesRes, portfolioRes] = await Promise.all([
+  const [settingsRes, industriesRes] = await Promise.all([
     fetchStrapi<{ data: SiteSettings }>("/site-setting?populate[nav][populate]=*&populate[footerColumns][populate]=*&populate[socialLinks][populate]=*&populate[logo][populate]=*"),
     fetchStrapi<{ data: Industry[] }>("/industries?sort=order:asc"),
-    fetchStrapi<{ data: PortfolioItem[] }>("/portfolio-items?populate=*"),
   ]);
 
   const siteSettings = settingsRes?.data;
   const industries = industriesRes?.data || [];
-  const items = portfolioRes?.data || [];
 
   if (!siteSettings) return null;
 
-  const getCategoryIcon = (category: string) => {
-    switch (category) {
-      case "Hardware":
-        return <Cpu size={24} className="text-brand-primary" />;
-      case "Software":
-        return <Terminal size={24} className="text-brand-orange" />;
-      case "Plugin":
-        return <Layers size={24} className="text-brand-yellow" />;
-      default:
-        return <Info size={24} className="text-brand-primary" />;
-    }
-  };
-
   return (
-    <>
+    <div style={{ background: "#0B0625", minHeight: "100vh", display: "flex", flexDirection: "column", fontFamily: "'Open Sans', sans-serif" }}>
       <Header siteSettings={siteSettings} industries={industries} />
 
-      <main className="flex-grow bg-brand-light py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col gap-4">
-            <span className="text-sm font-extrabold tracking-widest text-brand-primary uppercase">
-              Tathastu Studio
-            </span>
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-brand-dark leading-tight">
-              Our Solutions & Product Portfolio
-            </h1>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              Explore high-quality systems, software licenses, and productivity plugins crafted to accelerate your creative pipelines.
-            </p>
-            <div className="w-24 h-1.5 bg-brand-orange mx-auto rounded-full mt-2" />
+      <main style={{ flexGrow: 1 }}>
+        {/* ── 1. HERO — DARK ─────────────────────────────────────────── */}
+        <section
+          style={{
+            position: "relative",
+            minHeight: "793px",
+            background: "linear-gradient(173deg, rgba(143, 5, 2, 0.2) 0%, rgba(110, 9, 25, 0.56) 44%, #0B0625 100%)",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "80px 80px 100px",
+          }}
+          className="studio-hero-section"
+        >
+          {/* Background Image texture overlay */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 0, opacity: 0.25, pointerEvents: "none" }}>
+            <Image
+              src="/images/studio/hero-bg.png"
+              alt=""
+              fill
+              style={{ objectFit: "cover" }}
+              priority
+            />
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {items.map((item) => (
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "1440px",
+              margin: "0 auto",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              gap: "48px",
+            }}
+          >
+            {/* Studio logo top area */}
+            <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "20px" }}>
+              <div style={{ position: "relative", width: "277px", height: "88px" }}>
+                <Image
+                  src="/images/studio/studio-logo.svg"
+                  alt="Tathastu Studio Logo"
+                  fill
+                  style={{ objectFit: "contain" }}
+                  priority
+                />
+              </div>
+            </div>
+
+            {/* Content row */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr",
+                gap: "80px",
+                alignItems: "center",
+                marginTop: "20px",
+              }}
+              className="studio-hero-grid"
+            >
+              {/* Left text column */}
               <div
-                key={item.id}
-                className="group bg-white rounded-[32px] p-8 shadow-md hover:shadow-2xl border border-gray-100 transition-all duration-300 flex flex-col sm:flex-row gap-6 items-start justify-between"
+                style={{
+                  position: "relative",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  minHeight: "500px",
+                }}
+                className="studio-text-column"
               >
-                <div className="flex gap-6 items-start">
-                  <div className="w-14 h-14 rounded-2xl bg-gray-50 flex items-center justify-center shrink-0">
-                    {getCategoryIcon(item.category)}
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-gray-400">
-                      {item.category}
-                    </span>
-                    <h3 className="text-2xl font-bold text-brand-dark group-hover:text-brand-primary transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-500 text-sm leading-relaxed max-w-md">
-                      {item.summary}
-                    </p>
-                  </div>
+                {/* Concentric circle motif */}
+                <div
+                  style={{
+                    position: "absolute",
+                    left: "-3px",
+                    top: "-218px",
+                    width: "617px",
+                    height: "617px",
+                    zIndex: 0,
+                    pointerEvents: "none",
+                  }}
+                  className="studio-concentric-circles"
+                >
+                  <Image
+                    src="/images/studio/concentric-circles.svg"
+                    alt=""
+                    width={617}
+                    height={617}
+                    style={{ objectFit: "contain" }}
+                  />
                 </div>
 
-                <div className="sm:self-end mt-4 sm:mt-0 shrink-0">
-                  <a
-                    href={`/contact?source=Consultation&product=${item.slug}`}
-                    className="inline-flex items-center justify-center px-5 py-2.5 bg-brand-dark hover:bg-brand-primary text-white font-bold rounded-full transition-all duration-300 text-sm shadow cursor-pointer"
+                {/* Text & Button content */}
+                <div
+                  style={{
+                    position: "relative",
+                    zIndex: 10,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "24px",
+                    maxWidth: "509px",
+                  }}
+                  className="studio-hero-text"
+                >
+                  <h1
+                    style={{
+                      fontSize: "59px",
+                      fontWeight: 800,
+                      lineHeight: "80px",
+                      color: "#FFFFFF",
+                      margin: 0,
+                      textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                    }}
+                    className="studio-title"
                   >
-                    Get Quote
-                  </a>
+                    Tathastu Studio
+                  </h1>
+                  <p
+                    style={{
+                      fontSize: "26px",
+                      lineHeight: "42px",
+                      color: "#FFFFFF",
+                      margin: 0,
+                      fontWeight: 400,
+                    }}
+                    className="studio-subtitle"
+                  >
+                    The Premier Hub of Houdini Professionals
+                  </p>
+                  <div style={{ marginTop: "8px" }} className="studio-btn-container">
+                    <Link
+                      href="/contact?source=Studio"
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "231px",
+                        height: "74px",
+                        background: "linear-gradient(90deg, #920B08 0%, #D61814 100%)",
+                        boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.25)",
+                        borderRadius: "50px",
+                        color: "#FFFFFF",
+                        fontSize: "22px",
+                        fontWeight: 600,
+                        textDecoration: "none",
+                        transition: "transform 0.2s ease, opacity 0.2s ease",
+                      }}
+                      className="studio-contact-btn"
+                    >
+                      Contact Us
+                    </Link>
+                  </div>
                 </div>
               </div>
-            ))}
+
+              {/* Right image column */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                className="studio-image-column"
+              >
+                <div
+                  style={{
+                    position: "relative",
+                    width: "469px",
+                    height: "470px",
+                  }}
+                  className="studio-ellipse-container"
+                >
+                  <Image
+                    src="/images/studio/hero-right.png"
+                    alt="Houdini VFX illustration"
+                    fill
+                    style={{ objectFit: "contain" }}
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
       </main>
 
       <Footer siteSettings={siteSettings} />
       <WhatsAppFAB />
-    </>
+
+      <style>{`
+        .studio-contact-btn:hover {
+          transform: translateY(-2px);
+          opacity: 0.95;
+        }
+        @media (max-width: 1024px) {
+          .studio-hero-section {
+            padding: 80px 40px 80px !important;
+          }
+          .studio-hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 64px !important;
+            text-align: center !important;
+          }
+          .studio-text-column {
+            min-height: auto !important;
+            align-items: center !important;
+          }
+          .studio-concentric-circles {
+            left: 50% !important;
+            top: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            opacity: 0.3 !important;
+            width: 100% !important;
+            max-width: 500px !important;
+            height: auto !important;
+          }
+          .studio-hero-text {
+            align-items: center !important;
+          }
+          .studio-title {
+            font-size: 48px !important;
+            line-height: 60px !important;
+          }
+          .studio-subtitle {
+            font-size: 20px !important;
+            line-height: 32px !important;
+          }
+          .studio-ellipse-container {
+            width: 320px !important;
+            height: 320px !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .studio-hero-section {
+            padding: 60px 20px 60px !important;
+          }
+          .studio-title {
+            font-size: 36px !important;
+            line-height: 48px !important;
+          }
+          .studio-subtitle {
+            font-size: 16px !important;
+            line-height: 26px !important;
+          }
+          .studio-contact-btn {
+            width: 180px !important;
+            height: 58px !important;
+            font-size: 18px !important;
+          }
+          .studio-ellipse-container {
+            width: 260px !important;
+            height: 260px !important;
+          }
+        }
+      `}</style>
+    </div>
   );
 }
