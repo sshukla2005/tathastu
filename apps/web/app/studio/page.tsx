@@ -327,12 +327,11 @@ export default async function StudioPage() {
           </div>
         </section>
 
-        {/* ── 3. TRUSTED BY STUDIOS — RED CTA BAND ───────────────────── */}
+        {/* ── 3. TRUSTED BY STUDIOS — BG IMAGE + DARK OVERLAY ─── */}
         <section
           style={{
             position: "relative",
             minHeight: "360px",
-            background: "linear-gradient(90deg, #920B08 0%, #D61814 100%)",
             overflow: "hidden",
             display: "flex",
             flexDirection: "column",
@@ -342,6 +341,31 @@ export default async function StudioPage() {
           }}
           className="studio-trusted-section"
         >
+          {/* Background image */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+            <img
+              src="/images/studio/trusted-bg.jpg"
+              alt=""
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                display: "block",
+              }}
+            />
+          </div>
+
+          {/* Dark overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "rgba(0, 0, 0, 0.72)",
+              zIndex: 1,
+            }}
+          />
+
+          {/* Content — centered */}
           <div
             style={{
               position: "relative",
@@ -350,74 +374,63 @@ export default async function StudioPage() {
               margin: "0 auto",
               width: "100%",
               display: "flex",
-              justifyContent: "space-between",
+              flexDirection: "column",
               alignItems: "center",
-              gap: "48px",
+              textAlign: "center",
+              gap: "24px",
             }}
             className="studio-trusted-grid"
           >
-            {/* Left text column */}
-            <div
+            <h2
               style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "16px",
-                maxWidth: "1100px",
+                fontSize: "59px",
+                fontWeight: 800,
+                lineHeight: "80px",
+                color: "#FFFFFF",
+                margin: 0,
+                fontFamily: "'Open Sans', sans-serif",
               }}
-              className="studio-trusted-text-column"
+              className="studio-trusted-title"
             >
-              <h2
-                style={{
-                  fontSize: "59px",
-                  fontWeight: 800,
-                  lineHeight: "80px",
-                  color: "#FFFFFF",
-                  margin: 0,
-                  fontFamily: "'Open Sans', sans-serif",
-                }}
-                className="studio-trusted-title"
-              >
-                Trusted by Studios
-              </h2>
-              <p
-                style={{
-                  fontSize: "26px",
-                  lineHeight: "42px",
-                  color: "#FFFFFF",
-                  margin: 0,
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontWeight: 400,
-                }}
-                className="studio-trusted-subtitle"
-              >
-                We're proud to be the go-to Houdini resource for both creators and clients across the industry.
-              </p>
-            </div>
-
-            {/* Right button column */}
-            <div style={{ flexShrink: 0 }} className="studio-trusted-btn-container">
-              <Link
-                href="/contact?source=TrustedByStudios"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "231px",
-                  height: "74px",
-                  backgroundColor: "#FFFFFF",
-                  boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.25)",
-                  borderRadius: "50px",
-                  color: "#D93829",
-                  fontSize: "22px",
-                  fontWeight: 600,
-                  textDecoration: "none",
-                  transition: "transform 0.2s ease, background-color 0.2s ease",
-                }}
-                className="studio-trusted-btn"
-              >
-                Contact Now
-              </Link>
-            </div>
+              Trusted by Studios
+            </h2>
+            <p
+              style={{
+                fontSize: "22px",
+                lineHeight: "36px",
+                color: "#FFFFFF",
+                margin: 0,
+                fontFamily: "'Open Sans', sans-serif",
+                fontWeight: 400,
+                maxWidth: "700px",
+              }}
+              className="studio-trusted-subtitle"
+            >
+              We're proud to be the go-to Houdini resource for both creators
+              and clients across the industry.
+            </p>
+            <Link
+              href="/contact?source=TrustedByStudios"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "231px",
+                height: "74px",
+                background: "linear-gradient(90deg, #920B08 0%, #D61814 100%)",
+                boxShadow: "0px 2px 5px 0px rgba(0, 0, 0, 0.25)",
+                borderRadius: "50px",
+                color: "#FFFFFF",
+                fontSize: "22px",
+                fontWeight: 600,
+                textDecoration: "none",
+                marginTop: "8px",
+                transition: "transform 0.2s ease, opacity 0.2s ease",
+              }}
+              className="studio-trusted-btn"
+            >
+              Contact Now
+            </Link>
           </div>
         </section>
       </main>
