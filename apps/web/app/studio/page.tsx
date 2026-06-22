@@ -734,6 +734,130 @@ export default async function StudioPage() {
             </div>
           </div>
         </section>
+
+        {/* ── 6. MEET THE TEAM — LIGHT SECTION ───────────────────────── */}
+        <section
+          style={{
+            position: "relative",
+            background: "#FFFFFF",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "120px 80px",
+            color: "#000000",
+          }}
+          className="studio-meet-section"
+        >
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "1440px",
+              margin: "0 auto",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "56px",
+            }}
+          >
+            {/* Header */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "24px",
+                textAlign: "center",
+                maxWidth: "800px",
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: "54px",
+                  fontWeight: 700,
+                  lineHeight: "68px",
+                  color: "#000000",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                }}
+                className="studio-meet-title"
+              >
+                Meet the Team
+              </h2>
+              <p
+                style={{
+                  fontSize: "20px",
+                  lineHeight: "32px",
+                  color: "#555555",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 400,
+                }}
+                className="studio-meet-subtitle"
+              >
+                Industry veterans and visionary leaders driving the future of professional VFX collaboration
+              </p>
+            </div>
+
+            {/* Members Row */}
+            <div className="studio-meet-row">
+              {[
+                { key: "chetan", name: "Chetan Jain", role: "Founder & CEO" },
+                { key: "venu", name: "Venu Victor", role: "Co-founder and VFX Supervisor" },
+                { key: "nikitha", name: "Nikitha Gaikwad", role: "Marketing Manager" },
+              ].map((member, idx) => (
+                <div key={idx} className="studio-member-card">
+                  <div className="studio-member-avatar-container">
+                    <img
+                      src={`/images/studio/member-${member.key}.png`}
+                      alt={member.name}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                    />
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                      alignItems: "center",
+                      textAlign: "center",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        fontSize: "22px",
+                        fontWeight: 700,
+                        color: "#000000",
+                        margin: 0,
+                        fontFamily: "'Open Sans', sans-serif",
+                      }}
+                    >
+                      {member.name}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        fontWeight: 600,
+                        color: "#D61814",
+                        margin: 0,
+                        fontFamily: "'Open Sans', sans-serif",
+                      }}
+                    >
+                      {member.role}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer siteSettings={siteSettings} />
@@ -832,6 +956,29 @@ export default async function StudioPage() {
         .studio-whatwedo-btn:hover {
           transform: translateY(-2px);
           opacity: 0.95;
+        }
+        .studio-meet-row {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          gap: 64px;
+          width: 100%;
+        }
+        .studio-member-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 24px;
+          flex: 1;
+          max-width: 320px;
+        }
+        .studio-member-avatar-container {
+          width: 200px;
+          height: 200px;
+          border-radius: 50%;
+          overflow: hidden;
+          background-color: #F5F5F5;
+          border: 3px solid #D61814;
         }
         @media (max-width: 1024px) {
           .studio-hero-section {
@@ -986,6 +1133,25 @@ export default async function StudioPage() {
             height: 64px !important;
             font-size: 18px !important;
           }
+          .studio-meet-section {
+            padding: 80px 40px !important;
+          }
+          .studio-meet-title {
+            font-size: 38px !important;
+            line-height: 48px !important;
+          }
+          .studio-meet-subtitle {
+            font-size: 16px !important;
+            line-height: 26px !important;
+          }
+          .studio-meet-row {
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 48px !important;
+          }
+          .studio-member-card {
+            max-width: 100% !important;
+          }
         }
         @media (max-width: 640px) {
           .studio-hero-section {
@@ -1095,6 +1261,13 @@ export default async function StudioPage() {
             width: 180px !important;
             height: 58px !important;
             font-size: 16px !important;
+          }
+          .studio-meet-section {
+            padding: 60px 20px !important;
+          }
+          .studio-meet-title {
+            font-size: 28px !important;
+            line-height: 36px !important;
           }
         }
       `}</style>
