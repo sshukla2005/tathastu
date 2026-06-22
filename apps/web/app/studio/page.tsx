@@ -433,6 +433,170 @@ export default async function StudioPage() {
             </Link>
           </div>
         </section>
+
+        {/* ── 4. WHO WE ARE — LIGHT SECTION ─────────────────────────── */}
+        <section
+          style={{
+            position: "relative",
+            background: "#FFFFFF",
+            overflow: "visible",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "120px 80px 140px",
+            color: "#000000",
+          }}
+          className="studio-whoweare-section"
+        >
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "1440px",
+              margin: "0 auto",
+              width: "100%",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "80px",
+              alignItems: "center",
+            }}
+            className="studio-whoweare-grid"
+          >
+            {/* Left column — overlapping images + badge */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              className="studio-whoweare-image-column"
+            >
+              <div className="studio-whoweare-overlapping-container">
+                {/* Back card */}
+                <div className="studio-whoweare-back-box">
+                  <img
+                    src="/images/studio/who-left-1.png"
+                    alt=""
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+
+                {/* Foreground image card */}
+                <div className="studio-whoweare-front-box">
+                  <img
+                    src="/images/studio/who-left-2.png"
+                    alt="Houdini Specialists Working"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+
+                {/* Badge */}
+                <div className="studio-whoweare-badge">
+                  <img
+                    src="/images/studio/badge-leading.png"
+                    alt="Leading VFX Specialists"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                      display: "block",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Right column — text content */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "32px",
+                maxWidth: "826px",
+              }}
+              className="studio-whoweare-text-column"
+            >
+              <h2
+                style={{
+                  fontSize: "54px",
+                  fontWeight: 700,
+                  lineHeight: "68px",
+                  color: "#000000",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                }}
+                className="studio-whoweare-title"
+              >
+                Who We Are
+              </h2>
+              <p
+                style={{
+                  fontSize: "18px",
+                  lineHeight: "28px",
+                  color: "#333333",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 400,
+                }}
+                className="studio-whoweare-description"
+              >
+                Welcome to Tathastu Studio, a dedicated collective built exclusively from Houdini specialists across India and beyond. Each artist is carefully selected based on their skills and experience in Houdini. Our vibrant community of technical and artistic talent is the heart of everything we do. United by a passion for procedural creativity and problem-solving, our artists bring innovation, precision, and cinematic magic to your project.
+              </p>
+              
+              {/* Tick-circle points */}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
+                }}
+                className="studio-whoweare-list"
+              >
+                {[
+                  "Specialized Houdini FX Expertise – Delivering high-quality simulations, effects, and procedural workflows for film, TV, and advertising projects.",
+                  "Global Remote Talent Network – Connecting top-tier VFX studios with skilled freelance Houdini artists worldwide.",
+                  "Scalable Production Support – Flexible team expansion for short-term projects, peak workloads, and long-term production needs.",
+                  "Scalable Production Support – Flexible team expansion for short-term projects, peak workloads, and long-term production needs."
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    style={{
+                      display: "flex",
+                      gap: "16px",
+                      alignItems: "flex-start",
+                    }}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
+                      <circle cx="12" cy="12" r="10" fill="#D61814" />
+                      <path d="M8 12L11 15L16 9" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span
+                      style={{
+                        fontSize: "16px",
+                        lineHeight: "24px",
+                        color: "#333333",
+                        fontFamily: "'Open Sans', sans-serif",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer siteSettings={siteSettings} />
@@ -472,6 +636,40 @@ export default async function StudioPage() {
           border-radius: 24px;
           overflow: hidden;
           z-index: 2;
+        }
+        .studio-whoweare-overlapping-container {
+          position: relative;
+          width: 635px;
+          height: 679px;
+          flex-shrink: 0;
+        }
+        .studio-whoweare-back-box {
+          position: absolute;
+          left: 0;
+          top: 51px;
+          width: 635px;
+          height: 628px;
+          border-radius: 24px;
+          overflow: hidden;
+          z-index: 1;
+        }
+        .studio-whoweare-front-box {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 583px;
+          height: 609px;
+          border-radius: 24px;
+          overflow: hidden;
+          z-index: 2;
+        }
+        .studio-whoweare-badge {
+          position: absolute;
+          right: -20px;
+          bottom: 20px;
+          width: 160px;
+          height: 160px;
+          z-index: 3;
         }
         @media (max-width: 1024px) {
           .studio-hero-section {
@@ -568,6 +766,44 @@ export default async function StudioPage() {
             height: 64px !important;
             font-size: 18px !important;
           }
+          .studio-whoweare-section {
+            padding: 80px 40px 100px !important;
+          }
+          .studio-whoweare-grid {
+            grid-template-columns: 1fr !important;
+            gap: 64px !important;
+          }
+          .studio-whoweare-title {
+            font-size: 38px !important;
+            line-height: 48px !important;
+            text-align: center !important;
+          }
+          .studio-whoweare-description {
+            font-size: 16px !important;
+            line-height: 24px !important;
+            text-align: center !important;
+          }
+          .studio-whoweare-overlapping-container {
+            width: 480px !important;
+            height: 513px !important;
+          }
+          .studio-whoweare-back-box {
+            top: 38px !important;
+            width: 480px !important;
+            height: 475px !important;
+            border-radius: 18px !important;
+          }
+          .studio-whoweare-front-box {
+            width: 440px !important;
+            height: 460px !important;
+            border-radius: 18px !important;
+          }
+          .studio-whoweare-badge {
+            width: 120px !important;
+            height: 120px !important;
+            right: -10px !important;
+            bottom: 10px !important;
+          }
         }
         @media (max-width: 640px) {
           .studio-hero-section {
@@ -633,6 +869,34 @@ export default async function StudioPage() {
             width: 180px !important;
             height: 58px !important;
             font-size: 16px !important;
+          }
+          .studio-whoweare-section {
+            padding: 60px 20px 80px !important;
+          }
+          .studio-whoweare-title {
+            font-size: 28px !important;
+            line-height: 36px !important;
+          }
+          .studio-whoweare-overlapping-container {
+            width: 300px !important;
+            height: 320px !important;
+          }
+          .studio-whoweare-back-box {
+            top: 24px !important;
+            width: 300px !important;
+            height: 296px !important;
+            border-radius: 12px !important;
+          }
+          .studio-whoweare-front-box {
+            width: 275px !important;
+            height: 287px !important;
+            border-radius: 12px !important;
+          }
+          .studio-whoweare-badge {
+            width: 80px !important;
+            height: 80px !important;
+            right: -5px !important;
+            bottom: 5px !important;
           }
         }
       `}</style>
