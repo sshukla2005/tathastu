@@ -211,12 +211,15 @@ export default async function StudioPage() {
                   }}
                   className="studio-ellipse-container"
                 >
-                  <Image
+                  <img
                     src="/images/studio/hero-right.png"
                     alt="Houdini VFX illustration"
-                    fill
-                    style={{ objectFit: "cover" }}
-                    priority
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
                   />
                 </div>
               </div>
