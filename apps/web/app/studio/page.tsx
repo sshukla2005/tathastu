@@ -202,11 +202,12 @@ export default async function StudioPage() {
                   style={{
                     position: "relative",
                     width: "469px",
-                    height: "470px",
+                    height: "469px",
                     borderRadius: "50%",
-                    border: "4px solid #D61814",
+                    border: "3px solid #FFFFFF",
+                    boxShadow: "0 0 0 8px rgba(255,255,255,0.15)",
                     overflow: "hidden",
-                    boxShadow: "0px 10px 30px rgba(214, 24, 20, 0.3)",
+                    flexShrink: 0,
                   }}
                   className="studio-ellipse-container"
                 >
@@ -268,6 +269,8 @@ export default async function StudioPage() {
           .studio-ellipse-container {
             width: 320px !important;
             height: 320px !important;
+            border-radius: 50% !important;
+            overflow: hidden !important;
           }
         }
         @media (max-width: 640px) {
@@ -290,6 +293,8 @@ export default async function StudioPage() {
           .studio-ellipse-container {
             width: 260px !important;
             height: 260px !important;
+            border-radius: 50% !important;
+            overflow: hidden !important;
           }
         }
       `}</style>
