@@ -963,6 +963,147 @@ export default async function StudioPage() {
             </div>
           </div>
         </section>
+
+        {/* ── 8. WHAT YOU'LL FIND INSIDE — LIGHT SECTION ────────────── */}
+        <section
+          style={{
+            position: "relative",
+            background: "#FFFFFF",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "120px 80px",
+            color: "#000000",
+          }}
+          className="studio-find-section"
+        >
+          {/* Radio inputs for CSS-based toggling */}
+          <input
+            type="radio"
+            id="studio-toggle-studios"
+            name="studio-toggle"
+            defaultChecked
+            style={{ display: "none" }}
+          />
+          <input
+            type="radio"
+            id="studio-toggle-freelancers"
+            name="studio-toggle"
+            style={{ display: "none" }}
+          />
+
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "1440px",
+              margin: "0 auto",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "48px",
+            }}
+          >
+            {/* Header */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "24px",
+                textAlign: "center",
+                maxWidth: "800px",
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: "54px",
+                  fontWeight: 700,
+                  lineHeight: "68px",
+                  color: "#000000",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                }}
+                className="studio-find-title"
+              >
+                What You'll Find Inside
+              </h2>
+            </div>
+
+            {/* Toggle bar */}
+            <div className="studio-toggle-bar">
+              <label
+                htmlFor="studio-toggle-studios"
+                className="studio-toggle-label studio-toggle-label-studios"
+              >
+                For Studios
+              </label>
+              <label
+                htmlFor="studio-toggle-freelancers"
+                className="studio-toggle-label studio-toggle-label-freelancers"
+              >
+                For Freelancers
+              </label>
+            </div>
+
+            {/* 3 Contact Cards Container */}
+            <div className="studio-cards-container">
+              {/* Card 1: Email */}
+              <div className="studio-contact-card">
+                <div className="studio-contact-icon-wrapper">
+                  {/* Mail icon SVG */}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D61814" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="M22 6l-10 7L2 6" />
+                  </svg>
+                </div>
+                <div className="studio-contact-content">
+                  <h4 className="for-studios-only studio-contact-label">General Inquiries</h4>
+                  <h4 className="for-freelancers-only studio-contact-label">Artist Onboarding</h4>
+                  <p className="studio-contact-name">Email</p>
+                  <a href="mailto:academy@tathastu.global" className="studio-contact-value">academy@tathastu.global</a>
+                  <a href="tel:+918125613838" className="studio-contact-value">+91 81256 13838</a>
+                </div>
+              </div>
+
+              {/* Card 2: Chetan Jain */}
+              <div className="studio-contact-card">
+                <div className="studio-contact-icon-wrapper">
+                  {/* User icon SVG */}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D61814" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </div>
+                <div className="studio-contact-content">
+                  <h4 className="for-studios-only studio-contact-label">Founder & CEO</h4>
+                  <h4 className="for-freelancers-only studio-contact-label">Talent Acquisition</h4>
+                  <p className="studio-contact-name">Chetan Jain</p>
+                  <a href="tel:+919820192970" className="studio-contact-value">+91 98201 92970</a>
+                </div>
+              </div>
+
+              {/* Card 3: Venu Victor */}
+              <div className="studio-contact-card">
+                <div className="studio-contact-icon-wrapper">
+                  {/* User/Briefcase icon SVG */}
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D61814" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                  </svg>
+                </div>
+                <div className="studio-contact-content">
+                  <h4 className="for-studios-only studio-contact-label">Co-founder & VFX Supervisor</h4>
+                  <h4 className="for-freelancers-only studio-contact-label">Portfolio Review</h4>
+                  <p className="studio-contact-name">Venu Victor</p>
+                  <a href="tel:+919611104802" className="studio-contact-value">+91 96111 04802</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer siteSettings={siteSettings} />
@@ -1101,6 +1242,114 @@ export default async function StudioPage() {
         .studio-purpose-card:hover {
           transform: translateY(-4px);
           box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .studio-toggle-bar {
+          display: flex;
+          background-color: #F0EFF2;
+          border-radius: 50px;
+          padding: 6px;
+          position: relative;
+          z-index: 10;
+          cursor: pointer;
+        }
+        .studio-toggle-label {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: 14px 28px;
+          border-radius: 50px;
+          font-size: 18px;
+          font-weight: 600;
+          color: #666666;
+          cursor: pointer;
+          transition: background-color 0.3s ease, color 0.3s ease;
+          user-select: none;
+        }
+        #studio-toggle-studios:checked ~ * .studio-toggle-label-studios {
+          background-color: #D61814;
+          color: #FFFFFF;
+        }
+        #studio-toggle-freelancers:checked ~ * .studio-toggle-label-freelancers {
+          background-color: #D61814;
+          color: #FFFFFF;
+        }
+        
+        #studio-toggle-studios:checked ~ * .for-freelancers-only {
+          display: none !important;
+        }
+        #studio-toggle-studios:checked ~ * .for-studios-only {
+          display: block !important;
+        }
+        #studio-toggle-freelancers:checked ~ * .for-studios-only {
+          display: none !important;
+        }
+        #studio-toggle-freelancers:checked ~ * .for-freelancers-only {
+          display: block !important;
+        }
+
+        .studio-cards-container {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 32px;
+          width: 100%;
+        }
+        .studio-contact-card {
+          background-color: #F9F9FB;
+          border: 1px solid #EEEEEE;
+          border-radius: 16px;
+          padding: 40px 32px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 20px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .studio-contact-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        .studio-contact-icon-wrapper {
+          width: 64px;
+          height: 64px;
+          border-radius: 50%;
+          background-color: rgba(214, 24, 20, 0.08);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .studio-contact-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          width: 100%;
+        }
+        .studio-contact-label {
+          font-size: 14px;
+          font-weight: 700;
+          color: #D61814;
+          text-transform: uppercase;
+          margin: 0;
+          letter-spacing: 0.5px;
+        }
+        .studio-contact-name {
+          font-size: 22px;
+          font-weight: 700;
+          color: #000000;
+          margin: 0;
+        }
+        .studio-contact-value {
+          font-size: 16px;
+          color: #555555;
+          text-decoration: none;
+          transition: color 0.2s ease;
+          display: block;
+          margin-top: 4px;
+          font-weight: 500;
+        }
+        .studio-contact-value:hover {
+          color: #D61814;
         }
         @media (max-width: 1024px) {
           .studio-hero-section {
@@ -1289,6 +1538,20 @@ export default async function StudioPage() {
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 24px !important;
           }
+          .studio-find-section {
+            padding: 80px 40px !important;
+          }
+          .studio-find-title {
+            font-size: 38px !important;
+            line-height: 48px !important;
+          }
+          .studio-cards-container {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          .studio-contact-card {
+            padding: 32px 24px !important;
+          }
         }
         @media (max-width: 640px) {
           .studio-hero-section {
@@ -1416,6 +1679,17 @@ export default async function StudioPage() {
           .studio-purpose-grid {
             grid-template-columns: 1fr !important;
             gap: 20px !important;
+          }
+          .studio-find-section {
+            padding: 60px 20px !important;
+          }
+          .studio-find-title {
+            font-size: 28px !important;
+            line-height: 36px !important;
+          }
+          .studio-toggle-label {
+            padding: 10px 20px !important;
+            font-size: 15px !important;
           }
         }
       `}</style>
