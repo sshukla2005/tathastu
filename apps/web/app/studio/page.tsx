@@ -226,6 +226,106 @@ export default async function StudioPage() {
             </div>
           </div>
         </section>
+
+        {/* ── 2. CONNECT — LIGHT BAND ────────────────────────────────── */}
+        <section
+          style={{
+            position: "relative",
+            background: "linear-gradient(180deg, #EFF6FF 0%, #F2E9E3 100%)",
+            overflow: "visible",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "120px 80px 140px",
+            color: "#000000",
+          }}
+          className="studio-connect-section"
+        >
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "1440px",
+              margin: "0 auto",
+              width: "100%",
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "80px",
+              alignItems: "center",
+            }}
+            className="studio-connect-grid"
+          >
+            {/* Left text column */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "32px",
+                maxWidth: "826px",
+              }}
+              className="studio-connect-text-column"
+            >
+              <h2
+                style={{
+                  fontSize: "54px",
+                  fontWeight: 700,
+                  lineHeight: "74px",
+                  color: "#000000",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                }}
+                className="studio-connect-title"
+              >
+                Connect with <br />
+                Industry-Leading Houdini Specialists
+              </h2>
+              <p
+                style={{
+                  fontSize: "22px",
+                  lineHeight: "30px",
+                  color: "#000000",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 400,
+                }}
+                className="studio-connect-description"
+              >
+                Whether you're a filmmaker, studio, or creative director looking for top-tier Houdini talent — or a Houdini artist seeking new opportunities — Tathastu is your destination.
+                <br /><br />
+                If you're looking for Houdini work for your project, make use of the skills of our freelance artists to bring your creative vision to life through high-quality, collaborative, and economical solutions.
+              </p>
+            </div>
+
+            {/* Right overlapping images column */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              className="studio-connect-image-column"
+            >
+              <div className="studio-overlapping-container">
+                {/* Red background overlapping card */}
+                <div className="studio-connect-red-box" />
+
+                {/* Foreground image card */}
+                <div className="studio-connect-img-box">
+                  <img
+                    src="/images/studio/connect-right.png"
+                    alt="Freelance artist work illustration"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer siteSettings={siteSettings} />
@@ -235,6 +335,32 @@ export default async function StudioPage() {
         .studio-contact-btn:hover {
           transform: translateY(-2px);
           opacity: 0.95;
+        }
+        .studio-overlapping-container {
+          position: relative;
+          width: 635px;
+          height: 679px;
+          flex-shrink: 0;
+        }
+        .studio-connect-red-box {
+          position: absolute;
+          left: 0;
+          top: 51px;
+          width: 635px;
+          height: 628px;
+          background-color: #D61814;
+          border-radius: 24px;
+          z-index: 1;
+        }
+        .studio-connect-img-box {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 583px;
+          height: 609px;
+          border-radius: 24px;
+          overflow: hidden;
+          z-index: 2;
         }
         @media (max-width: 1024px) {
           .studio-hero-section {
@@ -275,6 +401,40 @@ export default async function StudioPage() {
             border-radius: 50% !important;
             overflow: hidden !important;
           }
+          .studio-connect-section {
+            padding: 80px 40px 100px !important;
+          }
+          .studio-connect-grid {
+            grid-template-columns: 1fr !important;
+            gap: 64px !important;
+            text-align: center !important;
+          }
+          .studio-connect-text-column {
+            align-items: center !important;
+          }
+          .studio-connect-title {
+            font-size: 38px !important;
+            line-height: 48px !important;
+          }
+          .studio-connect-description {
+            font-size: 18px !important;
+            line-height: 26px !important;
+          }
+          .studio-overlapping-container {
+            width: 480px !important;
+            height: 513px !important;
+          }
+          .studio-connect-red-box {
+            top: 38px !important;
+            width: 480px !important;
+            height: 475px !important;
+            border-radius: 18px !important;
+          }
+          .studio-connect-img-box {
+            width: 440px !important;
+            height: 460px !important;
+            border-radius: 18px !important;
+          }
         }
         @media (max-width: 640px) {
           .studio-hero-section {
@@ -298,6 +458,32 @@ export default async function StudioPage() {
             height: 260px !important;
             border-radius: 50% !important;
             overflow: hidden !important;
+          }
+          .studio-connect-section {
+            padding: 60px 20px 80px !important;
+          }
+          .studio-connect-title {
+            font-size: 28px !important;
+            line-height: 36px !important;
+          }
+          .studio-connect-description {
+            font-size: 15px !important;
+            line-height: 22px !important;
+          }
+          .studio-overlapping-container {
+            width: 300px !important;
+            height: 320px !important;
+          }
+          .studio-connect-red-box {
+            top: 24px !important;
+            width: 300px !important;
+            height: 296px !important;
+            border-radius: 12px !important;
+          }
+          .studio-connect-img-box {
+            width: 275px !important;
+            height: 287px !important;
+            border-radius: 12px !important;
           }
         }
       `}</style>
