@@ -858,6 +858,111 @@ export default async function StudioPage() {
             </div>
           </div>
         </section>
+
+        {/* ── 7. OUR PURPOSE — DARK BAND ─────────────────────────────── */}
+        <section
+          style={{
+            position: "relative",
+            background: "#0A080C",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "120px 80px",
+            color: "#FFFFFF",
+          }}
+          className="studio-purpose-section"
+        >
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "1440px",
+              margin: "0 auto",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "56px",
+            }}
+          >
+            {/* Header */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "24px",
+                textAlign: "center",
+                maxWidth: "900px",
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: "54px",
+                  fontWeight: 700,
+                  lineHeight: "68px",
+                  color: "#FFFFFF",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                }}
+                className="studio-purpose-title"
+              >
+                Our Purpose
+              </h2>
+              <p
+                style={{
+                  fontSize: "20px",
+                  lineHeight: "32px",
+                  color: "#CCCCCC",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 400,
+                }}
+                className="studio-purpose-subtitle"
+              >
+                To build a dynamic, scalable, and globally connected Houdini FX production ecosystem that:
+              </p>
+            </div>
+
+            {/* Why Cards Grid */}
+            <div className="studio-purpose-grid">
+              {[
+                "Delivers high-quality FX services to filmmakers, studios, and content creators",
+                "Leverages top freelance talent from India and beyond",
+                "Empowers artists through flexibility, creativity, and project-based work culture",
+                "Adapts to changing needs with agile, scalable solutions",
+                "Removes infrastructure barriers with a fully virtual pipeline",
+              ].map((text, idx) => (
+                <div key={idx} className="studio-purpose-card">
+                  <div
+                    style={{
+                      fontSize: "36px",
+                      fontWeight: 800,
+                      color: "#D61814",
+                      fontFamily: "'Open Sans', sans-serif",
+                      marginBottom: "16px",
+                    }}
+                  >
+                    {`0${idx + 1}`}
+                  </div>
+                  <p
+                    style={{
+                      fontSize: "18px",
+                      lineHeight: "28px",
+                      color: "#FFFFFF",
+                      margin: 0,
+                      fontFamily: "'Open Sans', sans-serif",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer siteSettings={siteSettings} />
@@ -979,6 +1084,23 @@ export default async function StudioPage() {
           overflow: hidden;
           background-color: #F5F5F5;
           border: 3px solid #D61814;
+        }
+        .studio-purpose-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 32px;
+          width: 100%;
+        }
+        .studio-purpose-card {
+          background-color: #151218;
+          border-top: 4px solid #D61814;
+          padding: 32px;
+          border-radius: 0 0 12px 12px;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .studio-purpose-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
         @media (max-width: 1024px) {
           .studio-hero-section {
@@ -1152,6 +1274,21 @@ export default async function StudioPage() {
           .studio-member-card {
             max-width: 100% !important;
           }
+          .studio-purpose-section {
+            padding: 80px 40px !important;
+          }
+          .studio-purpose-title {
+            font-size: 38px !important;
+            line-height: 48px !important;
+          }
+          .studio-purpose-subtitle {
+            font-size: 16px !important;
+            line-height: 26px !important;
+          }
+          .studio-purpose-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 24px !important;
+          }
         }
         @media (max-width: 640px) {
           .studio-hero-section {
@@ -1268,6 +1405,17 @@ export default async function StudioPage() {
           .studio-meet-title {
             font-size: 28px !important;
             line-height: 36px !important;
+          }
+          .studio-purpose-section {
+            padding: 60px 20px !important;
+          }
+          .studio-purpose-title {
+            font-size: 28px !important;
+            line-height: 36px !important;
+          }
+          .studio-purpose-grid {
+            grid-template-columns: 1fr !important;
+            gap: 20px !important;
           }
         }
       `}</style>
