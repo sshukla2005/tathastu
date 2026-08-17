@@ -21,6 +21,13 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
     setActiveDropdown(null);
   }, [pathname]);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   const toggleDropdown = (name: string) => {
     setActiveDropdown(activeDropdown === name ? null : name);
   };
@@ -51,30 +58,12 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
       }}
     >
       {/* ── Main nav bar ── */}
-      <nav
-        style={{
-          maxWidth: "1920px",
-          margin: "0 auto",
-          /* Figma: content group starts at left:236px of a 1920px frame → ~12.3% padding */
-          padding: "0 122px",
-          height: "166px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+      <nav className="mx-auto flex max-w-480 items-center justify-between px-4 py-3 sm:px-6 md:px-10 lg:h-41.5 lg:px-30.5 lg:py-0">
         {/* ── Logo: mark (139×103) + wordmark (259×52) ──
             Figma group 40:6185: width 415px, height 103px, gap 16px */}
         <Link
           href="/"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "16px",
-            textDecoration: "none",
-            filter: "drop-shadow(0px 2px 2px rgba(0,0,0,0.25))",
-            flexShrink: 0,
-          }}
+          className="flex shrink-0 items-center gap-3 no-underline drop-shadow-[0px_2px_2px_rgba(0,0,0,0.25)] sm:gap-4"
         >
           {/* Mark  139×103 */}
           <Image
@@ -83,7 +72,7 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
             width={139}
             height={103}
             priority
-            style={{ height: "103px", width: "auto" }}
+            className="h-8 w-auto sm:h-10 md:h-16 lg:h-25.75"
           />
           {/* Wordmark 259×52 */}
           <Image
@@ -92,7 +81,7 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
             width={259}
             height={52}
             priority
-            style={{ height: "52px", width: "auto" }}
+            className="h-8 w-auto sm:h-10 md:h-16 lg:h-13"
           />
         </Link>
 
@@ -411,6 +400,8 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
             flexDirection: "column",
             gap: "16px",
             backgroundColor: "#FFFFFF",
+            maxHeight: "calc(100dvh - 72px)",
+            overflowY: "auto",
           }}
         >
           <Link
