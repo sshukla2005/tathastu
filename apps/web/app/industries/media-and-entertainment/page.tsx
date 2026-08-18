@@ -21,6 +21,7 @@ interface Brand {
   category: BrandCategory;
   logo: string;
   description: string;
+  href?: string;
 }
 
 const BRANDS: Brand[] = [
@@ -30,6 +31,7 @@ const BRANDS: Brand[] = [
     logo: "/images/media-and-entertainment/adobe.svg",
     description:
       "Changing the world through personalized digital experiences. Adobe empowers everyone, everywhere to imagine and create what inspires them.",
+    href: "/industries/media-and-entertainment/adobe",
   },
   {
     name: "SideFX",
@@ -58,6 +60,7 @@ const BRANDS: Brand[] = [
     logo: "/images/media-and-entertainment/adobe.svg",
     description:
       "Changing the world through personalized digital experiences. Adobe empowers everyone, everywhere to imagine and create what inspires them.",
+    href: "/industries/media-and-entertainment/adobe",
   },
   {
     name: "SideFX",
@@ -233,29 +236,47 @@ export default async function MediaEntertainmentPage({
               </p>
             ) : (
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {filteredBrands.map((brand, index) => (
-                  <div
-                    key={`${brand.name}-${index}`}
-                    className="flex flex-col overflow-hidden rounded-[10px] border border-[#E7E7E7] bg-white opacity-100 shadow-md transition-shadow hover:shadow-xl"
-                  >
-                    <div className="relative aspect-[290/137] w-full rounded-[10px] p-3">
-                      <div className="relative h-full w-full overflow-hidden rounded-[8px]">
-                        <Image
-                          src={brand.logo}
-                          alt={brand.name}
-                          fill
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, 25vw"
-                        />
+                {filteredBrands.map((brand, index) => {
+                  const cardClassName =
+                    "flex flex-col overflow-hidden rounded-[10px] border border-[#E7E7E7] bg-white opacity-100 shadow-md transition-shadow hover:shadow-xl";
+                  const cardContent = (
+                    <>
+                      <div className="relative aspect-[290/137] w-full rounded-[10px] p-3">
+                        <div className="relative h-full w-full overflow-hidden rounded-[8px]">
+                          <Image
+                            src={brand.logo}
+                            alt={brand.name}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 25vw"
+                          />
+                        </div>
                       </div>
+                      <div className="flex flex-1 flex-col gap-2 p-5">
+                        <p className="text-sm leading-relaxed text-gray-500">
+                          {brand.description}
+                        </p>
+                      </div>
+                    </>
+                  );
+
+                  return brand.href ? (
+                    <Link
+                      key={`${brand.name}-${index}`}
+                      href={brand.href}
+                      className={cardClassName}
+                    >
+                      {cardContent}
+                    </Link>
+                  ) : (
+                    <div
+                      key={`${brand.name}-${index}`}
+                      className={cardClassName}
+                    >
+                      {cardContent}
                     </div>
-                    <div className="flex flex-1 flex-col gap-2 p-5">
-                      <p className="text-sm leading-relaxed text-gray-500">
-                        {brand.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
