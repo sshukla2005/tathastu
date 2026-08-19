@@ -51,6 +51,7 @@ export default function StatsBand({ section }: StatsBandProps) {
       />
 
       <div
+        className="statsband-row"
         style={{
           position: "relative",
           zIndex: 10,
@@ -58,12 +59,14 @@ export default function StatsBand({ section }: StatsBandProps) {
           margin: "0 auto",
           display: "flex",
           alignItems: "center",
+          justifyContent: "center",
           gap: "0",
           flexWrap: "wrap",
         }}
       >
         {/* Left headline */}
         <div
+          className="statsband-headline"
           style={{
             flexShrink: 0,
             paddingRight: "48px",
@@ -86,6 +89,7 @@ export default function StatsBand({ section }: StatsBandProps) {
 
         {/* Vertical divider */}
         <div
+          className="statsband-divider"
           style={{
             width: "1px",
             height: "80px",
@@ -102,6 +106,7 @@ export default function StatsBand({ section }: StatsBandProps) {
             gap: "64px",
             flexWrap: "wrap",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
           {section.stats.map((stat, idx) => (
@@ -143,6 +148,23 @@ export default function StatsBand({ section }: StatsBandProps) {
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .statsband-row {
+            flex-direction: column;
+            text-align: center;
+          }
+          .statsband-headline {
+            padding-right: 0 !important;
+            text-align: center;
+            padding-bottom: 62px;
+          }
+          .statsband-divider {
+            display: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

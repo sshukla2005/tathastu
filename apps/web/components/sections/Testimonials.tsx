@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { TestimonialsSection } from "@tathastu/types";
 
@@ -52,8 +52,35 @@ function StarRating({ count = 5 }: { count?: number }) {
 }
 
 export default function Testimonials({ section }: TestimonialsProps) {
+  const testimonials = section.testimonials || [];
+  const [current, setCurrent] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mql.matches);
+    const handleChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mql.addEventListener("change", handleChange);
+    return () => mql.removeEventListener("change", handleChange);
+  }, []);
+
+  const goPrev = () =>
+    setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
+  const goNext = () => setCurrent((c) => (c + 1) % testimonials.length);
+
+  useEffect(() => {
+    if (testimonials.length === 0 || !isMobile) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "ArrowRight") goNext();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [testimonials.length, isMobile]);
+
   return (
     <section
+      className="testimonial-section"
       style={{
         padding: "80px 80px",
         backgroundColor: "#FFFFFF",
@@ -77,7 +104,7 @@ export default function Testimonials({ section }: TestimonialsProps) {
           }}
         >
           {/* Left-aligned two-tone heading */}
-          <div>
+          <div className="testimonial-heading">
             <h2
               style={{
                 fontFamily: "'Open Sans', sans-serif",
@@ -102,172 +129,219 @@ export default function Testimonials({ section }: TestimonialsProps) {
             </p>
           </div>
 
-          {/* Carousel arrows — square buttons */}
-          <div
-            style={{
-              display: "flex",
-              gap: "8px",
-              alignSelf: "center",
-            }}
-          >
+          {/* Carousel arrows — square buttons (desktop, top-right) */}
+          <div className="testimonial-arrows testimonial-arrows-desktop">
             <button
+              type="button"
               aria-label="Previous testimonial"
-              style={{
-                width: "44px",
-                height: "44px",
-                border: "1.5px solid #0b0625",
-                borderRadius: "4px",
-                background: "#FFFFFF",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "20px",
-                color: "#0b0625",
-              }}
+              onClick={goPrev}
+              className="testimonial-arrow-btn"
             >
               ‹
             </button>
             <button
+              type="button"
               aria-label="Next testimonial"
-              style={{
-                width: "44px",
-                height: "44px",
-                border: "1.5px solid #0b0625",
-                borderRadius: "4px",
-                background: "#FFFFFF",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "20px",
-                color: "#0b0625",
-              }}
+              onClick={goNext}
+              className="testimonial-arrow-btn"
             >
               ›
             </button>
           </div>
         </div>
 
-        {/* 2-column card grid */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "24px",
-          }}
-          className="testimonial-grid"
-        >
-          {section.testimonials &&
-            section.testimonials.map((t, idx) => (
-              <div
-                key={t.id || idx}
-                style={{
-                  position: "relative",
-                  backgroundColor: "#ddeeff",
-                  borderRadius: "16px",
-                  padding: "32px",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
-                }}
-              >
-                {/* Blue triangle accent — top-right corner */}
+        {/* Card slider — 2-up on desktop, single card on mobile */}
+        <div className="testimonial-viewport">
+          <div
+            className="testimonial-grid"
+            style={{
+              transform: isMobile
+                ? `translateX(calc(-${current} * (100% + var(--tgap))))`
+                : "none",
+            }}
+          >
+            {testimonials.map((t, idx) => (
+              <div key={t.id || idx} className="testimonial-slide">
                 <div
                   style={{
-                    position: "absolute",
-                    top: 0,
-                    right: 0,
-                    width: 0,
-                    height: 0,
-                    borderStyle: "solid",
-                    borderWidth: "0 48px 48px 0",
-                    borderColor: "transparent #4B95FF transparent transparent",
-                  }}
-                />
-
-                {/* Avatar + name + role row */}
-                <div
-                  style={{
+                    position: "relative",
+                    backgroundColor: "#ddeeff",
+                    borderRadius: "16px",
+                    padding: "32px",
+                    overflow: "hidden",
                     display: "flex",
-                    alignItems: "center",
+                    flexDirection: "column",
                     gap: "16px",
+                    height: "100%",
                   }}
                 >
-                  {/* Circular avatar */}
+                  {/* Blue triangle accent — top-right corner */}
                   <div
                     style={{
-                      width: "64px",
-                      height: "64px",
-                      borderRadius: "50%",
-                      overflow: "hidden",
-                      flexShrink: 0,
-                      border: "3px solid #4B95FF",
-                      position: "relative",
+                      position: "absolute",
+                      top: 0,
+                      right: 0,
+                      width: 0,
+                      height: 0,
+                      borderStyle: "solid",
+                      borderWidth: "0 48px 48px 0",
+                      borderColor: "transparent #4B95FF transparent transparent",
+                    }}
+                  />
+
+                  {/* Avatar + name + role row */}
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "16px",
                     }}
                   >
-                    <Image
-                      src={t.avatar?.url
-                        ? t.avatar.url
-                        : getAvatarPath(t.authorName)}
-                      alt={t.authorName}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      sizes="64px"
-                    />
+                    {/* Circular avatar */}
+                    <div
+                      style={{
+                        width: "64px",
+                        height: "64px",
+                        borderRadius: "50%",
+                        overflow: "hidden",
+                        flexShrink: 0,
+                        border: "3px solid #4B95FF",
+                        position: "relative",
+                      }}
+                    >
+                      <Image
+                        src={t.avatar?.url
+                          ? t.avatar.url
+                          : getAvatarPath(t.authorName)}
+                        alt={t.authorName}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        sizes="64px"
+                      />
+                    </div>
+
+                    <div>
+                      <p
+                        style={{
+                          fontFamily: "'Open Sans', sans-serif",
+                          fontSize: "16px",
+                          fontWeight: 700,
+                          color: "#0b0625",
+                          margin: "0 0 4px 0",
+                        }}
+                      >
+                        {t.authorName}
+                      </p>
+                      <p
+                        style={{
+                          fontFamily: "'Open Sans', sans-serif",
+                          fontSize: "13px",
+                          color: "#6B7280",
+                          margin: 0,
+                        }}
+                      >
+                        {t.authorTitle}
+                        {t.company ? ` - ${t.company}` : ""}
+                      </p>
+                    </div>
                   </div>
 
-                  <div>
-                    <p
-                      style={{
-                        fontFamily: "'Open Sans', sans-serif",
-                        fontSize: "16px",
-                        fontWeight: 700,
-                        color: "#0b0625",
-                        margin: "0 0 4px 0",
-                      }}
-                    >
-                      {t.authorName}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "'Open Sans', sans-serif",
-                        fontSize: "13px",
-                        color: "#6B7280",
-                        margin: 0,
-                      }}
-                    >
-                      {t.authorTitle}
-                      {t.company ? ` - ${t.company}` : ""}
-                    </p>
-                  </div>
+                  {/* 5 orange stars */}
+                  <StarRating count={5} />
+
+                  {/* Quote text */}
+                  <p
+                    style={{
+                      fontFamily: "'Open Sans', sans-serif",
+                      fontSize: "14px",
+                      color: "#4B5563",
+                      lineHeight: 1.7,
+                      margin: 0,
+                    }}
+                  >
+                    {t.quote}
+                  </p>
                 </div>
-
-                {/* 5 orange stars */}
-                <StarRating count={5} />
-
-                {/* Quote text */}
-                <p
-                  style={{
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: "14px",
-                    color: "#4B5563",
-                    lineHeight: 1.7,
-                    margin: 0,
-                  }}
-                >
-                  {t.quote}
-                </p>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Carousel arrows — centered below cards (mobile only) */}
+        <div className="testimonial-arrows testimonial-arrows-mobile">
+          <button
+            type="button"
+            aria-label="Previous testimonial"
+            onClick={goPrev}
+            className="testimonial-arrow-btn"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            aria-label="Next testimonial"
+            onClick={goNext}
+            className="testimonial-arrow-btn"
+          >
+            ›
+          </button>
         </div>
       </div>
 
       <style jsx>{`
+        .testimonial-arrows {
+          display: flex;
+          gap: 8px;
+        }
+        .testimonial-arrows-desktop {
+          align-self: center;
+        }
+        .testimonial-arrows-mobile {
+          display: none;
+          justify-content: center;
+          margin-top: 24px;
+        }
+        .testimonial-arrow-btn {
+          width: 44px;
+          height: 44px;
+          border: 1.5px solid #0b0625;
+          border-radius: 4px;
+          background: #ffffff;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 20px;
+          color: #0b0625;
+        }
+        .testimonial-viewport {
+          overflow: hidden;
+        }
+        .testimonial-grid {
+          --tgap: 24px;
+          display: flex;
+          gap: var(--tgap);
+          transition: transform 0.35s ease;
+        }
+        .testimonial-slide {
+          flex: 0 0 calc(50% - var(--tgap) / 2);
+        }
         @media (max-width: 768px) {
-          .testimonial-grid {
-            grid-template-columns: 1fr !important;
+          .testimonial-arrows-desktop {
+            display: none;
+          }
+          .testimonial-arrows-mobile {
+            display: flex;
+          }
+          .testimonial-slide {
+            flex: 0 0 100%;
+          }
+          .testimonial-section {
+            padding: 40px 20px !important;
+          }
+          .testimonial-heading {
+            text-align: center;
+            width: 100%;
           }
         }
       `}</style>

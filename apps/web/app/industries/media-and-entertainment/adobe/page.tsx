@@ -5,9 +5,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
 import AdobeAppShowcase from "@/components/sections/AdobeAppShowcase";
+import ClientLogos from "@/components/sections/ClientLogos";
 import { fetchStrapi } from "@/lib/api";
 import { SiteSettings, Industry } from "@tathastu/types";
-import { CtaBandSection } from "@tathastu/types";
+import { CtaBandSection, ClientLogosSection } from "@tathastu/types";
 import CtaBand from "@/components/sections/CtaBand";
 
 export const revalidate = 60; // ISR 60s
@@ -96,6 +97,25 @@ const APP_SHOWCASES = [
     ctaLabel: "Request Demo",
     ctaHref: `/contact?source=Demo&industry=${INDUSTRY_SLUG}`,
   };
+
+const clientLogosSection: ClientLogosSection = {
+  __component: "sections.client-logos",
+  id: 1,
+  logos: [
+    { id: 1, documentId: "hp", name: "HP", logo: null, url: "#", order: 1 },
+    { id: 2, documentId: "adobe", name: "Adobe", logo: null, url: "#", order: 2 },
+    { id: 3, documentId: "sidefx", name: "SideFX", logo: null, url: "#", order: 3 },
+    {
+      id: 4,
+      documentId: "toon-boom",
+      name: "Toon Boom Storyboard Pro",
+      logo: null,
+      url: "#",
+      order: 4,
+    },
+    { id: 5, documentId: "dell", name: "Dell", logo: null, url: "#", order: 5 },
+  ],
+};
 
 
 export async function generateMetadata() {
@@ -220,6 +240,8 @@ export default async function AdobePage() {
         ))}
 
         <CtaBand section={ctaBandSection} />
+
+        <ClientLogos section={clientLogosSection} />
       </main>
 
       <Footer siteSettings={siteSettings} />
