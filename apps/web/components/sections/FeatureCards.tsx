@@ -32,7 +32,7 @@ const WHAT_WE_DO_IMAGES: Record<string, string> = {
   "aec": "/images/what-we-do/architecture-design.jpg",
   "education": "/images/what-we-do/education-training.jpg",
   "training": "/images/what-we-do/education-training.jpg",
-  "manufacturing": "/images/what-we-do/manufacturing.jpg",
+  "manufacturing": "/images/what-we-do/manufacturing.svg",
   "visualization": "/images/what-we-do/manufacturing.jpg",
 };
 

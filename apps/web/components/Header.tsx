@@ -58,7 +58,7 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
       }}
     >
       {/* ── Main nav bar ── */}
-      <nav className="mx-auto flex max-w-480 items-center justify-between px-4 py-3 sm:px-6 md:px-10 lg:h-41.5 lg:px-30.5 lg:py-0">
+      <nav className="mx-auto flex max-w-480 items-center justify-between px-4 py-3 sm:px-6 md:px-10 lg:h-20 lg:px-16 lg:py-0">
         {/* ── Logo: mark (139×103) + wordmark (259×52) ──
             Figma group 40:6185: width 415px, height 103px, gap 16px */}
         <Link
@@ -72,7 +72,7 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
             width={139}
             height={103}
             priority
-            className="h-8 w-auto sm:h-10 md:h-16 lg:h-25.75"
+            className="h-7 w-auto sm:h-10 md:h-14 lg:h-14"
           />
           {/* Wordmark 259×52 */}
           <Image
@@ -81,7 +81,7 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
             width={259}
             height={52}
             priority
-            className="h-8 w-auto sm:h-10 md:h-16 lg:h-13"
+            className="h-7 w-auto sm:h-10 md:h-14 lg:h-7"
           />
         </Link>
 
@@ -336,15 +336,15 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: "220px",
-                height: "61px",
+                width: "168px",
+                height: "44px",
                 borderRadius: "44px",
                 backgroundColor: "#FFFFFF",
                 fontFamily: "'Open Sans', sans-serif",
-                fontSize: "22px",
+                fontSize: "16px",
                 fontWeight: 600,
                 color: "#000000",
-                lineHeight: "30px",
+                lineHeight: "22px",
                 textAlign: "center",
               }}
             >
