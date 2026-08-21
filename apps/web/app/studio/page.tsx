@@ -69,19 +69,6 @@ export default async function StudioPage() {
               gap: "48px",
             }}
           >
-            {/* Studio logo top area */}
-            <div style={{ display: "flex", justifyContent: "center", width: "100%", marginTop: "20px" }}>
-              <div style={{ position: "relative", width: "277px", height: "88px" }}>
-                <Image
-                  src="/images/studio/studio-logo.svg"
-                  alt="Tathastu Studio Logo"
-                  fill
-                  style={{ objectFit: "contain" }}
-                  priority
-                />
-              </div>
-            </div>
-
             {/* Content row */}
             <div
               style={{
@@ -105,7 +92,7 @@ export default async function StudioPage() {
                 className="studio-text-column"
               >
                 {/* Concentric circle motif */}
-                <div
+                {/* <div
                   style={{
                     position: "absolute",
                     left: "-3px",
@@ -124,7 +111,7 @@ export default async function StudioPage() {
                     height={617}
                     style={{ objectFit: "contain" }}
                   />
-                </div>
+                </div> */}
 
                 {/* Text & Button content */}
                 <div
@@ -138,6 +125,44 @@ export default async function StudioPage() {
                   }}
                   className="studio-hero-text"
                 >
+                  <div
+                    className="studio-wordmark"
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      width: "fit-content",
+                      marginBottom: "78px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        display: "inline-block",
+                        fontSize: "30px",
+                        fontWeight: 800,
+                        letterSpacing: "3px",
+                        color: "#FFFFFF",
+                        lineHeight: 1.2,
+                        paddingBottom: "4px",
+                        borderBottom: "3px solid #D61814",
+                        textAlign: "center",
+                      }}
+                    >
+                      TATHASTU
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "30px",
+                        fontWeight: 800,
+                        letterSpacing: "3px",
+                        color: "#FFFFFF",
+                        lineHeight: 1.2,
+                        textAlign: "center",
+                      }}
+                    >
+                      STUDIO
+                    </span>
+                  </div>
                   <h1
                     style={{
                       fontSize: "59px",
@@ -810,56 +835,30 @@ export default async function StudioPage() {
                 { key: "venu",     name: "Venu Victor",     role: "Co-founder and VFX Supervisor", bg: "#FDEBD0" },
               ].map((member, idx) => (
                 <div key={idx} className="studio-member-card">
-                  {/* Name & role — ABOVE the photo */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "4px",
-                      alignItems: "center",
-                      textAlign: "center",
-                    }}
-                  >
-                    <h3
-                      style={{
-                        fontSize: "18px",
-                        fontWeight: 700,
-                        color: "#000000",
-                        margin: 0,
-                        fontFamily: "'Open Sans', sans-serif",
-                      }}
-                    >
-                      {member.name}
-                    </h3>
-                    <p
-                      style={{
-                        fontSize: "13px",
-                        fontWeight: 500,
-                        color: "#555555",
-                        margin: 0,
-                        fontFamily: "'Open Sans', sans-serif",
-                      }}
-                    >
-                      {member.role}
-                    </p>
-                  </div>
-
-                  {/* Arch / oval card with photo */}
+                  {/* Pill card: name & role on colored background, photo filling the rest */}
                   <div
                     className="studio-member-arch"
                     style={{ backgroundColor: member.bg }}
                   >
-                    <img
-                      src={`/images/studio/member-${member.key}.png`}
-                      alt={member.name}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        objectPosition: "top center",
-                        display: "block",
-                      }}
-                    />
+                    <div className="studio-member-info">
+                      <h3 className="studio-member-name">{member.name}</h3>
+                      <p className="studio-member-role">{member.role}</p>
+                    </div>
+                    <div className="studio-member-photo">
+                      <img
+                        src={`/images/studio/member-${member.key}.png`}
+                        alt={member.name}
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: "center top",
+                          display: "block",
+                        }}
+                      />
+                    </div>
                   </div>
                 </div>
               ))}
@@ -982,31 +981,53 @@ export default async function StudioPage() {
               </div>
             </div>
 
-            {/* Cards Grid — 3 top + 2 bottom */}
-            <div className="studio-purpose-grid">
-              {[
-                "Delivers high-quality FX services to filmmakers, studios, and content creators",
-                "Leverages top freelance talent from India and beyond",
-                "Removes infrastructure barriers with a fully virtual pipeline",
-                "Empowers artists through flexibility, creativity, and project-based work culture",
-                "Adapts to changing needs with agile, scalable solutions",
-              ].map((text, idx) => (
-                <div key={idx} className="studio-purpose-card">
-                  <p
-                    style={{
-                      fontSize: "16px",
-                      lineHeight: "26px",
-                      color: "#222222",
-                      margin: 0,
-                      fontFamily: "'Open Sans', sans-serif",
-                      fontWeight: 500,
-                      textAlign: "center",
-                    }}
-                  >
-                    {text}
-                  </p>
-                </div>
-              ))}
+            {/* Cards Grid — 3 top row + 2 centered bottom row */}
+            <div className="studio-purpose-rows">
+              <div className="studio-purpose-grid">
+                {[
+                  "Delivers high-quality FX services to filmmakers, studios, and content creators",
+                  "Leverages top freelance talent from India and beyond",
+                  "Removes infrastructure barriers with a fully virtual pipeline",
+                ].map((text, idx) => (
+                  <div key={idx} className="studio-purpose-card">
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        lineHeight: "26px",
+                        color: "#222222",
+                        margin: 0,
+                        fontFamily: "'Open Sans', sans-serif",
+                        fontWeight: 500,
+                        textAlign: "center",
+                      }}
+                    >
+                      {text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="studio-purpose-grid-bottom">
+                {[
+                  "Empowers artists through flexibility, creativity, and project-based work culture",
+                  "Adapts to changing needs with agile, scalable solutions",
+                ].map((text, idx) => (
+                  <div key={idx} className="studio-purpose-card">
+                    <p
+                      style={{
+                        fontSize: "16px",
+                        lineHeight: "26px",
+                        color: "#222222",
+                        margin: 0,
+                        fontFamily: "'Open Sans', sans-serif",
+                        fontWeight: 500,
+                        textAlign: "center",
+                      }}
+                    >
+                      {text}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -1426,32 +1447,70 @@ export default async function StudioPage() {
           opacity: 0.95;
         }
         .studio-meet-row {
-          display: flex;
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 260px));
           justify-content: center;
-          align-items: flex-end;
           gap: 24px;
           width: 100%;
         }
         .studio-member-card {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          gap: 16px;
-          flex: 1;
-          max-width: 260px;
+          width: 100%;
         }
         .studio-member-arch {
+          display: flex;
+          flex-direction: column;
           width: 100%;
-          height: 320px;
-          border-radius: 999px 999px 0 0;
+          height: 460px;
+          border-radius: 999px;
           overflow: hidden;
           position: relative;
+        }
+        .studio-member-info {
+          flex-shrink: 0;
+          padding: 56px 14px 12px;
+          text-align: center;
+        }
+        .studio-member-name {
+          font-size: 18px;
+          font-weight: 700;
+          color: #000000;
+          margin: 0;
+          font-family: 'Open Sans', sans-serif;
+        }
+        .studio-member-role {
+          font-size: 13px;
+          font-weight: 500;
+          color: #555555;
+          margin: 4px 0 0;
+          font-family: 'Open Sans', sans-serif;
+        }
+        .studio-member-photo {
+          position: relative;
+          flex: 1 1 auto;
+          min-height: 0;
+        }
+        .studio-purpose-rows {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+          width: 100%;
         }
         .studio-purpose-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           gap: 20px;
           width: 100%;
+        }
+        .studio-purpose-grid-bottom {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          width: 100%;
+        }
+        .studio-purpose-grid-bottom .studio-purpose-card {
+          width: calc((100% - 40px) / 3);
         }
         .studio-purpose-card {
           background-color: #FFFFFF;
@@ -1470,7 +1529,8 @@ export default async function StudioPage() {
         }
         .studio-toggle-bar {
           display: flex;
-          background-color: #F0EFF2;
+          background-color: transparent;
+          border: 1.5px solid #D61814;
           border-radius: 50px;
           padding: 6px;
           position: relative;
@@ -1485,7 +1545,7 @@ export default async function StudioPage() {
           border-radius: 50px;
           font-size: 18px;
           font-weight: 600;
-          color: #BBBBBB;
+          color: #D61814;
           cursor: pointer;
           transition: background-color 0.3s ease, color 0.3s ease;
           user-select: none;
@@ -1519,8 +1579,8 @@ export default async function StudioPage() {
           width: 100%;
         }
         .studio-contact-card {
-          background-color: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.15);
+          background-color: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           border-radius: 12px;
           padding: 28px 24px;
           display: flex;
@@ -1532,7 +1592,7 @@ export default async function StudioPage() {
           backdrop-filter: blur(8px);
         }
         .studio-contact-card:hover {
-          background-color: rgba(255, 255, 255, 0.13);
+          background-color: rgba(255, 255, 255, 0.16);
         }
         .studio-contact-content {
           display: flex;
@@ -1728,14 +1788,15 @@ export default async function StudioPage() {
             line-height: 26px !important;
           }
           .studio-meet-row {
-            flex-wrap: wrap !important;
+            grid-template-columns: repeat(2, minmax(0, 200px)) !important;
             gap: 32px !important;
           }
-          .studio-member-card {
-            max-width: 200px !important;
-          }
           .studio-member-arch {
-            height: 240px !important;
+            height: 400px !important;
+            border-radius: 999px !important;
+          }
+          .studio-member-info {
+            padding: 36px 14px 12px !important;
           }
           .studio-purpose-section {
             padding: 80px 40px !important;
@@ -1751,6 +1812,12 @@ export default async function StudioPage() {
           .studio-purpose-grid {
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 16px !important;
+          }
+          .studio-purpose-grid-bottom {
+            gap: 16px !important;
+          }
+          .studio-purpose-grid-bottom .studio-purpose-card {
+            width: calc((100% - 16px) / 2) !important;
           }
           .studio-find-section {
             padding: 80px 40px !important;
@@ -1894,11 +1961,23 @@ export default async function StudioPage() {
             font-size: 28px !important;
             line-height: 36px !important;
           }
-          .studio-member-card {
-            max-width: 160px !important;
+          .studio-meet-row {
+            grid-template-columns: repeat(2, minmax(0, 140px)) !important;
+            gap: 20px !important;
           }
           .studio-member-arch {
-            height: 200px !important;
+            height: 300px !important;
+            border-radius: 999px !important;
+          }
+          .studio-member-info {
+            padding: 48px 10px 8px !important;
+          }
+          .studio-member-name {
+            font-size: 14px !important;
+          }
+          .studio-member-role {
+            font-size: 11px !important;
+            line-height: 15px !important;
           }
           .studio-purpose-section {
             padding: 60px 20px !important;
@@ -1910,6 +1989,13 @@ export default async function StudioPage() {
           .studio-purpose-grid {
             grid-template-columns: 1fr !important;
             gap: 16px !important;
+          }
+          .studio-purpose-grid-bottom {
+            flex-direction: column !important;
+            gap: 16px !important;
+          }
+          .studio-purpose-grid-bottom .studio-purpose-card {
+            width: 100% !important;
           }
           .studio-find-section {
             padding: 60px 20px !important;
