@@ -29,108 +29,78 @@ export default function ProductPortfolio({ section }: ProductPortfolioProps) {
         background: "linear-gradient(180deg, #eaf2fc 0%, #f6f9fd 100%)",
       }}
     >
-      <div
-        style={{
-          maxWidth: "1280px",
-          margin: "0 auto",
-        }}
-      >
-        {/* Header row: heading left, carousel arrows right */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-            marginBottom: "40px",
-            flexWrap: "wrap",
-            gap: "16px",
-          }}
-        >
-          {/* Two-tone heading */}
-          <div>
-            <h2
-              style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "clamp(32px, 3vw, 48px)",
-                fontWeight: 700,
-                lineHeight: 1.2,
-                margin: "0 0 12px 0",
-              }}
-            >
-              <span style={{ color: "#0b0625" }}>Product </span>
-              <span style={{ color: "#4B95FF" }}>Portfolio</span>
-            </h2>
-            <p
-              style={{
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "16px",
-                color: "#6B7280",
-                margin: 0,
-              }}
-            >
-              {section.subtitle || "High-Quality Solutions Designed for Every Need"}
-            </p>
-          </div>
-
-          {/* Carousel arrows — square buttons */}
-          <div
+      <div className="portfolio-grid">
+        {/* Two-tone heading */}
+        <div className="portfolio-heading">
+          <h2
             style={{
-              display: "flex",
-              gap: "8px",
-              alignSelf: "center",
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "clamp(32px, 3vw, 48px)",
+              fontWeight: 700,
+              lineHeight: 1.2,
+              margin: "0 0 12px 0",
             }}
           >
-            <button
-              aria-label="Previous"
-              style={{
-                width: "44px",
-                height: "44px",
-                border: "1.5px solid #0b0625",
-                borderRadius: "4px",
-                background: "#FFFFFF",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "20px",
-                color: "#0b0625",
-              }}
-            >
-              ‹
-            </button>
-            <button
-              aria-label="Next"
-              style={{
-                width: "44px",
-                height: "44px",
-                border: "1.5px solid #0b0625",
-                borderRadius: "4px",
-                background: "#FFFFFF",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "20px",
-                color: "#0b0625",
-              }}
-            >
-              ›
-            </button>
-          </div>
+            <span style={{ color: "#0b0625" }}>Product </span>
+            <span style={{ color: "#4B95FF" }}>Portfolio</span>
+          </h2>
+          <p
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "16px",
+              color: "#6B7280",
+              margin: 0,
+            }}
+          >
+            {section.subtitle ||
+              "High-Quality Solutions Designed for Every Need"}
+          </p>
+        </div>
+
+        {/* Carousel arrows — square buttons */}
+        <div className="portfolio-arrows">
+          <button
+            aria-label="Previous"
+            style={{
+              width: "44px",
+              height: "44px",
+              border: "1.5px solid #0b0625",
+              borderRadius: "4px",
+              background: "#FFFFFF",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "20px",
+              color: "#0b0625",
+            }}
+          >
+            ‹
+          </button>
+          <button
+            aria-label="Next"
+            style={{
+              width: "44px",
+              height: "44px",
+              border: "1.5px solid #0b0625",
+              borderRadius: "4px",
+              background: "#FFFFFF",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "20px",
+              color: "#0b0625",
+            }}
+          >
+            ›
+          </button>
         </div>
 
         {/* Large image banner */}
-        <div
-          style={{
-            position: "relative",
-            borderRadius: "20px",
-            overflow: "hidden",
-            height: "clamp(300px, 40vw, 480px)",
-            backgroundColor: "#1a1f2e",
-          }}
-        >
+        <div className="portfolio-banner">
           {/* Banner image */}
           <Image
             src="/images/product-portfolio/banner.jpg"
@@ -151,19 +121,7 @@ export default function ProductPortfolio({ section }: ProductPortfolioProps) {
           />
 
           {/* Right-aligned content over banner */}
-          <div
-            style={{
-              position: "absolute",
-              right: "64px",
-              bottom: "48px",
-              maxWidth: "460px",
-              textAlign: "right",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              gap: "24px",
-            }}
-          >
+          <div className="portfolio-banner-content">
             <h3
               style={{
                 fontFamily: "'Open Sans', sans-serif",
@@ -201,6 +159,76 @@ export default function ProductPortfolio({ section }: ProductPortfolioProps) {
           </div>
         </div>
       </div>
+
+      <style>{`
+        .portfolio-grid {
+          max-width: 1280px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1fr auto;
+          grid-template-areas:
+            "heading arrows"
+            "banner banner";
+          column-gap: 16px;
+          row-gap: 40px;
+          align-items: start;
+        }
+        .portfolio-heading {
+          grid-area: heading;
+        }
+        .portfolio-arrows {
+          grid-area: arrows;
+          display: flex;
+          gap: 8px;
+          align-self: center;
+        }
+        .portfolio-banner {
+          grid-area: banner;
+          position: relative;
+          border-radius: 20px;
+          overflow: hidden;
+          height: clamp(300px, 40vw, 480px);
+          background-color: #1a1f2e;
+        }
+        .portfolio-banner-content {
+          position: absolute;
+          right: 64px;
+          bottom: 48px;
+          max-width: 460px;
+          text-align: right;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 24px;
+        }
+        @media (max-width: 768px) {
+          .portfolio-grid {
+            grid-template-columns: 1fr;
+            grid-template-areas:
+              "heading"
+              "banner"
+              "arrows";
+            row-gap: 24px;
+          }
+          .portfolio-arrows {
+            justify-self: center;
+          }
+          .portfolio-banner {
+            border-radius: 16px;
+            height: auto;
+            min-height: 360px;
+          }
+          .portfolio-banner-content {
+            left: 20px;
+            right: 20px;
+            bottom: 24px;
+            max-width: none;
+            text-align: center;
+            align-items: center;
+            gap: 16px;
+          }
+        }
+      `}</style>
     </section>
   );
 }

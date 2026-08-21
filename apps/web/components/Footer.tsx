@@ -133,10 +133,11 @@ export default function Footer({ siteSettings }: FooterProps) {
             className="footer-grid"
           >
             {/* Left block: logo + contact + social */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <div className="footer-left-block" style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               {/* Logo */}
               <Link
                 href="/"
+                className="footer-logo-link"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -174,6 +175,7 @@ export default function Footer({ siteSettings }: FooterProps) {
               {(siteSettings.phone || true) && (
                 <a
                   href={`tel:${siteSettings.phone || "+919820192970"}`}
+                  className="footer-contact-link"
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -205,6 +207,7 @@ export default function Footer({ siteSettings }: FooterProps) {
               {(siteSettings.email || true) && (
                 <a
                   href={`mailto:${siteSettings.email || "info@tathastu.global.com"}`}
+                  className="footer-contact-link"
                   style={{
                     display: "flex",
                     alignItems: "center",
@@ -235,6 +238,7 @@ export default function Footer({ siteSettings }: FooterProps) {
 
               {/* Social: "Follow us :" + round blue icons */}
               <div
+                className="footer-social-row"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -285,7 +289,7 @@ export default function Footer({ siteSettings }: FooterProps) {
 
             {/* Link columns */}
             {columns.map((col, idx) => (
-              <div key={idx}>
+              <div key={idx} className="footer-link-col">
                 <h4
                   style={{
                     fontFamily: "'Open Sans', sans-serif",
@@ -299,6 +303,7 @@ export default function Footer({ siteSettings }: FooterProps) {
                   {col.title}
                 </h4>
                 <ul
+                  className="footer-link-list"
                   style={{
                     listStyle: "none",
                     padding: 0,
@@ -312,6 +317,7 @@ export default function Footer({ siteSettings }: FooterProps) {
                     <li key={lIdx}>
                       <Link
                         href={link.href}
+                        className="footer-link-item"
                         style={{
                           fontFamily: "'Open Sans', sans-serif",
                           fontSize: "14px",
@@ -323,7 +329,7 @@ export default function Footer({ siteSettings }: FooterProps) {
                         }}
                       >
                         {/* ">" chevron prefix per Figma */}
-                        <span style={{ color: "#4B95FF", fontSize: "12px" }}>›</span>
+                        <span className="footer-link-chevron" style={{ color: "#4B95FF", fontSize: "12px" }}>›</span>
                         {link.label}
                       </Link>
                     </li>
@@ -356,7 +362,7 @@ export default function Footer({ siteSettings }: FooterProps) {
         </div>
       </footer>
 
-      <style jsx>{`
+      <style>{`
         @media (max-width: 1024px) {
           .footer-grid {
             grid-template-columns: 1fr 1fr !important;
@@ -371,6 +377,31 @@ export default function Footer({ siteSettings }: FooterProps) {
           }
           .footer-inner {
             padding: 0 20px !important;
+          }
+          .footer-left-block {
+            align-items: center !important;
+            text-align: center !important;
+          }
+          .footer-logo-link {
+            justify-content: center !important;
+          }
+          .footer-contact-link {
+            justify-content: center !important;
+          }
+          .footer-social-row {
+            justify-content: center !important;
+          }
+          .footer-link-col {
+            text-align: center !important;
+          }
+          .footer-link-list {
+            align-items: center !important;
+          }
+          .footer-link-item {
+            justify-content: center !important;
+          }
+          .footer-link-chevron {
+            display: none !important;
           }
         }
       `}</style>
