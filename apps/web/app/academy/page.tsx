@@ -73,6 +73,63 @@ const PROGRAMS = [
   },
 ];
 
+/* ── Courses & Videos Data ────────────────────────────────────────── */
+const COURSES = [
+  {
+    title: "AI for Interior Design",
+    image: "/images/academy/about-brain.png",
+    description:
+      "Create cinematic interior renders using AI — from rough sketches to fully",
+    duration: "7-Weeks",
+    badge: "NEW",
+    video: false,
+  },
+  {
+    title: "Compositing in Nuke",
+    image: "/images/academy/program-advanced.png",
+    description:
+      "Learn compositing like a pro in this incredible Nuke course for FX Artists",
+    duration: "10-Weeks",
+    badge: null,
+    video: false,
+  },
+  {
+    title: "Intro to Unreal Engine",
+    image: "/images/academy/program-beginner.png",
+    description:
+      "Learn the basics of Unreal Engine in this exciting game design course.",
+    duration: "8-Weeks",
+    badge: null,
+    video: false,
+  },
+  {
+    title: "Intro to Houdini FX",
+    image: "/images/academy/program-studio.png",
+    description:
+      "Ready to get serious about your FX journey? Check out this intermediate",
+    duration: "12-Weeks",
+    badge: null,
+    video: false,
+  },
+  {
+    title: "Coding Generative AI",
+    image: "/images/academy/about-vr.jpg",
+    description:
+      "A deep dive into applied generative AI, guiding students from foundational AI",
+    duration: "10-Weeks",
+    badge: "NEW",
+    video: true,
+  },
+  {
+    title: "Unreal Engine Short Film",
+    image: "/images/academy/hero-bg.jpg",
+    description: "Learn how to create a short film using Unreal Engine.",
+    duration: "INSTANT ACCESS",
+    badge: null,
+    video: false,
+  },
+];
+
 /* ── Reusable Buttons ────────────────────────────────────────────── */
 function RedBtn({ href, children }: { href: string; children: any }) {
   return (
@@ -921,65 +978,36 @@ export default async function AcademyPage() {
             style={{
               maxWidth: "1280px",
               margin: "0 auto",
-              display: "grid",
-              gridTemplateColumns: "1fr 1.2fr",
-              gap: "80px",
-              alignItems: "flex-start",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "56px",
             }}
-            className="why-us-grid"
           >
-            {/* Left Column */}
+            {/* Header */}
             <div
-              style={{ display: "flex", flexDirection: "column", gap: "28px" }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "12px",
+                textAlign: "center",
+                maxWidth: "640px",
+              }}
             >
-              <div
+              <h2
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  color: ABOUT_ACCENT_GOLD,
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "clamp(32px, 3.2vw, 44px)",
+                  fontWeight: 900,
+                  lineHeight: 1.15,
+                  color: ABOUT_TEXT_PRIMARY,
+                  margin: 0,
                 }}
               >
-                <span
-                  style={{
-                    width: "24px",
-                    height: "2px",
-                    background: ABOUT_ACCENT_GOLD,
-                  }}
-                ></span>
-                WHY TATHASTU
-              </div>
-
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: "6px" }}
-              >
-                <h2
-                  style={{
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: "clamp(32px, 3.2vw, 44px)",
-                    fontWeight: 900,
-                    lineHeight: 1.15,
-                    color: ABOUT_TEXT_PRIMARY,
-                    margin: 0,
-                  }}
-                >
-                  Transform potential into{" "}
-                  <span style={{ color: ABOUT_ACCENT_RED }}>reality</span>
-                </h2>
-                <div
-                  style={{
-                    width: "56px",
-                    height: "4px",
-                    background: ABOUT_ACCENT_RED,
-                    marginTop: "16px",
-                  }}
-                ></div>
-              </div>
-
+                Why Choose Tathastu{" "}
+                <span style={{ color: ABOUT_ACCENT_RED }}>Academy</span>
+              </h2>
               <p
                 style={{
                   margin: 0,
@@ -991,112 +1019,15 @@ export default async function AcademyPage() {
                 We are not just another training institute. We are the bridge
                 between where you are and where the industry needs you to be.
               </p>
-
-              <div style={{ marginTop: "8px" }}>
-                <Link
-                  href="/contact?source=WhyUs"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    padding: "16px 36px",
-                    background: ABOUT_ACCENT_RED,
-                    color: "#FFFFFF",
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontWeight: 700,
-                    fontSize: "15px",
-                    borderRadius: "8px",
-                    textDecoration: "none",
-                    boxShadow: "0 4px 14px rgba(217, 56, 41, 0.25)",
-                    transition: "background 0.2s ease, transform 0.2s ease",
-                  }}
-                  className="talk-advisor-btn"
-                >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                  </svg>
-                  Talk to an Advisor
-                </Link>
-              </div>
-
-              {/* Dark Workstation Placeholder Image */}
-              <div
-                style={{
-                  position: "relative",
-                  width: "100%",
-                  aspectRatio: "16/10",
-                  background: "#161B18", // Dark solid placeholder color
-                  borderRadius: "20px",
-                  border: "1px solid rgba(0,0,0,0.15)",
-                  boxShadow: "0 20px 45px rgba(0,0,0,0.08)",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "12px",
-                  padding: "24px",
-                  marginTop: "16px",
-                }}
-                className="why-us-image-placeholder"
-              >
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="rgba(255, 255, 255, 0.25)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                  <line x1="8" y1="21" x2="16" y2="21" />
-                  <line x1="12" y1="17" x2="12" y2="21" />
-                </svg>
-                <span
-                  style={{
-                    color: "rgba(255, 255, 255, 0.5)",
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: "14px",
-                    fontWeight: 600,
-                    letterSpacing: "0.02em",
-                    textAlign: "center",
-                  }}
-                >
-                  Workstation Image
-                </span>
-                <span
-                  style={{
-                    color: "rgba(255, 255, 255, 0.3)",
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    textAlign: "center",
-                  }}
-                >
-                  Pending Figma Download (Rate Limited)
-                </span>
-              </div>
             </div>
 
-            {/* Right Column — 2x3 Grid */}
+            {/* Cards Grid — 3x2 */}
             <div
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(2, 1fr)",
+                gridTemplateColumns: "repeat(3, 1fr)",
                 gap: "24px",
+                width: "100%",
               }}
               className="why-us-grid-right"
             >
@@ -1283,6 +1214,306 @@ export default async function AcademyPage() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* CTA */}
+            <Link
+              href="/contact?source=WhyUs"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "16px 40px",
+                background: ABOUT_ACCENT_RED,
+                color: "#FFFFFF",
+                fontFamily: "'Open Sans', sans-serif",
+                fontWeight: 700,
+                fontSize: "15px",
+                borderRadius: "999px",
+                textDecoration: "none",
+                boxShadow: "0 4px 14px rgba(217, 56, 41, 0.25)",
+                transition: "background 0.2s ease, transform 0.2s ease",
+              }}
+              className="talk-advisor-btn"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+              </svg>
+              Talk to an Advisor
+            </Link>
+          </div>
+        </section>
+
+        {/* ── 5.5 LATEST COURSES & VIDEOS — LIGHT THEME ────────────────── */}
+        <section
+          style={{
+            background: "#F0F0F0",
+            padding: "100px 80px 120px",
+            position: "relative",
+            overflow: "hidden",
+          }}
+          className="academy-section"
+        >
+          {/* Decorative concentric circles */}
+          <div
+            style={{
+              position: "absolute",
+              bottom: "-160px",
+              left: "-160px",
+              width: "380px",
+              height: "380px",
+              borderRadius: "50%",
+              border: "1px solid rgba(0,0,0,0.06)",
+              pointerEvents: "none",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: "-110px",
+              left: "-110px",
+              width: "270px",
+              height: "270px",
+              borderRadius: "50%",
+              border: "1px solid rgba(0,0,0,0.06)",
+              pointerEvents: "none",
+            }}
+          />
+
+          <div
+            style={{
+              maxWidth: "1280px",
+              margin: "0 auto",
+              position: "relative",
+              zIndex: 5,
+            }}
+          >
+            {/* Header */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "12px",
+                textAlign: "center",
+                marginBottom: "56px",
+              }}
+            >
+              <h2
+                style={{
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "clamp(32px, 3.2vw, 44px)",
+                  fontWeight: 900,
+                  lineHeight: 1.15,
+                  color: ABOUT_TEXT_PRIMARY,
+                  margin: 0,
+                }}
+              >
+                Latest Courses &{" "}
+                <span style={{ color: ABOUT_ACCENT_RED }}>Videos</span>
+              </h2>
+              <p
+                style={{
+                  margin: 0,
+                  fontSize: "15px",
+                  lineHeight: 1.6,
+                  color: ABOUT_TEXT_SECONDARY,
+                }}
+              >
+                Explore our newest tutorials, expert-led courses, and
+                practical learning resources.
+              </p>
+            </div>
+
+            {/* Cards Grid — 3x2 */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(3, 1fr)",
+                gap: "24px",
+              }}
+              className="courses-grid"
+            >
+              {COURSES.map((course) => (
+                <div
+                  key={course.title}
+                  style={{
+                    background: "#FFFFFF",
+                    borderRadius: "16px",
+                    overflow: "hidden",
+                    boxShadow: "0 10px 25px rgba(0, 0, 0, 0.04)",
+                    border: "1px solid rgba(0, 0, 0, 0.03)",
+                    display: "flex",
+                    flexDirection: "column",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  }}
+                  className="course-card"
+                >
+                  {/* Card Image */}
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                      height: "180px",
+                    }}
+                  >
+                    <Image
+                      src={course.image}
+                      alt={course.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="(max-width: 1024px) 100vw, 400px"
+                    />
+                    {course.badge && (
+                      <span
+                        style={{
+                          position: "absolute",
+                          top: "12px",
+                          right: "12px",
+                          background: RED,
+                          color: "#FFFFFF",
+                          fontWeight: 700,
+                          fontSize: "10px",
+                          letterSpacing: "0.06em",
+                          padding: "5px 10px",
+                          borderRadius: "4px",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        {course.badge}
+                      </span>
+                    )}
+                    {course.video && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "44px",
+                            height: "44px",
+                            borderRadius: "50%",
+                            background: "rgba(255,255,255,0.92)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+                          }}
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill={RED}
+                            style={{ marginLeft: "2px" }}
+                          >
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card Body */}
+                  <div
+                    style={{
+                      padding: "20px 22px 22px",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                    }}
+                  >
+                    <h3
+                      style={{
+                        margin: 0,
+                        fontSize: "17px",
+                        fontWeight: 700,
+                        color: ABOUT_TEXT_PRIMARY,
+                      }}
+                    >
+                      {course.title}
+                    </h3>
+                    <p
+                      style={{
+                        margin: 0,
+                        fontSize: "13px",
+                        color: ABOUT_TEXT_SECONDARY,
+                        lineHeight: 1.55,
+                      }}
+                    >
+                      {course.description}{" "}
+                      <a
+                        href="#"
+                        style={{
+                          color: RED,
+                          fontWeight: 600,
+                          textDecoration: "none",
+                        }}
+                        className="read-more-link"
+                      >
+                        read more...
+                      </a>
+                    </p>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        fontWeight: 700,
+                        color: RED,
+                        letterSpacing: "0.04em",
+                        marginTop: "6px",
+                      }}
+                    >
+                      {course.duration}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "56px",
+              }}
+            >
+              <Link
+                href="#"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "16px 40px",
+                  background: ABOUT_ACCENT_RED,
+                  color: "#FFFFFF",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 700,
+                  fontSize: "15px",
+                  borderRadius: "999px",
+                  textDecoration: "none",
+                  boxShadow: "0 4px 14px rgba(217, 56, 41, 0.25)",
+                  transition: "background 0.2s ease, transform 0.2s ease",
+                }}
+                className="talk-advisor-btn"
+              >
+                View All
+              </Link>
             </div>
           </div>
         </section>
@@ -2405,6 +2636,13 @@ export default async function AcademyPage() {
           background: #FDF2F2 !important;
           border-color: #E02020 !important;
         }
+        .course-card:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
+        }
+        .read-more-link:hover {
+          text-decoration: underline !important;
+        }
         .talk-advisor-btn:hover {
           background: #C22F22 !important;
           transform: translateY(-2px);
@@ -2484,11 +2722,11 @@ export default async function AcademyPage() {
           .programs-container {
             padding: 100px 32px 100px !important;
           }
-          .why-us-grid {
-            grid-template-columns: 1fr !important;
-            gap: 64px !important;
-          }
           .why-us-grid-right {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          .courses-grid {
             grid-template-columns: 1fr !important;
             gap: 24px !important;
           }
