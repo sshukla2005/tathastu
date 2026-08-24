@@ -112,85 +112,37 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
             Home
           </Link>
 
-          {/* Solutions ▾ */}
-          <div style={{ position: "relative" }} className="group">
-            <button
-              onClick={() => toggleDropdown("solutions")}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "18px",
-                fontWeight: 600,
-                color: "#000000",
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                padding: 0,
-                lineHeight: "25px",
-              }}
-            >
-              <span>Solutions</span>
-              {/* Figma vector 40:13 — 13×7px caret */}
-              <Image
-                src="/images/header/caret-down.svg"
-                alt=""
-                width={13}
-                height={7}
-              />
-            </button>
-            {/* Dropdown */}
-            <div
-              className="opacity-0 invisible group-hover:opacity-100 group-hover:visible"
-              style={{
-                position: "absolute",
-                top: "calc(100% + 8px)",
-                left: 0,
-                width: "220px",
-                backgroundColor: "#fff",
-                border: "1px solid #e5e7eb",
-                borderRadius: "12px",
-                boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
-                padding: "8px",
-                transition: "opacity 0.2s, visibility 0.2s",
-                zIndex: 100,
-              }}
-            >
-              <Link
-                href="/studio"
-                style={{
-                  display: "block",
-                  padding: "10px 14px",
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "15px",
-                  fontWeight: 600,
-                  color: "#0b0625",
-                  textDecoration: "none",
-                  borderRadius: "8px",
-                }}
-                className="hover:bg-gray-50"
-              >
-                Tathastu Studio
-              </Link>
-              <Link
-                href="/academy"
-                style={{
-                  display: "block",
-                  padding: "10px 14px",
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "15px",
-                  fontWeight: 600,
-                  color: "#0b0625",
-                  textDecoration: "none",
-                  borderRadius: "8px",
-                }}
-                className="hover:bg-gray-50"
-              >
-                Tathastu Academy
-              </Link>
-            </div>
-          </div>
+          {/* Studio */}
+          <Link
+            href="/studio"
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "18px",
+              fontWeight: pathname.startsWith("/studio") ? 700 : 600,
+              color: pathname.startsWith("/studio") ? "#4B95FF" : "#000000",
+              textDecoration: "none",
+              lineHeight: "25px",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Studio
+          </Link>
+
+          {/* Academy */}
+          <Link
+            href="/academy"
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "18px",
+              fontWeight: pathname.startsWith("/academy") ? 700 : 600,
+              color: pathname.startsWith("/academy") ? "#4B95FF" : "#000000",
+              textDecoration: "none",
+              lineHeight: "25px",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Academy
+          </Link>
 
           {/* Industries ▾ */}
           <div style={{ position: "relative" }} className="group">
@@ -419,70 +371,35 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
             Home
           </Link>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-            <button
-              onClick={() => toggleDropdown("solutions-mobile")}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "18px",
-                fontWeight: 600,
-                color: "#000000",
-                background: "none",
-                border: "none",
-                borderBottom: "1px solid #f3f4f6",
-                cursor: "pointer",
-                padding: "8px 0",
-                width: "100%",
-              }}
-            >
-              <span>Solutions</span>
-              <Image
-                src="/images/header/caret-down.svg"
-                alt=""
-                width={13}
-                height={7}
-              />
-            </button>
-            {activeDropdown === "solutions-mobile" && (
-              <div
-                style={{
-                  paddingLeft: "16px",
-                  borderLeft: "2px solid #4B95FF",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "8px",
-                }}
-              >
-                <Link
-                  href="/studio"
-                  style={{
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: "16px",
-                    color: "#0b0625",
-                    textDecoration: "none",
-                    padding: "6px 0",
-                  }}
-                >
-                  Tathastu Studio
-                </Link>
-                <Link
-                  href="/academy"
-                  style={{
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: "16px",
-                    color: "#0b0625",
-                    textDecoration: "none",
-                    padding: "6px 0",
-                  }}
-                >
-                  Tathastu Academy
-                </Link>
-              </div>
-            )}
-          </div>
+          <Link
+            href="/studio"
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "18px",
+              fontWeight: 600,
+              color: pathname.startsWith("/studio") ? "#4B95FF" : "#000000",
+              textDecoration: "none",
+              padding: "8px 0",
+              borderBottom: "1px solid #f3f4f6",
+            }}
+          >
+            Studio
+          </Link>
+
+          <Link
+            href="/academy"
+            style={{
+              fontFamily: "'Open Sans', sans-serif",
+              fontSize: "18px",
+              fontWeight: 600,
+              color: pathname.startsWith("/academy") ? "#4B95FF" : "#000000",
+              textDecoration: "none",
+              padding: "8px 0",
+              borderBottom: "1px solid #f3f4f6",
+            }}
+          >
+            Academy
+          </Link>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
             <button
