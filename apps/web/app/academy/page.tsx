@@ -1760,6 +1760,99 @@ export default async function AcademyPage() {
           </div>
         </section>
 
+        {/* ── 8. CTA BAND — same design as homepage CtaBand component ──── */}
+        <section
+          style={{
+            position: "relative",
+            overflow: "hidden",
+            padding: "100px 80px",
+            textAlign: "center",
+            backgroundColor: "#0a0e1a",
+          }}
+        >
+          {/* Circuit board / workstation photo background */}
+          <Image
+            src="/images/cta/cta-bg.jpg"
+            alt=""
+            fill
+            style={{ objectFit: "cover", zIndex: 0 }}
+            aria-hidden
+          />
+
+          {/* Dark overlay */}
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: "rgba(5,8,20,0.82)",
+              zIndex: 1,
+            }}
+          />
+
+          {/* Content */}
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "800px",
+              margin: "0 auto",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "20px",
+            }}
+          >
+            <h2
+              style={{
+                fontFamily: "'Open Sans', sans-serif",
+                fontSize: "clamp(28px, 3vw, 44px)",
+                fontWeight: 700,
+                color: "#FFFFFF",
+                lineHeight: 1.3,
+                margin: 0,
+              }}
+            >
+              Ready to Launch Your Houdini Career?
+            </h2>
+
+            <p
+              style={{
+                fontFamily: "'Open Sans', sans-serif",
+                fontSize: "clamp(15px, 1.4vw, 18px)",
+                fontWeight: 400,
+                color: "rgba(255,255,255,0.65)",
+                lineHeight: 1.7,
+                margin: 0,
+                // maxWidth: "620px",
+              }}
+            >
+              The demand for Houdini trained, production ready artists is higher than  ever. Whether you are an aspiring professional or a studio looking to  upskill your team, Tathastu Academy is here to help.
+            </p>
+
+            {/* "Book A Call" blue gradient pill */}
+            <Link
+              href="/contact?source=Academy"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: "14px 36px",
+                marginTop: "12px",
+                background: "linear-gradient(90deg, #920B08 0%, #D61814 100%);",
+                color: "#FFFFFF",
+                fontFamily: "'Open Sans', sans-serif",
+                fontSize: "16px",
+                fontWeight: 700,
+                borderRadius: "999px",
+                textDecoration: "none",
+                whiteSpace: "nowrap",
+              }}
+            >
+              Request Demo
+            </Link>
+          </div>
+        </section>
+
         {/* Responsive overrides */}
         <style>{`
         @keyframes ticker-scroll {
