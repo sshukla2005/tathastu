@@ -277,6 +277,7 @@ export default async function AcademyPage() {
             {/* Left — text */}
             <div
               style={{ display: "flex", flexDirection: "column", gap: "26px" }}
+              className="academy-hero-text-col"
             >
               {/* Academy wordmark */}
               <div
@@ -467,6 +468,7 @@ export default async function AcademyPage() {
             {/* Right Column — Mission & Feature rows */}
             <div
               style={{ display: "flex", flexDirection: "column", gap: "28px" }}
+              className="about-right-col"
             >
               {/* Heading */}
               <h2
@@ -519,6 +521,7 @@ export default async function AcademyPage() {
                     boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
                     alignItems: "center",
                   }}
+                  className="about-feature-card"
                 >
                   <div
                     style={{
@@ -584,6 +587,7 @@ export default async function AcademyPage() {
                     boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
                     alignItems: "center",
                   }}
+                  className="about-feature-card"
                 >
                   <div
                     style={{
@@ -648,6 +652,7 @@ export default async function AcademyPage() {
                     boxShadow: "0 4px 20px rgba(0, 0, 0, 0.02)",
                     alignItems: "center",
                   }}
+                  className="about-feature-card"
                 >
                   <div
                     style={{
@@ -1985,10 +1990,16 @@ export default async function AcademyPage() {
             grid-template-columns: 1fr !important;
             padding: 100px 32px 60px !important;
           }
+          .academy-hero-text-col {
+            align-items: center !important;
+            text-align: center !important;
+          }
+          .academy-hero-text-col > div:first-child {
+            align-items: center !important;
+          }
           .academy-hero-image-wrap {
             justify-self: center !important;
             margin: 0 auto !important;
-            margin-left: 40px !important;
           }
           .about-grid {
             grid-template-columns: 1fr !important;
@@ -2001,6 +2012,15 @@ export default async function AcademyPage() {
           .about-photo {
             height: auto !important;
             aspect-ratio: 4/5 !important;
+          }
+          .about-right-col {
+            text-align: center !important;
+          }
+          .about-feature-card {
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            gap: 12px !important;
           }
           .programs-grid {
             grid-template-columns: 1fr !important;
