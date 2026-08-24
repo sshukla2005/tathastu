@@ -289,147 +289,6 @@ export default async function AcademyPage() {
           </div>
         </section>
 
-        {/* ── 2. TICKER — node 154:3 — DARK STRIP ─────────────────────── */}
-        <section
-          style={{
-            overflow: "hidden",
-            width: "100%",
-            background: "#0D0D0D",
-            borderTop: "1px solid rgba(255,255,255,0.08)",
-            borderBottom: "1px solid rgba(255,255,255,0.08)",
-            height: "46px",
-            display: "flex",
-            alignItems: "center",
-          }}
-        >
-          <div
-            className="ticker-track"
-            style={{
-              display: "flex",
-              whiteSpace: "nowrap",
-              width: "max-content",
-              alignItems: "center",
-              gap: "64px",
-            }}
-          >
-            {/* Two identical groups of elements for seamless looping */}
-            {Array(2)
-              .fill(null)
-              .map((_, groupIdx) => (
-                <div
-                  key={groupIdx}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "64px",
-                  }}
-                >
-                  {/* Item 1 */}
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke={ABOUT_ACCENT_RED}
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                    <span
-                      style={{
-                        fontFamily: "'Open Sans', sans-serif",
-                        fontSize: "13px",
-                        color: "rgba(255,255,255,0.8)",
-                        fontWeight: 600,
-                        letterSpacing: "0.03em",
-                      }}
-                    >
-                      Trusted by world-class studios
-                    </span>
-                  </div>
-                  {/* Item 2 */}
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke={ABOUT_ACCENT_RED}
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                      <circle cx="9" cy="7" r="4" />
-                      <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                    </svg>
-                    <span
-                      style={{
-                        fontFamily: "'Open Sans', sans-serif",
-                        fontSize: "13px",
-                        color: "rgba(255,255,255,0.8)",
-                        fontWeight: 600,
-                        letterSpacing: "0.03em",
-                      }}
-                    >
-                      Batches of 15 artists
-                    </span>
-                  </div>
-                  {/* Item 3 */}
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <svg
-                      width="15"
-                      height="15"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke={ABOUT_ACCENT_RED}
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    >
-                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-                      <line x1="8" y1="21" x2="16" y2="21" />
-                      <line x1="12" y1="17" x2="12" y2="21" />
-                    </svg>
-                    <span
-                      style={{
-                        fontFamily: "'Open Sans', sans-serif",
-                        fontSize: "13px",
-                        color: "rgba(255,255,255,0.8)",
-                        fontWeight: 600,
-                        letterSpacing: "0.03em",
-                      }}
-                    >
-                      100% online
-                    </span>
-                  </div>
-                </div>
-              ))}
-          </div>
-        </section>
-
         {/* ── 3. ABOUT — node 154:132 — LIGHT THEME ───────────────────── */}
         <section
           style={{
@@ -447,114 +306,37 @@ export default async function AcademyPage() {
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
               gap: "96px",
-              alignItems: "center",
+              alignItems: "stretch",
             }}
             className="about-grid"
           >
-            {/* Left Column — Overlapping Images */}
+            {/* Left Column — Single photo */}
             <div
               style={{
-                position: "relative",
                 width: "100%",
-                maxWidth: "460px",
+                maxWidth: "420px",
+                height: "100%",
                 justifySelf: "center",
               }}
+              className="about-photo-wrap"
             >
-              {/* Brain Graphic (Base) */}
               <div
                 style={{
                   position: "relative",
                   width: "100%",
-                  aspectRatio: "1/1",
+                  height: "100%",
                   borderRadius: "24px",
                   overflow: "hidden",
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.06)",
+                  boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
                 }}
-              >
-                <Image
-                  src="/images/academy/about-brain.png"
-                  alt="Floating 3D brain network illustration"
-                  fill
-                  style={{ objectFit: "cover" }}
-                  sizes="(max-width: 1024px) 100vw, 460px"
-                />
-              </div>
-
-              {/* SideFX Badge */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: "55%",
-                  right: "-24px",
-                  transform: "translateY(-50%)",
-                  zIndex: 20,
-                  background: "#FFFFFF",
-                  borderRadius: "14px",
-                  padding: "16px 24px",
-                  boxShadow: "0 10px 30px rgba(0, 0, 0, 0.08)",
-                  border: "1px solid rgba(0, 0, 0, 0.04)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "3px",
-                  minWidth: "170px",
-                }}
-              >
-                <span
-                  style={{
-                    color: ABOUT_ACCENT_RED,
-                    fontWeight: 900,
-                    fontSize: "21px",
-                    fontFamily: "'Open Sans', sans-serif",
-                    letterSpacing: "0.02em",
-                    lineHeight: 1,
-                  }}
-                >
-                  SideFX
-                </span>
-                <div
-                  style={{
-                    width: "100%",
-                    height: "1.5px",
-                    background: "#E5E7EB",
-                    margin: "4px 0",
-                  }}
-                ></div>
-                <span
-                  style={{
-                    color: "#6B7280",
-                    fontSize: "9px",
-                    fontWeight: 700,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
-                    fontFamily: "'Open Sans', sans-serif",
-                  }}
-                >
-                  Official Partner
-                </span>
-              </div>
-
-              {/* VR User Graphic */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "-48px",
-                  right: "-36px",
-                  width: "60%",
-                  aspectRatio: "1/1",
-                  borderRadius: "24px",
-                  overflow: "hidden",
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-                  border: `6px solid ${ABOUT_BG}`,
-                  zIndex: 10,
-                }}
+                className="about-photo"
               >
                 <Image
                   src="/images/academy/about-vr.jpg"
-                  alt="Artist interacting with VR environment"
+                  alt="Tathastu Academy students collaborating on a project"
                   fill
                   style={{ objectFit: "cover" }}
-                  sizes="(max-width: 1024px) 60vw, 280px"
+                  sizes="(max-width: 1024px) 100vw, 420px"
                 />
               </div>
             </div>
@@ -563,86 +345,37 @@ export default async function AcademyPage() {
             <div
               style={{ display: "flex", flexDirection: "column", gap: "28px" }}
             >
-              {/* Tagline */}
-              <div
+              {/* Heading */}
+              <h2
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  color: ABOUT_ACCENT_GOLD,
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "clamp(32px, 3.2vw, 44px)",
+                  fontWeight: 800,
+                  lineHeight: 1.15,
+                  color: ABOUT_TEXT_PRIMARY,
+                  margin: 0,
                 }}
               >
-                <span
-                  style={{
-                    width: "24px",
-                    height: "2px",
-                    background: ABOUT_ACCENT_GOLD,
-                  }}
-                ></span>
-                OUR MISSION
-              </div>
+                Not just teaching. <br />
+                <span style={{ color: ABOUT_ACCENT_RED }}>
+                  Building careers.
+                </span>
+              </h2>
 
-              {/* Heading */}
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: "6px" }}
-              >
-                <h2
-                  style={{
-                    fontFamily: "'Open Sans', sans-serif",
-                    fontSize: "clamp(32px, 3.2vw, 44px)",
-                    fontWeight: 800,
-                    lineHeight: 1.15,
-                    color: ABOUT_TEXT_PRIMARY,
-                    margin: 0,
-                  }}
-                >
-                  Not just teaching. <br />
-                  <span style={{ color: ABOUT_ACCENT_RED }}>
-                    Building careers.
-                  </span>
-                </h2>
-                {/* Thick divider */}
-                <div
-                  style={{
-                    width: "56px",
-                    height: "4px",
-                    background: ABOUT_ACCENT_RED,
-                    marginTop: "16px",
-                  }}
-                ></div>
-              </div>
-
-              {/* Paragraphs */}
-              <div
+              {/* Paragraph */}
+              <p
                 style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "16px",
+                  margin: 0,
                   fontSize: "15px",
                   lineHeight: 1.7,
                   color: ABOUT_TEXT_SECONDARY,
                 }}
               >
-                <p style={{ margin: 0 }}>
-                  At Tathastu Academy, we understand the biggest challenge
-                  studios face — finding Houdini artists who are{" "}
-                  <strong
-                    style={{ color: ABOUT_TEXT_PRIMARY, fontWeight: 700 }}
-                  >
-                    technically skilled and production ready from day one.
-                  </strong>
-                </p>
-                <p style={{ margin: 0 }}>
-                  Backed by our official SideFX partnership, we deliver
-                  studio-focused training that equips artists with technical
-                  expertise, creative vision, and the problem-solving skills
-                  demanded by modern VFX pipelines.
-                </p>
-              </div>
+                Tathastu Academy, powered by Tathastu Techno Solution and an
+                official SideFX partner, delivers studio-focused Houdini
+                training designed to create production-ready artists for the
+                VFX industry.
+              </p>
 
               {/* Feature Row Cards */}
               <div
@@ -3388,6 +3121,13 @@ export default async function AcademyPage() {
             grid-template-columns: 1fr !important;
             gap: 120px !important;
             padding: 0 16px !important;
+          }
+          .about-photo-wrap {
+            height: auto !important;
+          }
+          .about-photo {
+            height: auto !important;
+            aspect-ratio: 4/5 !important;
           }
           .programs-grid {
             grid-template-columns: 1fr !important;
