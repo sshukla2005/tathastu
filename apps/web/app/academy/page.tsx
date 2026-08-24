@@ -142,6 +142,14 @@ const SPECIALIZATIONS = [
   { title: "USD Workflows", image: "/images/academy/program-beginner.png" },
 ];
 
+/* ── Meet the Team Data ───────────────────────────────────────────── */
+const TEAM_MEMBERS = [
+  { key: "nikitha", name: "Nikitha Gaikwad", role: "Marketing Manager", bg: "#D6EAF8" },
+  { key: "chetan", name: "Chetan Jain", role: "Founder & CEO", bg: "#D5F5E3" },
+  { key: "nikitha2", name: "Nikitha Gaikwad", role: "President of Sales", bg: "#E8DAEF" },
+  { key: "venu", name: "Venu Victor", role: "Co-founder and VFX Supervisor", bg: "#FDEBD0" },
+];
+
 /* ── Reusable Buttons ────────────────────────────────────────────── */
 function RedBtn({ href, children }: { href: string; children: any }) {
   return (
@@ -1659,6 +1667,99 @@ export default async function AcademyPage() {
           </div>
         </section>
 
+        {/* ── 7. MEET THE TEAM — LIGHT THEME ───────────────────────────── */}
+        <section
+          style={{
+            position: "relative",
+            background: "#FFFFFF",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "120px 80px",
+            color: "#000000",
+          }}
+          className="academy-section"
+        >
+          <div
+            style={{
+              position: "relative",
+              zIndex: 10,
+              maxWidth: "1280px",
+              margin: "0 auto",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "56px",
+            }}
+          >
+            {/* Header */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "16px",
+                textAlign: "center",
+                maxWidth: "800px",
+              }}
+            >
+              <h2
+                style={{
+                  fontSize: "clamp(32px, 3.2vw, 44px)",
+                  fontWeight: 700,
+                  lineHeight: 1.25,
+                  color: "#000000",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                }}
+              >
+                Meet <span style={{ color: RED }}>the Team</span>
+              </h2>
+              <p
+                style={{
+                  fontSize: "18px",
+                  lineHeight: 1.6,
+                  color: "#555555",
+                  margin: 0,
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontWeight: 400,
+                }}
+              >
+                Industry veterans and visionary leaders driving the future of
+                professional VFX collaboration
+              </p>
+            </div>
+
+            {/* Members Row — 4 cards */}
+            <div className="meet-team-row">
+              {TEAM_MEMBERS.map((member, idx) => (
+                <div key={idx} className="meet-member-card">
+                  <div
+                    className="meet-member-arch"
+                    style={{ backgroundColor: member.bg }}
+                  >
+                    <div className="meet-member-info">
+                      <h3 className="meet-member-name">{member.name}</h3>
+                      <p className="meet-member-role">{member.role}</p>
+                    </div>
+                    <div className="meet-member-photo">
+                      <Image
+                        src={`/images/studio/member-${member.key}.png`}
+                        alt={member.name}
+                        fill
+                        style={{ objectFit: "cover", objectPosition: "center top" }}
+                        sizes="(max-width: 640px) 45vw, 260px"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Responsive overrides */}
         <style>{`
         @keyframes ticker-scroll {
@@ -1704,6 +1805,51 @@ export default async function AcademyPage() {
         .spec-card:hover {
           transform: translateY(-4px);
           box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
+        }
+        .meet-team-row {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 260px));
+          justify-content: center;
+          gap: 24px;
+          width: 100%;
+        }
+        .meet-member-card {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+        }
+        .meet-member-arch {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          height: 460px;
+          border-radius: 999px;
+          overflow: hidden;
+          position: relative;
+        }
+        .meet-member-info {
+          flex-shrink: 0;
+          padding: 56px 14px 12px;
+          text-align: center;
+        }
+        .meet-member-name {
+          font-size: 18px;
+          font-weight: 700;
+          color: #000000;
+          margin: 0;
+          font-family: 'Open Sans', sans-serif;
+        }
+        .meet-member-role {
+          font-size: 13px;
+          font-weight: 500;
+          color: #555555;
+          margin: 4px 0 0;
+          font-family: 'Open Sans', sans-serif;
+        }
+        .meet-member-photo {
+          position: relative;
+          flex: 1 1 auto;
+          min-height: 0;
         }
         .team-card:hover {
           transform: translateY(-6px);
@@ -1782,6 +1928,16 @@ export default async function AcademyPage() {
             grid-template-columns: repeat(2, 1fr) !important;
             gap: 16px !important;
           }
+          .meet-team-row {
+            grid-template-columns: repeat(2, minmax(0, 200px)) !important;
+            gap: 32px !important;
+          }
+          .meet-member-arch {
+            height: 400px !important;
+          }
+          .meet-member-info {
+            padding: 36px 14px 12px !important;
+          }
           .team-grid {
             grid-template-columns: 1fr !important;
             gap: 24px !important;
@@ -1815,6 +1971,23 @@ export default async function AcademyPage() {
           .cta-buttons-container a {
             justify-content: center !important;
             width: 100% !important;
+          }
+          .meet-team-row {
+            grid-template-columns: repeat(2, minmax(0, 140px)) !important;
+            gap: 20px !important;
+          }
+          .meet-member-arch {
+            height: 300px !important;
+          }
+          .meet-member-info {
+            padding: 48px 10px 8px !important;
+          }
+          .meet-member-name {
+            font-size: 14px !important;
+          }
+          .meet-member-role {
+            font-size: 11px !important;
+            line-height: 15px !important;
           }
         }
       `}</style>
