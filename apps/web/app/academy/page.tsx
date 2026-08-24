@@ -27,6 +27,52 @@ const ABOUT_TEXT_SECONDARY = "#4D4D4D";
 const ABOUT_ACCENT_RED = "#D93829";
 const ABOUT_ACCENT_GOLD = "#C97D24";
 
+/* ── Programs Data ────────────────────────────────────────────────── */
+const PROGRAMS = [
+  {
+    title: "Studio Houdini Training",
+    image: "/images/academy/program-studio.png",
+    description:
+      "Custom in-house Houdini training built around your studio's exact production requirements and L&D goals.",
+    items: [
+      "Crafted with your L&D team",
+      "Flip, Pyro, Destruction, Groom, USD & more",
+      "Flexible seat or full-batch bookings",
+      "Trusted by leading VFX & animation studios",
+    ],
+    ctaLabel: "Book Studio Training",
+    href: "/contact?program=Studio",
+  },
+  {
+    title: "Beginner Houdini Training",
+    image: "/images/academy/program-beginner.png",
+    description:
+      "Our flagship Academy trains a hand-picked batch of 15 students in Houdini from the ground up.",
+    items: [
+      "Studio-ready projects aligned with real pipelines",
+      "Hand-picked cohort of 15 students",
+      "Advance studio seat reservations available",
+      "Full Houdini fundamentals to production workflows",
+    ],
+    ctaLabel: "Join Batch",
+    href: "/contact?program=Beginner",
+  },
+  {
+    title: "Advanced Houdini Training",
+    image: "/images/academy/program-advanced.png",
+    description:
+      "Short-term intensive sessions led by industry experts — focused deep dives into specific Houdini workflows.",
+    items: [
+      "Expert-led deep dives into advanced workflows",
+      "Focus: USD, Groom, Tech Animation & more",
+      "Targeted skill-building for working artists",
+      "Studio seat reservations available",
+    ],
+    ctaLabel: "Join Batch",
+    href: "/contact?program=Advanced",
+  },
+];
+
 /* ── Reusable Buttons ────────────────────────────────────────────── */
 function RedBtn({ href, children }: { href: string; children: any }) {
   return (
@@ -624,36 +670,13 @@ export default async function AcademyPage() {
           id="programs"
           style={{
             position: "relative",
-            background: "#0B0F0C", // Deep dark green/black
+            background:
+              "linear-gradient(180deg, #2E1B0E 0%, #180F09 40%, #0B0705 100%)",
             color: "#FFFFFF",
             overflow: "hidden",
           }}
           className="academy-section"
         >
-          {/* Background photo */}
-          <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-            <Image
-              src="/images/academy/programs-bg.png"
-              alt=""
-              fill
-              style={{
-                objectFit: "cover",
-                objectPosition: "center center",
-                opacity: 0.07,
-              }}
-              sizes="100vw"
-            />
-            {/* Subtle dark gradient overlay to blend corners */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(to bottom, rgba(11,15,12,0.95) 0%, rgba(11,15,12,0.85) 50%, rgba(11,15,12,0.95) 100%)",
-              }}
-            />
-          </div>
-
           {/* Content Container */}
           <div
             style={{
@@ -671,47 +694,38 @@ export default async function AcademyPage() {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                gap: "12px",
+                alignItems: "center",
+                gap: "16px",
                 marginBottom: "64px",
+                textAlign: "center",
               }}
             >
-              <span
-                style={{
-                  fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  color: RED,
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                }}
-              >
-                PROGRAMS OFFERED
-              </span>
               <h2
                 style={{
                   fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "clamp(32px, 3.2vw, 44px)",
+                  fontSize: "clamp(28px, 2.8vw, 38px)",
                   fontWeight: 900,
                   lineHeight: 1.2,
                   color: "#FFFFFF",
                   margin: 0,
+                  maxWidth: "680px",
                 }}
               >
-                Training for every stage of your{" "}
-                <span style={{ color: RED }}>Houdini journey</span>
+                Training for every stage of{" "}
+                <span style={{ color: RED }}>your Houdini journey</span>
               </h2>
               <p
                 style={{
                   fontFamily: "'Open Sans', sans-serif",
-                  fontSize: "15px",
+                  fontSize: "14px",
                   color: "rgba(255,255,255,0.7)",
                   lineHeight: 1.6,
                   margin: 0,
-                  maxWidth: "650px",
+                  maxWidth: "560px",
                 }}
               >
-                Cutting-edge programs designed for the future of digital
-                creation — from your first node to your first studio credit.
+                Cutting edge training programs designed for the future of
+                digital creation.
               </p>
             </div>
 
@@ -724,834 +738,169 @@ export default async function AcademyPage() {
               }}
               className="programs-grid"
             >
-              {/* Card 1 — Studio Houdini Training */}
-              <div
-                style={{
-                  background: "#131915", // Lighter deep green-black
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: "16px",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  position: "relative",
-                  transition:
-                    "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
-                }}
-                className="program-card"
-              >
-                {/* Card Image */}
+              {PROGRAMS.map((program) => (
                 <div
+                  key={program.title}
                   style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "200px",
-                  }}
-                >
-                  <Image
-                    src="/images/academy/program-studio.png"
-                    alt="Studio Houdini Training"
-                    fill
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 1024px) 100vw, 400px"
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(to bottom, transparent 60%, rgba(19,25,21,0.9) 100%)",
-                    }}
-                  />
-                  {/* Badge */}
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: "16px",
-                      right: "16px",
-                      background: RED,
-                      color: "#FFFFFF",
-                      fontWeight: 700,
-                      fontSize: "10px",
-                      letterSpacing: "0.08em",
-                      padding: "6px 12px",
-                      borderRadius: "4px",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    MOST POPULAR
-                  </span>
-                </div>
-
-                {/* Card Body */}
-                <div
-                  style={{
-                    padding: "32px",
+                    background: "#FFFFFF",
+                    borderRadius: "16px",
+                    overflow: "hidden",
                     display: "flex",
                     flexDirection: "column",
-                    gap: "24px",
-                    flexGrow: 1,
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
                   }}
+                  className="program-card"
                 >
+                  {/* Card Image */}
                   <div
                     style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
+                      position: "relative",
+                      width: "100%",
+                      height: "240px",
                     }}
                   >
-                    <span
-                      style={{
-                        fontFamily: "'Open Sans', sans-serif",
-                        fontSize: "11px",
-                        fontWeight: 700,
-                        color: RED,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      FOR STUDIOS & TEAMS
-                    </span>
-                    <h3
-                      style={{
-                        margin: 0,
-                        fontSize: "24px",
-                        fontWeight: 800,
-                        color: "#FFFFFF",
-                      }}
-                    >
-                      Studio Houdini Training
-                    </h3>
+                    <Image
+                      src={program.image}
+                      alt={program.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="(max-width: 1024px) 100vw, 400px"
+                    />
                   </div>
 
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "14px",
-                      color: "rgba(255,255,255,0.75)",
-                      lineHeight: 1.6,
-                      minHeight: "68px",
-                    }}
-                  >
-                    Custom in-house Houdini training built around your studio's
-                    exact production requirements and L&D goals.
-                  </p>
-
-                  {/* Spec Box */}
+                  {/* Card Body */}
                   <div
                     style={{
-                      display: "flex",
-                      background: "rgba(255,255,255,0.03)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      borderRadius: "8px",
-                      padding: "12px 16px",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    {[
-                      { label: "FORMAT", val: "Online" },
-                      { label: "SEATS", val: "Flexible" },
-                      { label: "DURATION", val: "Custom" },
-                    ].map((spec, index, arr) => (
-                      <div
-                        key={spec.label}
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "2px",
-                          flex: 1,
-                          alignItems:
-                            index === 0
-                              ? "flex-start"
-                              : index === arr.length - 1
-                                ? "flex-end"
-                                : "center",
-                          borderRight:
-                            index < arr.length - 1
-                              ? "1px solid rgba(255,255,255,0.08)"
-                              : "none",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: "9px",
-                            fontWeight: 600,
-                            color: "rgba(255,255,255,0.4)",
-                            letterSpacing: "0.05em",
-                          }}
-                        >
-                          {spec.label}
-                        </span>
-                        <span
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 700,
-                            color: "#FFFFFF",
-                          }}
-                        >
-                          {spec.val}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Checklist */}
-                  <div
-                    style={{
+                      padding: "32px",
                       display: "flex",
                       flexDirection: "column",
-                      gap: "12px",
+                      gap: "20px",
                       flexGrow: 1,
                     }}
                   >
-                    {[
-                      "Crafted with your L&D team",
-                      "Flip, Pyro, Destruction, Groom, USD & more",
-                      "Flexible seat or full-batch bookings",
-                      "Trusted by leading VFX & animation studios",
-                    ].map((item) => (
-                      <div
-                        key={item}
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "10px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            width: "6px",
-                            height: "6px",
-                            borderRadius: "50%",
-                            background: RED,
-                            marginTop: "7px",
-                            flexShrink: 0,
-                          }}
-                        />
-                        <span
-                          style={{
-                            fontSize: "13px",
-                            color: "rgba(255,255,255,0.85)",
-                            lineHeight: 1.4,
-                          }}
-                        >
-                          {item}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Action CTA Block */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "14px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Link
-                      href="/contact?program=Studio"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                        padding: "14px 24px",
-                        background: RED,
-                        color: "#FFFFFF",
-                        fontWeight: 700,
-                        fontSize: "14px",
-                        borderRadius: "8px",
-                        textDecoration: "none",
-                        letterSpacing: "0.02em",
-                        transition: "background 0.2s",
-                      }}
-                      className="program-btn"
-                    >
-                      Book Studio Training
-                    </Link>
-                    <a
-                      href="#"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        color: "rgba(255,255,255,0.5)",
-                        fontSize: "13px",
-                        fontWeight: 600,
-                        textDecoration: "none",
-                        transition: "color 0.2s",
-                      }}
-                      className="download-brochure-link"
-                    >
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                      Download Brochure
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 2 — Beginner Houdini Training */}
-              <div
-                style={{
-                  background: "#131915",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: "16px",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  position: "relative",
-                  transition:
-                    "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
-                }}
-                className="program-card"
-              >
-                {/* Card Image */}
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "200px",
-                  }}
-                >
-                  <Image
-                    src="/images/academy/program-beginner.png"
-                    alt="Beginner Houdini Training"
-                    fill
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 1024px) 100vw, 400px"
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(to bottom, transparent 60%, rgba(19,25,21,0.9) 100%)",
-                    }}
-                  />
-                  {/* Badge */}
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: "16px",
-                      right: "16px",
-                      background: "#E37A20", // Orange Launching Badge
-                      color: "#FFFFFF",
-                      fontWeight: 700,
-                      fontSize: "10px",
-                      letterSpacing: "0.08em",
-                      padding: "6px 12px",
-                      borderRadius: "4px",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    LAUNCHING
-                  </span>
-                </div>
-
-                {/* Card Body */}
-                <div
-                  style={{
-                    padding: "32px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "24px",
-                    flexGrow: 1,
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "'Open Sans', sans-serif",
-                        fontSize: "11px",
-                        fontWeight: 700,
-                        color: RED,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      FOR ASPIRING ARTISTS
-                    </span>
                     <h3
                       style={{
                         margin: 0,
-                        fontSize: "24px",
+                        fontSize: "20px",
                         fontWeight: 800,
-                        color: "#FFFFFF",
+                        color: ABOUT_TEXT_PRIMARY,
                       }}
                     >
-                      Beginner Houdini Training
+                      {program.title}
                     </h3>
-                  </div>
 
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "14px",
-                      color: "rgba(255,255,255,0.75)",
-                      lineHeight: 1.6,
-                      minHeight: "68px",
-                    }}
-                  >
-                    Our flagship Academy trains a hand-picked batch of 15
-                    students in Houdini from the ground up.
-                  </p>
-
-                  {/* Spec Box */}
-                  <div
-                    style={{
-                      display: "flex",
-                      background: "rgba(255,255,255,0.03)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      borderRadius: "8px",
-                      padding: "12px 16px",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    {[
-                      { label: "DURATION", val: "6 Months" },
-                      { label: "SEATS", val: "Only 15" },
-                    ].map((spec, index, arr) => (
-                      <div
-                        key={spec.label}
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "2px",
-                          flex: 1,
-                          alignItems: index === 0 ? "flex-start" : "flex-end",
-                          borderRight:
-                            index < arr.length - 1
-                              ? "1px solid rgba(255,255,255,0.08)"
-                              : "none",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: "9px",
-                            fontWeight: 600,
-                            color: "rgba(255,255,255,0.4)",
-                            letterSpacing: "0.05em",
-                          }}
-                        >
-                          {spec.label}
-                        </span>
-                        <span
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 700,
-                            color: "#FFFFFF",
-                          }}
-                        >
-                          {spec.val}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Checklist */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "12px",
-                      flexGrow: 1,
-                    }}
-                  >
-                    {[
-                      "Studio-ready projects aligned with real pipelines",
-                      "Hand-picked cohort of 15 students",
-                      "Advance studio seat reservations available",
-                      "Full Houdini fundamentals to production workflows",
-                    ].map((item) => (
-                      <div
-                        key={item}
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "10px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            width: "6px",
-                            height: "6px",
-                            borderRadius: "50%",
-                            background: RED,
-                            marginTop: "7px",
-                            flexShrink: 0,
-                          }}
-                        />
-                        <span
-                          style={{
-                            fontSize: "13px",
-                            color: "rgba(255,255,255,0.85)",
-                            lineHeight: 1.4,
-                          }}
-                        >
-                          {item}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Action CTA Block */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "14px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Link
-                      href="/contact?program=Beginner"
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                        padding: "14px 24px",
-                        background: RED,
-                        color: "#FFFFFF",
-                        fontWeight: 700,
-                        fontSize: "14px",
-                        borderRadius: "8px",
-                        textDecoration: "none",
-                        letterSpacing: "0.02em",
-                        transition: "background 0.2s",
-                      }}
-                      className="program-btn"
-                    >
-                      Join Batch
-                    </Link>
-                    <a
-                      href="#"
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: "6px",
-                        color: "rgba(255,255,255,0.5)",
-                        fontSize: "13px",
-                        fontWeight: 600,
-                        textDecoration: "none",
-                        transition: "color 0.2s",
-                      }}
-                      className="download-brochure-link"
-                    >
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                      Download Brochure
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 3 — Advanced Houdini Training */}
-              <div
-                style={{
-                  background: "#131915",
-                  border: "1px solid rgba(255,255,255,0.08)",
-                  borderRadius: "16px",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  position: "relative",
-                  transition:
-                    "transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease",
-                }}
-                className="program-card"
-              >
-                {/* Card Image */}
-                <div
-                  style={{
-                    position: "relative",
-                    width: "100%",
-                    height: "200px",
-                  }}
-                >
-                  <Image
-                    src="/images/academy/program-advanced.png"
-                    alt="Advanced Houdini Training"
-                    fill
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 1024px) 100vw, 400px"
-                  />
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      background:
-                        "linear-gradient(to bottom, transparent 60%, rgba(19,25,21,0.9) 100%)",
-                    }}
-                  />
-                  {/* Badge */}
-                  <span
-                    style={{
-                      position: "absolute",
-                      top: "16px",
-                      right: "16px",
-                      background: "rgba(255, 255, 255, 0.12)",
-                      color: "#FFFFFF",
-                      fontWeight: 700,
-                      fontSize: "10px",
-                      letterSpacing: "0.08em",
-                      padding: "6px 12px",
-                      borderRadius: "4px",
-                      textTransform: "uppercase",
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
-                    }}
-                  >
-                    LAUNCHING SOON
-                  </span>
-                </div>
-
-                {/* Card Body */}
-                <div
-                  style={{
-                    padding: "32px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "24px",
-                    flexGrow: 1,
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "'Open Sans', sans-serif",
-                        fontSize: "11px",
-                        fontWeight: 700,
-                        color: RED,
-                        letterSpacing: "0.12em",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      FOR WORKING ARTISTS
-                    </span>
-                    <h3
+                    <p
                       style={{
                         margin: 0,
-                        fontSize: "24px",
-                        fontWeight: 800,
-                        color: "#FFFFFF",
+                        fontSize: "13px",
+                        color: ABOUT_TEXT_SECONDARY,
+                        lineHeight: 1.6,
                       }}
                     >
-                      Advanced Houdini Training
-                    </h3>
-                  </div>
+                      {program.description}
+                    </p>
 
-                  <p
-                    style={{
-                      margin: 0,
-                      fontSize: "14px",
-                      color: "rgba(255,255,255,0.75)",
-                      lineHeight: 1.6,
-                      minHeight: "68px",
-                    }}
-                  >
-                    Short-term intensive sessions led by industry experts —
-                    focused deep dives into specific Houdini workflows.
-                  </p>
-
-                  {/* Spec Box */}
-                  <div
-                    style={{
-                      display: "flex",
-                      background: "rgba(255,255,255,0.03)",
-                      border: "1px solid rgba(255,255,255,0.08)",
-                      borderRadius: "8px",
-                      padding: "12px 16px",
-                      justifyContent: "space-between",
-                    }}
-                  >
-                    {[
-                      { label: "DURATION", val: "3 Months" },
-                      { label: "SEATS", val: "Only 15" },
-                    ].map((spec, index, arr) => (
-                      <div
-                        key={spec.label}
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "2px",
-                          flex: 1,
-                          alignItems: index === 0 ? "flex-start" : "flex-end",
-                          borderRight:
-                            index < arr.length - 1
-                              ? "1px solid rgba(255,255,255,0.08)"
-                              : "none",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontSize: "9px",
-                            fontWeight: 600,
-                            color: "rgba(255,255,255,0.4)",
-                            letterSpacing: "0.05em",
-                          }}
-                        >
-                          {spec.label}
-                        </span>
-                        <span
-                          style={{
-                            fontSize: "12px",
-                            fontWeight: 700,
-                            color: "#FFFFFF",
-                          }}
-                        >
-                          {spec.val}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Checklist */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "12px",
-                      flexGrow: 1,
-                    }}
-                  >
-                    {[
-                      "Expert-led deep dives into advanced workflows",
-                      "Focus: USD, Groom, Tech Animation & more",
-                      "Targeted skill-building for working artists",
-                      "Studio seat reservations available",
-                    ].map((item) => (
-                      <div
-                        key={item}
-                        style={{
-                          display: "flex",
-                          alignItems: "flex-start",
-                          gap: "10px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            width: "6px",
-                            height: "6px",
-                            borderRadius: "50%",
-                            background: RED,
-                            marginTop: "7px",
-                            flexShrink: 0,
-                          }}
-                        />
-                        <span
-                          style={{
-                            fontSize: "13px",
-                            color: "rgba(255,255,255,0.85)",
-                            lineHeight: 1.4,
-                          }}
-                        >
-                          {item}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Action CTA Block */}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "14px",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Link
-                      href="/contact?program=Advanced"
+                    {/* Checklist */}
+                    <div
                       style={{
                         display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "100%",
-                        padding: "14px 24px",
-                        background: RED,
-                        color: "#FFFFFF",
-                        fontWeight: 700,
-                        fontSize: "14px",
-                        borderRadius: "8px",
-                        textDecoration: "none",
-                        letterSpacing: "0.02em",
-                        transition: "background 0.2s",
+                        flexDirection: "column",
+                        gap: "12px",
+                        flexGrow: 1,
                       }}
-                      className="program-btn"
                     >
-                      Join Batch
-                    </Link>
-                    <a
-                      href="#"
+                      {program.items.map((item) => (
+                        <div
+                          key={item}
+                          style={{
+                            display: "flex",
+                            alignItems: "flex-start",
+                            gap: "10px",
+                          }}
+                        >
+                          <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke={RED}
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            style={{ flexShrink: 0, marginTop: "2px" }}
+                          >
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M8 12.5l2.5 2.5L16 9.5" />
+                          </svg>
+                          <span
+                            style={{
+                              fontSize: "12px",
+                              color: ABOUT_TEXT_SECONDARY,
+                              lineHeight: 1.4,
+                            }}
+                          >
+                            {item}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Action CTA Block */}
+                    <div
                       style={{
-                        display: "inline-flex",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "12px",
                         alignItems: "center",
-                        gap: "6px",
-                        color: "rgba(255,255,255,0.5)",
-                        fontSize: "13px",
-                        fontWeight: 600,
-                        textDecoration: "none",
-                        transition: "color 0.2s",
+                        marginTop: "8px",
                       }}
-                      className="download-brochure-link"
                     >
-                      <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
+                      <Link
+                        href={program.href}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "100%",
+                          padding: "14px 24px",
+                          background: RED,
+                          color: "#FFFFFF",
+                          fontWeight: 700,
+                          fontSize: "13px",
+                          borderRadius: "999px",
+                          textDecoration: "none",
+                          letterSpacing: "0.02em",
+                          transition: "background 0.2s",
+                        }}
+                        className="program-btn"
                       >
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                        <polyline points="7 10 12 15 17 10" />
-                        <line x1="12" y1="15" x2="12" y2="3" />
-                      </svg>
-                      Download Brochure
-                    </a>
+                        {program.ctaLabel}
+                      </Link>
+                      <a
+                        href="#"
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          width: "100%",
+                          padding: "12.5px 24px",
+                          background: "#FFFFFF",
+                          color: RED,
+                          fontWeight: 700,
+                          fontSize: "13px",
+                          borderRadius: "999px",
+                          border: `1.5px solid ${BORDER}`,
+                          textDecoration: "none",
+                          transition: "background 0.2s, border-color 0.2s",
+                        }}
+                        className="view-more-link"
+                      >
+                        View More
+                      </a>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -3047,15 +2396,14 @@ export default async function AcademyPage() {
         }
         .program-card:hover {
           transform: translateY(-6px);
-          border-color: rgba(224,32,32,0.4) !important;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 25px rgba(224,32,32,0.15) !important;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.35), 0 0 25px rgba(224,32,32,0.1) !important;
         }
         .program-btn:hover {
           background: #C22F22 !important;
         }
-        .download-brochure-link:hover {
-          color: #FFFFFF !important;
-          text-decoration: underline !important;
+        .view-more-link:hover {
+          background: #FDF2F2 !important;
+          border-color: #E02020 !important;
         }
         .talk-advisor-btn:hover {
           background: #C22F22 !important;
