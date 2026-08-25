@@ -1519,7 +1519,7 @@ export default async function AcademyPage() {
               }}
             >
               <Link
-                href="#"
+                href="/academy/courses&videos"
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
