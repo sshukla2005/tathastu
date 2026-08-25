@@ -23,6 +23,8 @@ const RED = "#E02020";
 const ABOUT_TEXT_PRIMARY = "#1A1A1A";
 const ABOUT_TEXT_SECONDARY = "#4D4D4D";
 
+type CourseLevel = "Intermediate" | "Beginner";
+
 interface Course {
   title: string;
   image: string;
@@ -31,7 +33,10 @@ interface Course {
   badge: string | null;
   video: boolean;
   category: string;
+  level: CourseLevel;
 }
+
+const LEVELS: CourseLevel[] = ["Intermediate", "Beginner"];
 
 const COURSES: Course[] = [
   {
@@ -43,6 +48,7 @@ const COURSES: Course[] = [
     badge: "NEW",
     video: false,
     category: "AI",
+    level: "Intermediate",
   },
   {
     title: "Compositing in Nuke",
@@ -53,6 +59,7 @@ const COURSES: Course[] = [
     badge: null,
     video: false,
     category: "Compositing",
+    level: "Intermediate",
   },
   {
     title: "Intro to Unreal Engine",
@@ -63,6 +70,7 @@ const COURSES: Course[] = [
     badge: null,
     video: false,
     category: "Unreal Engine",
+    level: "Intermediate",
   },
   {
     title: "Intro to Houdini FX",
@@ -73,6 +81,7 @@ const COURSES: Course[] = [
     badge: null,
     video: false,
     category: "Houdini",
+    level: "Intermediate",
   },
   {
     title: "Coding Generative AI",
@@ -83,6 +92,7 @@ const COURSES: Course[] = [
     badge: "NEW",
     video: true,
     category: "AI",
+    level: "Intermediate",
   },
   {
     title: "Unreal Engine Short Film",
@@ -92,6 +102,29 @@ const COURSES: Course[] = [
     badge: null,
     video: false,
     category: "Unreal Engine",
+    level: "Intermediate",
+  },
+  {
+    title: "AI for Interior Design",
+    image: "/images/academy/about-brain.png",
+    description:
+      "Create cinematic interior renders using AI — from rough sketches to fully",
+    duration: "7-Weeks",
+    badge: "NEW",
+    video: false,
+    category: "AI",
+    level: "Beginner",
+  },
+  {
+    title: "Compositing in Nuke",
+    image: "/images/academy/program-advanced.png",
+    description:
+      "Learn compositing like a pro in this incredible Nuke course for FX Artists",
+    duration: "10-Weeks",
+    badge: null,
+    video: false,
+    category: "Compositing",
+    level: "Beginner",
   },
 ];
 
@@ -227,154 +260,183 @@ export default async function CoursesVideosPage({ searchParams }: PageProps) {
                 No results found. Try a different search or category.
               </p>
             ) : (
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gap: "24px",
-                }}
-                className="courses-videos-grid"
-              >
-                {filteredCourses.map((course) => (
+              LEVELS.map((level) => {
+                const levelCourses = filteredCourses.filter(
+                  (course) => course.level === level,
+                );
+                if (levelCourses.length === 0) return null;
+
+                return (
                   <div
-                    key={course.title}
-                    style={{
-                      background: "#FFFFFF",
-                      borderRadius: "16px",
-                      overflow: "hidden",
-                      boxShadow: "0 10px 25px rgba(0, 0, 0, 0.04)",
-                      border: "1px solid rgba(0, 0, 0, 0.03)",
-                      display: "flex",
-                      flexDirection: "column",
-                      transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                    }}
-                    className="course-card"
+                    key={level}
+                    style={{ marginBottom: "56px" }}
+                    className="courses-videos-group"
                   >
-                    {/* Card Image */}
-                    <div
+                    <h2
                       style={{
-                        position: "relative",
-                        width: "100%",
-                        height: "200px",
+                        fontFamily: "'Open Sans', sans-serif",
+                        fontSize: "clamp(24px, 2.2vw, 30px)",
+                        fontWeight: 800,
+                        lineHeight: 1.2,
+                        color: ABOUT_TEXT_PRIMARY,
+                        margin: "0 0 24px",
                       }}
                     >
-                      <Image
-                        src={course.image}
-                        alt={course.title}
-                        fill
-                        style={{ objectFit: "cover" }}
-                        sizes="(max-width: 1024px) 100vw, 400px"
-                      />
-                      {course.badge && (
-                        <span
-                          style={{
-                            position: "absolute",
-                            top: "12px",
-                            right: "12px",
-                            background: RED,
-                            color: "#FFFFFF",
-                            fontWeight: 700,
-                            fontSize: "10px",
-                            letterSpacing: "0.06em",
-                            padding: "5px 10px",
-                            borderRadius: "4px",
-                            textTransform: "uppercase",
-                          }}
-                        >
-                          {course.badge}
-                        </span>
-                      )}
-                      {course.video && (
+                      {level} <span style={{ color: RED }}>Courses</span>
+                    </h2>
+
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, 1fr)",
+                        gap: "24px",
+                      }}
+                      className="courses-videos-grid"
+                    >
+                      {levelCourses.map((course) => (
                         <div
+                          key={`${level}-${course.title}`}
                           style={{
-                            position: "absolute",
-                            inset: 0,
+                            background: "#FFFFFF",
+                            borderRadius: "16px",
+                            overflow: "hidden",
+                            boxShadow: "0 10px 25px rgba(0, 0, 0, 0.04)",
+                            border: "1px solid rgba(0, 0, 0, 0.03)",
                             display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
+                            flexDirection: "column",
+                            transition:
+                              "transform 0.3s ease, box-shadow 0.3s ease",
                           }}
+                          className="course-card"
                         >
+                          {/* Card Image */}
                           <div
                             style={{
-                              width: "44px",
-                              height: "44px",
-                              borderRadius: "50%",
-                              background: "rgba(255,255,255,0.92)",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "center",
-                              boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+                              position: "relative",
+                              width: "100%",
+                              height: "200px",
                             }}
                           >
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 24 24"
-                              fill={RED}
-                              style={{ marginLeft: "2px" }}
+                            <Image
+                              src={course.image}
+                              alt={course.title}
+                              fill
+                              style={{ objectFit: "cover" }}
+                              sizes="(max-width: 1024px) 100vw, 400px"
+                            />
+                            {course.badge && (
+                              <span
+                                style={{
+                                  position: "absolute",
+                                  top: "12px",
+                                  right: "12px",
+                                  background: RED,
+                                  color: "#FFFFFF",
+                                  fontWeight: 700,
+                                  fontSize: "10px",
+                                  letterSpacing: "0.06em",
+                                  padding: "5px 10px",
+                                  borderRadius: "4px",
+                                  textTransform: "uppercase",
+                                }}
+                              >
+                                {course.badge}
+                              </span>
+                            )}
+                            {course.video && (
+                              <div
+                                style={{
+                                  position: "absolute",
+                                  inset: 0,
+                                  display: "flex",
+                                  alignItems: "center",
+                                  justifyContent: "center",
+                                }}
+                              >
+                                <div
+                                  style={{
+                                    width: "44px",
+                                    height: "44px",
+                                    borderRadius: "50%",
+                                    background: "rgba(255,255,255,0.92)",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    boxShadow: "0 4px 12px rgba(0,0,0,0.25)",
+                                  }}
+                                >
+                                  <svg
+                                    width="16"
+                                    height="16"
+                                    viewBox="0 0 24 24"
+                                    fill={RED}
+                                    style={{ marginLeft: "2px" }}
+                                  >
+                                    <path d="M8 5v14l11-7z" />
+                                  </svg>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Card Body */}
+                          <div
+                            style={{
+                              padding: "20px 22px 22px",
+                              display: "flex",
+                              flexDirection: "column",
+                              gap: "8px",
+                            }}
+                          >
+                            <h3
+                              style={{
+                                margin: 0,
+                                fontSize: "17px",
+                                fontWeight: 700,
+                                color: ABOUT_TEXT_PRIMARY,
+                              }}
                             >
-                              <path d="M8 5v14l11-7z" />
-                            </svg>
+                              {course.title}
+                            </h3>
+                            <p
+                              style={{
+                                margin: 0,
+                                fontSize: "13px",
+                                color: ABOUT_TEXT_SECONDARY,
+                                lineHeight: 1.55,
+                              }}
+                            >
+                              {course.description}{" "}
+                              <a
+                                href="#"
+                                style={{
+                                  color: RED,
+                                  fontWeight: 600,
+                                  textDecoration: "none",
+                                }}
+                                className="read-more-link"
+                              >
+                                read more...
+                              </a>
+                            </p>
+                            <span
+                              style={{
+                                fontSize: "12px",
+                                fontWeight: 700,
+                                color: RED,
+                                letterSpacing: "0.04em",
+                                marginTop: "6px",
+                              }}
+                            >
+                              {course.duration}
+                            </span>
                           </div>
                         </div>
-                      )}
-                    </div>
-
-                    {/* Card Body */}
-                    <div
-                      style={{
-                        padding: "20px 22px 22px",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "8px",
-                      }}
-                    >
-                      <h3
-                        style={{
-                          margin: 0,
-                          fontSize: "17px",
-                          fontWeight: 700,
-                          color: ABOUT_TEXT_PRIMARY,
-                        }}
-                      >
-                        {course.title}
-                      </h3>
-                      <p
-                        style={{
-                          margin: 0,
-                          fontSize: "13px",
-                          color: ABOUT_TEXT_SECONDARY,
-                          lineHeight: 1.55,
-                        }}
-                      >
-                        {course.description}{" "}
-                        <a
-                          href="#"
-                          style={{
-                            color: RED,
-                            fontWeight: 600,
-                            textDecoration: "none",
-                          }}
-                          className="read-more-link"
-                        >
-                          read more...
-                        </a>
-                      </p>
-                      <span
-                        style={{
-                          fontSize: "12px",
-                          fontWeight: 700,
-                          color: RED,
-                          letterSpacing: "0.04em",
-                          marginTop: "6px",
-                        }}
-                      >
-                        {course.duration}
-                      </span>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
+                );
+              })
             )}
           </div>
         </section>
