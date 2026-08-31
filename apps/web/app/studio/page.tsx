@@ -1510,18 +1510,19 @@ export default async function StudioPage() {
         }
         .studio-purpose-card {
           background-color: #FFFFFF;
-          border: 1.5px solid #E0E0E0;
+          border: 1.5px solid #D61814;
           padding: 32px 24px;
           border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: center;
           min-height: 100px;
+          box-shadow: 0 4px 14px rgba(214, 24, 20, 0.15);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .studio-purpose-card:hover {
           transform: translateY(-4px);
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 8px 20px rgba(214, 24, 20, 0.25);
         }
         .studio-toggle-bar {
           display: flex;
