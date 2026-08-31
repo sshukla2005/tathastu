@@ -4,6 +4,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
+import StudioMeetTeam from "@/components/sections/StudioMeetTeam";
 import { fetchStrapi } from "@/lib/api";
 import { SiteSettings, Industry } from "@tathastu/types";
 
@@ -826,43 +827,8 @@ export default async function StudioPage() {
               </p>
             </div>
 
-            {/* Members Row — 4 cards */}
-            <div className="studio-meet-row">
-              {[
-                { key: "nikitha",  name: "Nikitha Gaikwad", role: "Marketing Manager",           bg: "#D6EAF8" },
-                { key: "chetan",   name: "Chetan Jain",     role: "Founder & CEO",               bg: "#D5F5E3" },
-                { key: "nikitha2", name: "Nikitha Gaikwad", role: "President of Sales",          bg: "#E8DAEF" },
-                { key: "venu",     name: "Venu Victor",     role: "Co-founder and VFX Supervisor", bg: "#FDEBD0" },
-              ].map((member, idx) => (
-                <div key={idx} className="studio-member-card">
-                  {/* Pill card: name & role on colored background, photo filling the rest */}
-                  <div
-                    className="studio-member-arch"
-                    style={{ backgroundColor: member.bg }}
-                  >
-                    <div className="studio-member-info">
-                      <h3 className="studio-member-name">{member.name}</h3>
-                      <p className="studio-member-role">{member.role}</p>
-                    </div>
-                    <div className="studio-member-photo">
-                      <img
-                        src={`/images/studio/member-${member.key}.png`}
-                        alt={member.name}
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                          objectPosition: "center top",
-                          display: "block",
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {/* Members carousel — 4 cards, arrows to navigate */}
+            <StudioMeetTeam />
           </div>
         </section>
 
@@ -1446,12 +1412,42 @@ export default async function StudioPage() {
           transform: translateY(-2px);
           opacity: 0.95;
         }
+        .studio-meet-viewport {
+          width: 100%;
+          overflow: visible;
+        }
         .studio-meet-row {
           display: grid;
           grid-template-columns: repeat(4, minmax(0, 260px));
           justify-content: center;
           gap: 24px;
           width: 100%;
+          transition: transform 0.35s ease;
+        }
+        .studio-meet-slide {
+          display: contents;
+        }
+        .studio-meet-arrows {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+        }
+        .studio-meet-arrow-btn {
+          width: 44px;
+          height: 44px;
+          border: 1.5px solid #0b0625;
+          border-radius: 4px;
+          background: #ffffff;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Open Sans', sans-serif;
+          font-size: 20px;
+          color: #0b0625;
+        }
+        .studio-meet-arrow-btn:hover {
+          background: #f5f5f5;
         }
         .studio-member-card {
           display: flex;
@@ -1961,11 +1957,27 @@ export default async function StudioPage() {
             font-size: 28px !important;
             line-height: 36px !important;
           }
+          .studio-meet-viewport {
+            overflow: hidden !important;
+          }
           .studio-meet-row {
-            grid-template-columns: repeat(2, minmax(0, 140px)) !important;
-            gap: 20px !important;
+            display: flex !important;
+            justify-content: flex-start !important;
+            gap: 0 !important;
+          }
+          .studio-meet-slide {
+            display: flex !important;
+            flex: 0 0 100% !important;
+            justify-content: center !important;
+            gap: 16px !important;
+          }
+          .studio-member-card {
+            flex: 0 0 auto !important;
+            width: 150px !important;
+            align-items: center !important;
           }
           .studio-member-arch {
+            width: 150px !important;
             height: 300px !important;
             border-radius: 999px !important;
           }
