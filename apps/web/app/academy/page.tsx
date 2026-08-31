@@ -4,6 +4,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFAB from "@/components/WhatsAppFAB";
+import AcademyProgramsCarousel from "@/components/sections/AcademyProgramsCarousel";
 import { fetchStrapi } from "@/lib/api";
 import { SiteSettings, Industry } from "@tathastu/types";
 
@@ -18,7 +19,6 @@ export async function generateMetadata() {
 /* ── Design Tokens ────────────────────────────────────────────────── */
 const RED = "#E02020";
 const DARK = "#0D0D0D";
-const BORDER = "rgba(224,32,32,0.35)";
 
 // About Section Color Palette (Figma node 154:132)
 const ABOUT_BG = "#F3EFE9"; // Warm light grey/beige
@@ -58,6 +58,21 @@ const PROGRAMS = [
     href: "/contact?program=Beginner",
   },
   {
+    title: "Advanced Houdini Training",
+    image: "/images/academy/program-advanced.png",
+    description:
+      "Short-term intensive sessions led by industry experts — focused deep dives into specific Houdini workflows.",
+    items: [
+      "Expert-led deep dives into advanced workflows",
+      "Focus: USD, Groom, Tech Animation & more",
+      "Targeted skill-building for working artists",
+      "Studio seat reservations available",
+    ],
+    ctaLabel: "Join Batch",
+    href: "/contact?program=Advanced",
+  },
+  {
+    // TODO: placeholder card — swap in real title/description/image/href
     title: "Advanced Houdini Training",
     image: "/images/academy/program-advanced.png",
     description:
@@ -811,179 +826,8 @@ export default async function AcademyPage() {
               </p>
             </div>
 
-            {/* Cards Grid */}
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, 1fr)",
-                gap: "32px",
-              }}
-              className="programs-grid"
-            >
-              {PROGRAMS.map((program) => (
-                <div
-                  key={program.title}
-                  style={{
-                    background: "#FFFFFF",
-                    borderRadius: "16px",
-                    overflow: "hidden",
-                    display: "flex",
-                    flexDirection: "column",
-                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                  }}
-                  className="program-card"
-                >
-                  {/* Card Image */}
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "100%",
-                      height: "240px",
-                    }}
-                  >
-                    <Image
-                      src={program.image}
-                      alt={program.title}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      sizes="(max-width: 1024px) 100vw, 400px"
-                    />
-                  </div>
-
-                  {/* Card Body */}
-                  <div
-                    style={{
-                      padding: "32px",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "20px",
-                      flexGrow: 1,
-                    }}
-                  >
-                    <h3
-                      style={{
-                        margin: 0,
-                        fontSize: "20px",
-                        fontWeight: 800,
-                        color: ABOUT_TEXT_PRIMARY,
-                      }}
-                    >
-                      {program.title}
-                    </h3>
-
-                    <p
-                      style={{
-                        margin: 0,
-                        fontSize: "13px",
-                        color: ABOUT_TEXT_SECONDARY,
-                        lineHeight: 1.6,
-                      }}
-                    >
-                      {program.description}
-                    </p>
-
-                    {/* Checklist */}
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "12px",
-                        flexGrow: 1,
-                      }}
-                    >
-                      {program.items.map((item) => (
-                        <div
-                          key={item}
-                          style={{
-                            display: "flex",
-                            alignItems: "flex-start",
-                            gap: "10px",
-                          }}
-                        >
-                          <svg
-                            width="16"
-                            height="16"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke={RED}
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            style={{ flexShrink: 0, marginTop: "2px" }}
-                          >
-                            <circle cx="12" cy="12" r="10" />
-                            <path d="M8 12.5l2.5 2.5L16 9.5" />
-                          </svg>
-                          <span
-                            style={{
-                              fontSize: "12px",
-                              color: ABOUT_TEXT_SECONDARY,
-                              lineHeight: 1.4,
-                            }}
-                          >
-                            {item}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Action CTA Block */}
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "12px",
-                        alignItems: "center",
-                        marginTop: "8px",
-                      }}
-                    >
-                      <Link
-                        href={program.href}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: "100%",
-                          padding: "14px 24px",
-                          background: RED,
-                          color: "#FFFFFF",
-                          fontWeight: 700,
-                          fontSize: "13px",
-                          borderRadius: "999px",
-                          textDecoration: "none",
-                          letterSpacing: "0.02em",
-                          transition: "background 0.2s",
-                        }}
-                        className="program-btn"
-                      >
-                        {program.ctaLabel}
-                      </Link>
-                      <a
-                        href="#"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          width: "100%",
-                          padding: "12.5px 24px",
-                          background: "#FFFFFF",
-                          color: RED,
-                          fontWeight: 700,
-                          fontSize: "13px",
-                          borderRadius: "999px",
-                          border: `1.5px solid ${BORDER}`,
-                          textDecoration: "none",
-                          transition: "background 0.2s, border-color 0.2s",
-                        }}
-                        className="view-more-link"
-                      >
-                        View More
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {/* Cards Carousel — 3 visible on desktop, 2 tablet, 1 mobile */}
+            <AcademyProgramsCarousel programs={PROGRAMS} />
           </div>
         </section>
 
@@ -1880,6 +1724,45 @@ export default async function AcademyPage() {
           background: #FDF2F2 !important;
           border-color: #E02020 !important;
         }
+        .programs-viewport {
+          width: 100%;
+          overflow: hidden;
+        }
+        .programs-grid {
+          display: flex;
+          gap: 32px;
+          transition: transform 0.4s ease;
+        }
+        .program-card-slide {
+          flex: 0 0 calc((100% - 64px) / 3);
+        }
+        .programs-arrows {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+        }
+        .programs-arrow-btn {
+          width: 44px;
+          height: 44px;
+          border: 1.5px solid #E02020;
+          border-radius: 4px;
+          background: transparent;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: 'Open Sans', sans-serif;
+          font-size: 20px;
+          color: #E02020;
+          transition: background 0.2s, opacity 0.2s;
+        }
+        .programs-arrow-btn:hover:not(:disabled) {
+          background: rgba(224,32,32,0.1);
+        }
+        .programs-arrow-btn:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
         .course-card:hover {
           transform: translateY(-4px);
           box-shadow: 0 15px 30px rgba(0,0,0,0.08) !important;
@@ -2017,12 +1900,11 @@ export default async function AcademyPage() {
             text-align: center !important;
             gap: 12px !important;
           }
-          .programs-grid {
-            grid-template-columns: 1fr !important;
-            gap: 48px !important;
-          }
           .programs-container {
             padding: 100px 32px 100px !important;
+          }
+          .program-card-slide {
+            flex: 0 0 calc((100% - 32px) / 2) !important;
           }
           .why-us-grid-right {
             grid-template-columns: 1fr !important;
@@ -2079,6 +1961,9 @@ export default async function AcademyPage() {
           .cta-buttons-container a {
             justify-content: center !important;
             width: 100% !important;
+          }
+          .program-card-slide {
+            flex: 0 0 100% !important;
           }
           .meet-team-row {
             grid-template-columns: repeat(2, minmax(0, 140px)) !important;
