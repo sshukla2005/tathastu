@@ -1825,7 +1825,7 @@ export default async function AcademyPage() {
                 fontFamily: "'Open Sans', sans-serif",
                 fontSize: "clamp(15px, 1.4vw, 18px)",
                 fontWeight: 400,
-                color: "rgba(255,255,255,0.65)",
+                color: "rgba(255,255,255,0.85)",
                 lineHeight: 1.7,
                 margin: 0,
                 // maxWidth: "620px",
@@ -1838,19 +1838,14 @@ export default async function AcademyPage() {
             <Link
               href="/contact?source=Academy"
               style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
                 padding: "14px 36px",
-                marginTop: "12px",
-                background: "linear-gradient(90deg, #920B08 0%, #D61814 100%);",
+                background: "linear-gradient(90deg, #920B08 0%, #D61814 100%)",
+                borderRadius: "50px",
                 color: "#FFFFFF",
-                fontFamily: "'Open Sans', sans-serif",
-                fontSize: "16px",
-                fontWeight: 700,
-                borderRadius: "999px",
+                fontSize: "15px",
+                fontWeight: 600,
                 textDecoration: "none",
-                whiteSpace: "nowrap",
+                marginTop: "8px",
               }}
             >
               Request Demo
