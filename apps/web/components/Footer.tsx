@@ -60,6 +60,7 @@ const STATIC_FOOTER_COLUMNS = [
       { label: "Blog", href: "/blog" },
       { label: "Press", href: "/press" },
       { label: "Career", href: "/career" },
+      { label: "Event", href: "/event" },
       { label: "Contact Us", href: "/contact" },
     ],
   },
@@ -89,10 +90,17 @@ export default function Footer({ siteSettings }: FooterProps) {
     ? getStrapiMediaUrl(siteSettings.logo.url)
     : null;
 
-  const columns =
+  const baseColumns =
     siteSettings.footerColumns && siteSettings.footerColumns.length > 0
       ? siteSettings.footerColumns
       : STATIC_FOOTER_COLUMNS;
+
+  // Ensure the "Event" link always appears under "Tathastu", regardless of CMS data.
+  const columns = baseColumns.map((col) =>
+    col.title === "Tathastu" && !col.links.some((link) => link.href === "/event")
+      ? { ...col, links: [...col.links, { label: "Event", href: "/event" }] }
+      : col
+  );
 
   return (
     <>
