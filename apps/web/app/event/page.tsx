@@ -114,20 +114,15 @@ export default async function EventPage() {
                   className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-16"
                 >
                   <div className="flex flex-col gap-3">
-                    <Link href="/event/details">
-                      <h3 className="text-lg font-bold text-brand-dark transition-colors hover:text-[#2D9BF0]">
-                        {block.heading}
-                      </h3>
-                    </Link>
+                    <h3 className="text-lg font-bold text-brand-dark">
+                      {block.heading}
+                    </h3>
                     <p className="text-sm leading-relaxed text-gray-600">
                       {block.text}
                     </p>
                   </div>
 
-                  <Link
-                    href="/event/details"
-                    className="relative aspect-16/10 w-full overflow-hidden rounded-2xl"
-                  >
+                  <div className="relative aspect-16/10 w-full overflow-hidden rounded-2xl">
                     <Image
                       src={PLACEHOLDER_IMAGE}
                       alt={
@@ -136,7 +131,7 @@ export default async function EventPage() {
                           : "Attendees at the event"
                       }
                       fill
-                      className={`object-cover transition-transform duration-300 hover:scale-105 ${block.video ? "grayscale" : ""}`}
+                      className={`object-cover ${block.video ? "grayscale" : ""}`}
                       sizes="(max-width: 1024px) 100vw, 40vw"
                     />
                     {block.video && (
@@ -154,18 +149,18 @@ export default async function EventPage() {
                         </div>
                       </div>
                     )}
-                  </Link>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Fast Event ── */}
+        {/* ── Past Event ── */}
         <section className="relative overflow-hidden bg-white px-6 py-20 sm:px-10">
           <div className="relative z-10 mx-auto max-w-6xl">
             <h2 className="mb-14 text-center text-3xl font-extrabold text-brand-dark sm:text-4xl">
-              Fast <span className="text-[#2D9BF0]">Event</span>
+              Past <span className="text-[#2D9BF0]">Event</span>
             </h2>
 
             <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
