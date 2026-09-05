@@ -228,21 +228,99 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
             </div>
           </div>
 
-          {/* About */}
-          <Link
-            href="/about"
-            style={{
-              fontFamily: "'Open Sans', sans-serif",
-              fontSize: "18px",
-              fontWeight: pathname.startsWith("/about") ? 700 : 600,
-              color: pathname.startsWith("/about") ? "#4B95FF" : "#000000",
-              textDecoration: "none",
-              lineHeight: "25px",
-              whiteSpace: "nowrap",
-            }}
-          >
-            About
-          </Link>
+          {/* About ▾ */}
+          <div style={{ position: "relative" }} className="group">
+            <button
+              onClick={() => toggleDropdown("about")}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                fontFamily: "'Open Sans', sans-serif",
+                fontSize: "18px",
+                fontWeight: 600,
+                color: "#000000",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                lineHeight: "25px",
+              }}
+            >
+              <span>About</span>
+              <Image
+                src="/images/header/caret-down-industries.svg"
+                alt=""
+                width={13}
+                height={7}
+              />
+            </button>
+            <div
+              className="opacity-0 invisible group-hover:opacity-100 group-hover:visible"
+              style={{
+                position: "absolute",
+                top: "calc(100% + 8px)",
+                left: 0,
+                width: "200px",
+                backgroundColor: "#fff",
+                border: "1px solid #e5e7eb",
+                borderRadius: "12px",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+                padding: "8px",
+                transition: "opacity 0.2s, visibility 0.2s",
+                zIndex: 100,
+              }}
+            >
+              <Link
+                href="/about"
+                style={{
+                  display: "block",
+                  padding: "10px 14px",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "15px",
+                  fontWeight: 600,
+                  color: "#0b0625",
+                  textDecoration: "none",
+                  borderRadius: "8px",
+                }}
+                className="hover:bg-gray-50"
+              >
+                About Us
+              </Link>
+              <Link
+                href="/blog"
+                style={{
+                  display: "block",
+                  padding: "10px 14px",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "15px",
+                  fontWeight: 600,
+                  color: "#0b0625",
+                  textDecoration: "none",
+                  borderRadius: "8px",
+                }}
+                className="hover:bg-gray-50"
+              >
+                Blogs
+              </Link>
+              <Link
+                href="/event"
+                style={{
+                  display: "block",
+                  padding: "10px 14px",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "15px",
+                  fontWeight: 600,
+                  color: "#0b0625",
+                  textDecoration: "none",
+                  borderRadius: "8px",
+                }}
+                className="hover:bg-gray-50"
+              >
+                Events
+              </Link>
+            </div>
+          </div>
 
           {/* Contact */}
           <Link
@@ -470,20 +548,82 @@ export default function Header({ siteSettings, industries }: HeaderProps) {
             )}
           </div>
 
-          <Link
-            href="/about"
-            style={{
-              fontFamily: "'Open Sans', sans-serif",
-              fontSize: "18px",
-              fontWeight: 600,
-              color: pathname.startsWith("/about") ? "#4B95FF" : "#000000",
-              textDecoration: "none",
-              padding: "8px 0",
-              borderBottom: "1px solid #f3f4f6",
-            }}
-          >
-            About
-          </Link>
+          <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <button
+              onClick={() => toggleDropdown("about-mobile")}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                fontFamily: "'Open Sans', sans-serif",
+                fontSize: "18px",
+                fontWeight: 600,
+                color: "#000000",
+                background: "none",
+                border: "none",
+                borderBottom: "1px solid #f3f4f6",
+                cursor: "pointer",
+                padding: "8px 0",
+                width: "100%",
+              }}
+            >
+              <span>About</span>
+              <Image
+                src="/images/header/caret-down-industries.svg"
+                alt=""
+                width={13}
+                height={7}
+              />
+            </button>
+            {activeDropdown === "about-mobile" && (
+              <div
+                style={{
+                  paddingLeft: "16px",
+                  borderLeft: "2px solid #4B95FF",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                }}
+              >
+                <Link
+                  href="/about"
+                  style={{
+                    fontFamily: "'Open Sans', sans-serif",
+                    fontSize: "15px",
+                    color: "#0b0625",
+                    textDecoration: "none",
+                    padding: "4px 0",
+                  }}
+                >
+                  About Us
+                </Link>
+                <Link
+                  href="/blog"
+                  style={{
+                    fontFamily: "'Open Sans', sans-serif",
+                    fontSize: "15px",
+                    color: "#0b0625",
+                    textDecoration: "none",
+                    padding: "4px 0",
+                  }}
+                >
+                  Blogs
+                </Link>
+                <Link
+                  href="/event"
+                  style={{
+                    fontFamily: "'Open Sans', sans-serif",
+                    fontSize: "15px",
+                    color: "#0b0625",
+                    textDecoration: "none",
+                    padding: "4px 0",
+                  }}
+                >
+                  Events
+                </Link>
+              </div>
+            )}
+          </div>
 
           <Link
             href="/contact"
