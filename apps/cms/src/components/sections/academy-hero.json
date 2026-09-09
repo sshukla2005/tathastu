@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_academy_heroes",
+  "info": {
+    "displayName": "Academy Hero",
+    "icon": "layout"
+  },
+  "options": {},
+  "attributes": {
+    "wordmarkLine1": { "type": "string", "default": "TATHASTU" },
+    "wordmarkLine2": { "type": "string", "default": "ACADEMY" },
+    "tagline": { "type": "string", "default": "Learn. Rise. Lead." },
+    "heading": { "type": "string", "required": true },
+    "subtext": { "type": "text" },
+    "ctaLabel": { "type": "string" },
+    "ctaHref": { "type": "string" },
+    "backgroundImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "heroImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] }
+  }
+}

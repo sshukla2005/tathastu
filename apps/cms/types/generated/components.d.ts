@@ -1,5 +1,122 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface SectionsAcademyAbout extends Struct.ComponentSchema {
+  collectionName: 'components_sections_academy_abouts';
+  info: {
+    displayName: 'Academy About';
+    icon: 'information';
+  };
+  attributes: {
+    ctaHref: Schema.Attribute.String;
+    ctaLabel: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    features: Schema.Attribute.Component<'shared.feature-card', true>;
+    headingHighlight: Schema.Attribute.String;
+    headingLine1: Schema.Attribute.String & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+  };
+}
+
+export interface SectionsAcademyCourses extends Struct.ComponentSchema {
+  collectionName: 'components_sections_academy_courses';
+  info: {
+    displayName: 'Academy Courses';
+    icon: 'play';
+  };
+  attributes: {
+    courses: Schema.Attribute.Component<'shared.course-card', true>;
+    ctaHref: Schema.Attribute.String;
+    ctaLabel: Schema.Attribute.String;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    headingHighlight: Schema.Attribute.String;
+    subtitle: Schema.Attribute.Text;
+  };
+}
+
+export interface SectionsAcademyHero extends Struct.ComponentSchema {
+  collectionName: 'components_sections_academy_heroes';
+  info: {
+    displayName: 'Academy Hero';
+    icon: 'layout';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    ctaHref: Schema.Attribute.String;
+    ctaLabel: Schema.Attribute.String;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    heroImage: Schema.Attribute.Media<'images'>;
+    subtext: Schema.Attribute.Text;
+    tagline: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Learn. Rise. Lead.'>;
+    wordmarkLine1: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'TATHASTU'>;
+    wordmarkLine2: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'ACADEMY'>;
+  };
+}
+
+export interface SectionsAcademyMeetTeam extends Struct.ComponentSchema {
+  collectionName: 'components_sections_academy_meet_teams';
+  info: {
+    displayName: 'Academy Meet the Team';
+    icon: 'user';
+  };
+  attributes: {
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    headingHighlight: Schema.Attribute.String;
+    members: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::team-member.team-member'
+    >;
+    subtitle: Schema.Attribute.Text;
+  };
+}
+
+export interface SectionsAcademyPrograms extends Struct.ComponentSchema {
+  collectionName: 'components_sections_academy_programs';
+  info: {
+    displayName: 'Academy Programs';
+    icon: 'book';
+  };
+  attributes: {
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    headingHighlight: Schema.Attribute.String;
+    programs: Schema.Attribute.Component<'shared.program-card', true>;
+    subtitle: Schema.Attribute.Text;
+  };
+}
+
+export interface SectionsAcademySpecialization extends Struct.ComponentSchema {
+  collectionName: 'components_sections_academy_specializations';
+  info: {
+    displayName: 'Academy Specialization';
+    icon: 'grid';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    headingHighlight: Schema.Attribute.String;
+    headingLine1: Schema.Attribute.String & Schema.Attribute.Required;
+    headingLine2Plain: Schema.Attribute.String;
+    specializations: Schema.Attribute.Component<'shared.icon-card', true>;
+  };
+}
+
+export interface SectionsAcademyWhyUs extends Struct.ComponentSchema {
+  collectionName: 'components_sections_academy_why_uses';
+  info: {
+    displayName: 'Academy Why Us';
+    icon: 'star';
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<'shared.feature-card', true>;
+    ctaHref: Schema.Attribute.String;
+    ctaLabel: Schema.Attribute.String;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    headingHighlight: Schema.Attribute.String;
+    subtitle: Schema.Attribute.Text;
+  };
+}
+
 export interface SectionsBlogTeaser extends Struct.ComponentSchema {
   collectionName: 'components_sections_blog_teasers';
   info: {
@@ -280,6 +397,22 @@ export interface SharedContactCard extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedCourseCard extends Struct.ComponentSchema {
+  collectionName: 'components_shared_course_cards';
+  info: {
+    displayName: 'Course Card';
+    icon: 'play';
+  };
+  attributes: {
+    badge: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    duration: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images'>;
+    isVideo: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedFeatureCard extends Struct.ComponentSchema {
   collectionName: 'components_shared_feature_cards';
   info: {
@@ -352,6 +485,22 @@ export interface SharedNavItem extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedProgramCard extends Struct.ComponentSchema {
+  collectionName: 'components_shared_program_cards';
+  info: {
+    displayName: 'Program Card';
+    icon: 'book';
+  };
+  attributes: {
+    ctaHref: Schema.Attribute.String;
+    ctaLabel: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images'>;
+    items: Schema.Attribute.Component<'shared.list-item', true>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedSocialLink extends Struct.ComponentSchema {
   collectionName: 'components_shared_social_links';
   info: {
@@ -370,6 +519,13 @@ export interface SharedSocialLink extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'sections.academy-about': SectionsAcademyAbout;
+      'sections.academy-courses': SectionsAcademyCourses;
+      'sections.academy-hero': SectionsAcademyHero;
+      'sections.academy-meet-team': SectionsAcademyMeetTeam;
+      'sections.academy-programs': SectionsAcademyPrograms;
+      'sections.academy-specialization': SectionsAcademySpecialization;
+      'sections.academy-why-us': SectionsAcademyWhyUs;
       'sections.blog-teaser': SectionsBlogTeaser;
       'sections.client-logos': SectionsClientLogos;
       'sections.cta-band': SectionsCtaBand;
@@ -388,12 +544,14 @@ declare module '@strapi/strapi' {
       'sections.studio-who-we-are': SectionsStudioWhoWeAre;
       'sections.testimonials': SectionsTestimonials;
       'shared.contact-card': SharedContactCard;
+      'shared.course-card': SharedCourseCard;
       'shared.feature-card': SharedFeatureCard;
       'shared.footer-column': SharedFooterColumn;
       'shared.footer-link': SharedFooterLink;
       'shared.icon-card': SharedIconCard;
       'shared.list-item': SharedListItem;
       'shared.nav-item': SharedNavItem;
+      'shared.program-card': SharedProgramCard;
       'shared.social-link': SharedSocialLink;
     }
   }

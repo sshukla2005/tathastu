@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_program_cards",
+  "info": {
+    "displayName": "Program Card",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "image": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "description": { "type": "text" },
+    "items": { "type": "component", "repeatable": true, "component": "shared.list-item" },
+    "ctaLabel": { "type": "string" },
+    "ctaHref": { "type": "string" }
+  }
+}

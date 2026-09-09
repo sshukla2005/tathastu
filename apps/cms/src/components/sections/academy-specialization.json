@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_sections_academy_specializations",
+  "info": {
+    "displayName": "Academy Specialization",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "headingLine1": { "type": "string", "required": true },
+    "headingLine2Plain": { "type": "string" },
+    "headingHighlight": { "type": "string" },
+    "backgroundImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "specializations": { "type": "component", "repeatable": true, "component": "shared.icon-card" }
+  }
+}

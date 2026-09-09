@@ -1,0 +1,30 @@
+{
+  "kind": "singleType",
+  "collectionName": "academy_pages",
+  "info": {
+    "singularName": "academy-page",
+    "pluralName": "academy-pages",
+    "displayName": "Academy Page",
+    "description": "Tathastu Academy page content managed via Dynamic Zone"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "seoTitle": { "type": "string" },
+    "seoDescription": { "type": "text" },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.academy-hero",
+        "sections.academy-about",
+        "sections.academy-programs",
+        "sections.academy-why-us",
+        "sections.academy-courses",
+        "sections.academy-specialization",
+        "sections.academy-meet-team",
+        "sections.cta-band"
+      ]
+    }
+  }
+}

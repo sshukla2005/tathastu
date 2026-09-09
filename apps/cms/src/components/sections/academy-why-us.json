@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_sections_academy_why_uses",
+  "info": {
+    "displayName": "Academy Why Us",
+    "icon": "star"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "headingHighlight": { "type": "string" },
+    "subtitle": { "type": "text" },
+    "cards": { "type": "component", "repeatable": true, "component": "shared.feature-card" },
+    "ctaLabel": { "type": "string" },
+    "ctaHref": { "type": "string" }
+  }
+}

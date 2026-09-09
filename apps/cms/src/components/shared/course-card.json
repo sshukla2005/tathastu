@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_shared_course_cards",
+  "info": {
+    "displayName": "Course Card",
+    "icon": "play"
+  },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "image": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "description": { "type": "text" },
+    "duration": { "type": "string" },
+    "badge": { "type": "string" },
+    "isVideo": { "type": "boolean", "default": false }
+  }
+}

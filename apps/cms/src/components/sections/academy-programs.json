@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_academy_programs",
+  "info": {
+    "displayName": "Academy Programs",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "headingHighlight": { "type": "string" },
+    "subtitle": { "type": "text" },
+    "programs": { "type": "component", "repeatable": true, "component": "shared.program-card" }
+  }
+}

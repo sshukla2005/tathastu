@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_academy_abouts",
+  "info": {
+    "displayName": "Academy About",
+    "icon": "information"
+  },
+  "options": {},
+  "attributes": {
+    "headingLine1": { "type": "string", "required": true },
+    "headingHighlight": { "type": "string" },
+    "description": { "type": "text" },
+    "image": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "features": { "type": "component", "repeatable": true, "component": "shared.feature-card" },
+    "ctaLabel": { "type": "string" },
+    "ctaHref": { "type": "string" }
+  }
+}

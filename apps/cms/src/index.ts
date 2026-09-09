@@ -6,6 +6,7 @@ import type { Core } from "@strapi/strapi";
 const PUBLIC_FIND_ACTIONS = [
   "api::homepage.homepage.find",
   "api::studio-page.studio-page.find",
+  "api::academy-page.academy-page.find",
   "api::site-setting.site-setting.find",
   "api::about-page.about-page.find",
   "api::contact-page.contact-page.find",
@@ -418,11 +419,11 @@ async function seedDatabase(strapi: Core.Strapi) {
 }
 
 /**
- * Seeds the Studio-specific team members. Runs independently of seedDatabase()
- * so it also backfills environments that were already seeded before the
- * Studio Page content-type existed.
+ * Seeds the shared "Meet the Team" roster (used by both the Studio and
+ * Academy pages). Runs independently of seedDatabase() so it also backfills
+ * environments that were already seeded before these content-types existed.
  */
-async function seedStudioTeamMembers(strapi: Core.Strapi) {
+async function seedTeamMembers(strapi: Core.Strapi) {
   const existing = await strapi.documents("api::team-member.team-member").findMany({});
   if (existing.length > 0) return existing;
 
@@ -455,7 +456,7 @@ async function seedStudioPage(strapi: Core.Strapi) {
 
   strapi.log.info("🌱 Seeding Studio page...");
 
-  const members = await seedStudioTeamMembers(strapi);
+  const members = await seedTeamMembers(strapi);
 
   await strapi.documents("api::studio-page.studio-page").create({
     data: {
@@ -565,6 +566,229 @@ async function seedStudioPage(strapi: Core.Strapi) {
   strapi.log.info("🌱 Studio page seeded successfully!");
 }
 
+/**
+ * Seeds the Academy Page singleType with one component per section of the
+ * built Academy UI (apps/web/app/academy/page.tsx). Runs independently of
+ * seedDatabase() so it also backfills environments that were already seeded
+ * before the Academy Page content-type existed.
+ */
+async function seedAcademyPage(strapi: Core.Strapi) {
+  const existing = await strapi.documents("api::academy-page.academy-page").findFirst({});
+  if (existing) {
+    strapi.log.info("🌱 Academy page already seeded. Skipping.");
+    return;
+  }
+
+  strapi.log.info("🌱 Seeding Academy page...");
+
+  const members = await seedTeamMembers(strapi);
+
+  await strapi.documents("api::academy-page.academy-page").create({
+    data: {
+      seoTitle: "Tathastu Academy — Learn. Rise. Lead.",
+      seoDescription:
+        "Tathastu Academy bridges the gap between Houdini training and real-world studio production — building the next generation of VFX professionals through project-driven learning.",
+      sections: [
+        {
+          __component: "sections.academy-hero",
+          wordmarkLine1: "TATHASTU",
+          wordmarkLine2: "ACADEMY",
+          tagline: "Learn. Rise. Lead.",
+          heading: "From beginner to pro— become a production-ready Houdini artist.",
+          subtext:
+            "Tathastu Academy empowers future Houdini artists with industry-focused, project-driven training for real-world production success.",
+          ctaLabel: "Book A Call",
+          ctaHref: "/contact?source=Academy",
+        },
+        {
+          __component: "sections.academy-about",
+          headingLine1: "Not just teaching.",
+          headingHighlight: "Building careers.",
+          description:
+            "Tathastu Academy, powered by Tathastu Techno Solution and an official SideFX partner, delivers studio-focused Houdini training designed to create production-ready artists for the VFX industry.",
+          features: [
+            {
+              title: "Project-Driven Learning",
+              description: "Every module builds toward real deliverables studios actually expect.",
+            },
+            {
+              title: "Studio-Aligned Curriculum",
+              description: "Courses designed in collaboration with real production pipelines.",
+            },
+            {
+              title: "Talent Pipeline for Studios",
+              description: "Book seats in advance and hire trained, ready-to-deploy artists.",
+            },
+          ],
+          ctaLabel: "Talk to Us",
+          ctaHref: "/contact?source=Academy",
+        },
+        {
+          __component: "sections.academy-programs",
+          heading: "Training for every stage of",
+          headingHighlight: "your Houdini journey",
+          subtitle: "Cutting edge training programs designed for the future of digital creation.",
+          programs: [
+            {
+              title: "Studio Houdini Training",
+              description:
+                "Custom in-house Houdini training built around your studio's exact production requirements and L&D goals.",
+              items: [
+                { text: "Crafted with your L&D team" },
+                { text: "Flip, Pyro, Destruction, Groom, USD & more" },
+                { text: "Flexible seat or full-batch bookings" },
+                { text: "Trusted by leading VFX & animation studios" },
+              ],
+              ctaLabel: "Book Studio Training",
+              ctaHref: "/contact?program=Studio",
+            },
+            {
+              title: "Beginner Houdini Training",
+              description: "Our flagship Academy trains a hand-picked batch of 15 students in Houdini from the ground up.",
+              items: [
+                { text: "Studio-ready projects aligned with real pipelines" },
+                { text: "Hand-picked cohort of 15 students" },
+                { text: "Advance studio seat reservations available" },
+                { text: "Full Houdini fundamentals to production workflows" },
+              ],
+              ctaLabel: "Join Batch",
+              ctaHref: "/contact?program=Beginner",
+            },
+            {
+              title: "Advanced Houdini Training",
+              description: "Short-term intensive sessions led by industry experts — focused deep dives into specific Houdini workflows.",
+              items: [
+                { text: "Expert-led deep dives into advanced workflows" },
+                { text: "Focus: USD, Groom, Tech Animation & more" },
+                { text: "Targeted skill-building for working artists" },
+                { text: "Studio seat reservations available" },
+              ],
+              ctaLabel: "Join Batch",
+              ctaHref: "/contact?program=Advanced",
+            },
+          ],
+        },
+        {
+          __component: "sections.academy-why-us",
+          heading: "Why Choose Tathastu",
+          headingHighlight: "Academy",
+          subtitle: "We are not just another training institute. We are the bridge between where you are and where the industry needs you to be.",
+          cards: [
+            {
+              title: "Authorized SideFX Partner",
+              description: "Officially recognized by SideFX for delivering world-class Houdini training in India.",
+            },
+            {
+              title: "Project-Driven Learning",
+              description: "Learn by doing, not by theory. Every lesson feeds into real, studio-grade deliverables.",
+            },
+            {
+              title: "Studio-Aligned Curriculum",
+              description: "Courses designed with actual studios grounded in real production pipelines.",
+            },
+            {
+              title: "Expert Industry Mentors",
+              description: "Learn from trainers with direct, hands-on experience from top studio productions.",
+            },
+            {
+              title: "Talent Pipeline for Studios",
+              description: "Studios can reserve seats ahead of time and hire artists ready to contribute from day one.",
+            },
+            {
+              title: "Capped at 15 Per Batch",
+              description: "Small cohorts ensure every student receives personal guidance and focused mentorship.",
+            },
+          ],
+          ctaLabel: "Talk to an Advisor",
+          ctaHref: "/contact?source=WhyUs",
+        },
+        {
+          __component: "sections.academy-courses",
+          heading: "Latest Courses &",
+          headingHighlight: "Videos",
+          subtitle: "Explore our newest tutorials, expert-led courses, and practical learning resources.",
+          courses: [
+            {
+              title: "AI for Interior Design",
+              description: "Create cinematic interior renders using AI — from rough sketches to fully",
+              duration: "7-Weeks",
+              badge: "NEW",
+              isVideo: false,
+            },
+            {
+              title: "Compositing in Nuke",
+              description: "Learn compositing like a pro in this incredible Nuke course for FX Artists",
+              duration: "10-Weeks",
+              isVideo: false,
+            },
+            {
+              title: "Intro to Unreal Engine",
+              description: "Learn the basics of Unreal Engine in this exciting game design course.",
+              duration: "8-Weeks",
+              isVideo: false,
+            },
+            {
+              title: "Intro to Houdini FX",
+              description: "Ready to get serious about your FX journey? Check out this intermediate",
+              duration: "12-Weeks",
+              isVideo: false,
+            },
+            {
+              title: "Coding Generative AI",
+              description: "A deep dive into applied generative AI, guiding students from foundational AI",
+              duration: "10-Weeks",
+              badge: "NEW",
+              isVideo: true,
+            },
+            {
+              title: "Unreal Engine Short Film",
+              description: "Learn how to create a short film using Unreal Engine.",
+              duration: "INSTANT ACCESS",
+              isVideo: false,
+            },
+          ],
+          ctaLabel: "View All",
+          ctaHref: "/academy/courses&videos",
+        },
+        {
+          __component: "sections.academy-specialization",
+          headingLine1: "Every Houdini",
+          headingLine2Plain: "Workflow,",
+          headingHighlight: "Covered",
+          specializations: [
+            { label: "Flip Simulations" },
+            { label: "Pyro & Smoke" },
+            { label: "Destruction & RBD" },
+            { label: "Environment & FX" },
+            { label: "Groom" },
+            { label: "Tech Animation" },
+            { label: "Shading & Lighting" },
+            { label: "USD Workflows" },
+          ],
+        },
+        {
+          __component: "sections.academy-meet-team",
+          heading: "Meet",
+          headingHighlight: "the Team",
+          subtitle: "Industry veterans and visionary leaders driving the future of professional VFX collaboration",
+          members: members.map((m) => m.documentId),
+        },
+        {
+          __component: "sections.cta-band",
+          heading: "Ready to Launch Your Houdini Career?",
+          subtext:
+            "The demand for Houdini trained, production ready artists is higher than ever. Whether you are an aspiring professional or a studio looking to upskill your team, Tathastu Academy is here to help.",
+          ctaLabel: "Request Demo",
+          ctaHref: "/contact?source=Academy",
+        },
+      ],
+    },
+    status: "published",
+  });
+
+  strapi.log.info("🌱 Academy page seeded successfully!");
+}
+
 export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
@@ -572,5 +796,6 @@ export default {
     await setPublicPermissions(strapi);
     await seedDatabase(strapi);
     await seedStudioPage(strapi);
+    await seedAcademyPage(strapi);
   },
 };

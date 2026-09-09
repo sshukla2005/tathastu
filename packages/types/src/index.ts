@@ -409,3 +409,111 @@ export interface StudioFooterSection {
   subtextMiddle: string;
   subtextHighlight2: string;
 }
+
+// ─── Academy Page Dynamic Zone ────────────────────────────────────────────────
+
+export type AcademyPageSection =
+  | AcademyHeroSection
+  | AcademyAboutSection
+  | AcademyProgramsSection
+  | AcademyWhyUsSection
+  | AcademyCoursesSection
+  | AcademySpecializationSection
+  | AcademyMeetTeamSection
+  | CtaBandSection;
+
+export interface ProgramCard {
+  id: number;
+  title: string;
+  image: StrapiMedia | null;
+  description: string;
+  items: ListItem[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export interface CourseCard {
+  id: number;
+  title: string;
+  image: StrapiMedia | null;
+  description: string;
+  duration: string;
+  badge: string | null;
+  isVideo: boolean;
+}
+
+export interface AcademyHeroSection {
+  __component: "sections.academy-hero";
+  id: number;
+  wordmarkLine1: string;
+  wordmarkLine2: string;
+  tagline: string;
+  heading: string;
+  subtext: string;
+  ctaLabel: string;
+  ctaHref: string;
+  backgroundImage: StrapiMedia | null;
+  heroImage: StrapiMedia | null;
+}
+
+export interface AcademyAboutSection {
+  __component: "sections.academy-about";
+  id: number;
+  headingLine1: string;
+  headingHighlight: string;
+  description: string;
+  image: StrapiMedia | null;
+  features: FeatureCard[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export interface AcademyProgramsSection {
+  __component: "sections.academy-programs";
+  id: number;
+  heading: string;
+  headingHighlight: string;
+  subtitle: string;
+  programs: ProgramCard[];
+}
+
+export interface AcademyWhyUsSection {
+  __component: "sections.academy-why-us";
+  id: number;
+  heading: string;
+  headingHighlight: string;
+  subtitle: string;
+  cards: FeatureCard[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export interface AcademyCoursesSection {
+  __component: "sections.academy-courses";
+  id: number;
+  heading: string;
+  headingHighlight: string;
+  subtitle: string;
+  courses: CourseCard[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export interface AcademySpecializationSection {
+  __component: "sections.academy-specialization";
+  id: number;
+  headingLine1: string;
+  headingLine2Plain: string;
+  headingHighlight: string;
+  backgroundImage: StrapiMedia | null;
+  specializations: IconCard[];
+}
+
+export interface AcademyMeetTeamSection {
+  __component: "sections.academy-meet-team";
+  id: number;
+  heading: string;
+  headingHighlight: string;
+  subtitle: string;
+  members: TeamMember[];
+}

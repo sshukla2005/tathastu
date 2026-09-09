@@ -474,6 +474,48 @@ export interface ApiAboutPageAboutPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiAcademyPageAcademyPage extends Struct.SingleTypeSchema {
+  collectionName: 'academy_pages';
+  info: {
+    description: 'Tathastu Academy page content managed via Dynamic Zone';
+    displayName: 'Academy Page';
+    pluralName: 'academy-pages';
+    singularName: 'academy-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::academy-page.academy-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'sections.academy-hero',
+        'sections.academy-about',
+        'sections.academy-programs',
+        'sections.academy-why-us',
+        'sections.academy-courses',
+        'sections.academy-specialization',
+        'sections.academy-meet-team',
+        'sections.cta-band',
+      ]
+    >;
+    seoDescription: Schema.Attribute.Text;
+    seoTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
   collectionName: 'blog_posts';
   info: {
@@ -1454,6 +1496,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::about-page.about-page': ApiAboutPageAboutPage;
+      'api::academy-page.academy-page': ApiAcademyPageAcademyPage;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
       'api::career.career': ApiCareerCareer;
       'api::client-logo.client-logo': ApiClientLogoClientLogo;

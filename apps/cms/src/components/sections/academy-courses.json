@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_sections_academy_courses",
+  "info": {
+    "displayName": "Academy Courses",
+    "icon": "play"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "headingHighlight": { "type": "string" },
+    "subtitle": { "type": "text" },
+    "courses": { "type": "component", "repeatable": true, "component": "shared.course-card" },
+    "ctaLabel": { "type": "string" },
+    "ctaHref": { "type": "string" }
+  }
+}
