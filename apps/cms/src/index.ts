@@ -5,6 +5,7 @@ import type { Core } from "@strapi/strapi";
  */
 const PUBLIC_FIND_ACTIONS = [
   "api::homepage.homepage.find",
+  "api::studio-page.studio-page.find",
   "api::site-setting.site-setting.find",
   "api::about-page.about-page.find",
   "api::contact-page.contact-page.find",
@@ -416,11 +417,160 @@ async function seedDatabase(strapi: Core.Strapi) {
   strapi.log.info("🌱 Database seeded successfully!");
 }
 
+/**
+ * Seeds the Studio-specific team members. Runs independently of seedDatabase()
+ * so it also backfills environments that were already seeded before the
+ * Studio Page content-type existed.
+ */
+async function seedStudioTeamMembers(strapi: Core.Strapi) {
+  const existing = await strapi.documents("api::team-member.team-member").findMany({});
+  if (existing.length > 0) return existing;
+
+  const membersData = [
+    { name: "Nikitha Gaikwad", role: "Marketing Manager", bgColor: "#D6EAF8", order: 1 },
+    { name: "Chetan Jain", role: "Founder & CEO", bgColor: "#D5F5E3", order: 2 },
+    { name: "Nikitha Gaikwad", role: "President of Sales", bgColor: "#E8DAEF", order: 3 },
+    { name: "Venu Victor", role: "Co-founder and VFX Supervisor", bgColor: "#FDEBD0", order: 4 },
+  ];
+
+  const created: any[] = [];
+  for (const member of membersData) {
+    created.push(await strapi.documents("api::team-member.team-member").create({ data: member }));
+  }
+  return created;
+}
+
+/**
+ * Seeds the Studio Page singleType with one component per section of the
+ * built Studio UI (apps/web/app/studio/page.tsx). Runs independently of
+ * seedDatabase() so it also backfills environments that were already seeded
+ * before the Studio Page content-type existed.
+ */
+async function seedStudioPage(strapi: Core.Strapi) {
+  const existing = await strapi.documents("api::studio-page.studio-page").findFirst({});
+  if (existing) {
+    strapi.log.info("🌱 Studio page already seeded. Skipping.");
+    return;
+  }
+
+  strapi.log.info("🌱 Seeding Studio page...");
+
+  const members = await seedStudioTeamMembers(strapi);
+
+  await strapi.documents("api::studio-page.studio-page").create({
+    data: {
+      seoTitle: "Tathastu Studio — Solutions & Products",
+      seoDescription: "Explore our product portfolio of hardware workstations, industry-standard 3D software, and custom plugins.",
+      sections: [
+        {
+          __component: "sections.studio-hero",
+          wordmarkLine1: "TATHASTU",
+          wordmarkLine2: "STUDIO",
+          heading: "Tathastu Studio",
+          subtext: "The Premier Hub of Houdini Professionals",
+          ctaLabel: "Contact Us",
+          ctaHref: "/contact?source=Studio",
+        },
+        {
+          __component: "sections.studio-connect",
+          heading: "Connect with Industry-Leading Houdini Specialists",
+          description:
+            "Whether you're a filmmaker, studio, or creative director looking for top-tier Houdini talent — or a Houdini artist seeking new opportunities — Tathastu is your destination.\n\nIf you're looking for Houdini work for your project, make use of the skills of our freelance artists to bring your creative vision to life through high-quality, collaborative, and economical solutions.",
+        },
+        {
+          __component: "sections.studio-trusted",
+          heading: "Trusted by Studios",
+          subtitle: "We're proud to be the go-to Houdini resource for both creators and clients across the industry.",
+          ctaLabel: "Contact Now",
+          ctaHref: "/contact?source=TrustedByStudios",
+        },
+        {
+          __component: "sections.studio-who-we-are",
+          heading: "Who We Are",
+          description:
+            "Welcome to Tathastu Studio, a dedicated collective built exclusively from Houdini specialists across India and beyond. Each artist is carefully selected based on their skills and experience in Houdini. Our vibrant community of technical and artistic talent is the heart of everything we do. United by a passion for procedural creativity and problem-solving, our artists bring innovation, precision, and cinematic magic to your project.",
+          points: [
+            { text: "Specialized Houdini FX Expertise – Delivering high-quality simulations, effects, and procedural workflows for film, TV, and advertising projects." },
+            { text: "Global Remote Talent Network – Connecting top-tier VFX studios with skilled freelance Houdini artists worldwide." },
+            { text: "Scalable Production Support – Flexible team expansion for short-term projects, peak workloads, and long-term production needs." },
+            { text: "Scalable Production Support – Flexible team expansion for short-term projects, peak workloads, and long-term production needs." },
+          ],
+        },
+        {
+          __component: "sections.studio-what-we-do",
+          heading: "What We Do",
+          subtitle: "You share your artistic and technical intent — we translate that into dynamic visual FX:",
+          cards: [
+            { label: "Fire" },
+            { label: "Smoke" },
+            { label: "Explosions" },
+            { label: "Water" },
+            { label: "Rain" },
+            { label: "Snow" },
+            { label: "Ocean simulations" },
+            { label: "Dust" },
+          ],
+          ctaLabel: "View More",
+          ctaHref: "/portfolio?source=WhatWeDo",
+        },
+        {
+          __component: "sections.studio-meet-team",
+          heading: "Meet",
+          headingHighlight: "the Team",
+          subtitle: "Industry veterans and visionary leaders driving the future of professional VFX collaboration",
+          members: members.map((m) => m.documentId),
+        },
+        {
+          __component: "sections.studio-purpose",
+          headingPrefix: "Our",
+          headingHighlight: "Purpose",
+          subtitle: "To build a dynamic, scalable, and globally connected Houdini FX production ecosystem that:",
+          points: [
+            { text: "Delivers high-quality FX services to filmmakers, studios, and content creators" },
+            { text: "Leverages top freelance talent from India and beyond" },
+            { text: "Removes infrastructure barriers with a fully virtual pipeline" },
+            { text: "Empowers artists through flexibility, creativity, and project-based work culture" },
+            { text: "Adapts to changing needs with agile, scalable solutions" },
+          ],
+        },
+        {
+          __component: "sections.studio-find-inside",
+          heading: "What You'll Find",
+          headingHighlight: "Inside",
+          studioToggleLabel: "For Studios",
+          freelancerToggleLabel: "For Freelancers",
+          studioContacts: [
+            { name: "Email", email: "academy@tathastu.global", phone: "+91 81256 13838" },
+            { name: "Chetan Jain", phone: "+91 98201 92970", email: "chetan@tathastu.global" },
+            { name: "Venu Victor", phone: "+91 96111 04802" },
+          ],
+          freelancerContacts: [],
+        },
+        {
+          __component: "sections.studio-footer",
+          taglineLine1: "Tathastu Studio isn't a trend.",
+          taglineLine2Plain: "It's a",
+          taglineHighlight: "turning point",
+          ctaText: "THE FUTURE OF HOUDINI FREELANCING IS HERE. LET'S BUILD THE NEXT GENERATION OF HIGH-END VFX TOGETHER",
+          subtextBefore: "",
+          subtextHighlight1: "Your story,",
+          subtextMiddle: "our innovation — let's make it",
+          subtextHighlight2: "unforgettable.",
+        },
+      ],
+    },
+    status: "published",
+  });
+
+  strapi.log.info("🌱 Studio page seeded successfully!");
+}
+
 export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
   async bootstrap({ strapi }: { strapi: Core.Strapi }) {
     await setPublicPermissions(strapi);
     await seedDatabase(strapi);
+    await seedStudioPage(strapi);
   },
 };

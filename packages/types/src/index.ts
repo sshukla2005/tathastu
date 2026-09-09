@@ -169,6 +169,19 @@ export interface Career {
   isOpen: boolean;
 }
 
+// ─── Team Member ──────────────────────────────────────────────────────────────
+
+export interface TeamMember {
+  id: number;
+  documentId: string;
+  name: string;
+  role: string;
+  photo: StrapiMedia | null;
+  bio: string;
+  bgColor?: string;
+  order: number;
+}
+
 // ─── Lead (form submission) ───────────────────────────────────────────────────
 
 export interface LeadInput {
@@ -269,4 +282,130 @@ export interface ClientLogosSection {
   __component: "sections.client-logos";
   id: number;
   logos: ClientLogo[];
+}
+
+// ─── Studio Page Dynamic Zone ─────────────────────────────────────────────────
+
+export type StudioPageSection =
+  | StudioHeroSection
+  | StudioConnectSection
+  | StudioTrustedSection
+  | StudioWhoWeAreSection
+  | StudioWhatWeDoSection
+  | StudioMeetTeamSection
+  | StudioPurposeSection
+  | StudioFindInsideSection
+  | StudioFooterSection;
+
+export interface ListItem {
+  id: number;
+  text: string;
+}
+
+export interface IconCard {
+  id: number;
+  label: string;
+  icon: StrapiMedia | null;
+}
+
+export interface ContactCard {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+}
+
+export interface StudioHeroSection {
+  __component: "sections.studio-hero";
+  id: number;
+  wordmarkLine1: string;
+  wordmarkLine2: string;
+  heading: string;
+  subtext: string;
+  ctaLabel: string;
+  ctaHref: string;
+  backgroundImage: StrapiMedia | null;
+  heroImage: StrapiMedia | null;
+}
+
+export interface StudioConnectSection {
+  __component: "sections.studio-connect";
+  id: number;
+  heading: string;
+  description: string;
+  image: StrapiMedia | null;
+}
+
+export interface StudioTrustedSection {
+  __component: "sections.studio-trusted";
+  id: number;
+  heading: string;
+  subtitle: string;
+  ctaLabel: string;
+  ctaHref: string;
+  backgroundImage: StrapiMedia | null;
+}
+
+export interface StudioWhoWeAreSection {
+  __component: "sections.studio-who-we-are";
+  id: number;
+  heading: string;
+  description: string;
+  points: ListItem[];
+  imageBack: StrapiMedia | null;
+  imageFront: StrapiMedia | null;
+  badgeImage: StrapiMedia | null;
+}
+
+export interface StudioWhatWeDoSection {
+  __component: "sections.studio-what-we-do";
+  id: number;
+  heading: string;
+  subtitle: string;
+  cards: IconCard[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+export interface StudioMeetTeamSection {
+  __component: "sections.studio-meet-team";
+  id: number;
+  heading: string;
+  headingHighlight: string;
+  subtitle: string;
+  members: TeamMember[];
+}
+
+export interface StudioPurposeSection {
+  __component: "sections.studio-purpose";
+  id: number;
+  headingPrefix: string;
+  headingHighlight: string;
+  subtitle: string;
+  points: ListItem[];
+}
+
+export interface StudioFindInsideSection {
+  __component: "sections.studio-find-inside";
+  id: number;
+  heading: string;
+  headingHighlight: string;
+  studioToggleLabel: string;
+  freelancerToggleLabel: string;
+  backgroundImage: StrapiMedia | null;
+  studioContacts: ContactCard[];
+  freelancerContacts: ContactCard[];
+}
+
+export interface StudioFooterSection {
+  __component: "sections.studio-footer";
+  id: number;
+  taglineLine1: string;
+  taglineLine2Plain: string;
+  taglineHighlight: string;
+  ctaText: string;
+  subtextBefore: string;
+  subtextHighlight1: string;
+  subtextMiddle: string;
+  subtextHighlight2: string;
 }

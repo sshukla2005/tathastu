@@ -1,0 +1,31 @@
+{
+  "kind": "singleType",
+  "collectionName": "studio_pages",
+  "info": {
+    "singularName": "studio-page",
+    "pluralName": "studio-pages",
+    "displayName": "Studio Page",
+    "description": "Tathastu Studio page content managed via Dynamic Zone"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "seoTitle": { "type": "string" },
+    "seoDescription": { "type": "text" },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.studio-hero",
+        "sections.studio-connect",
+        "sections.studio-trusted",
+        "sections.studio-who-we-are",
+        "sections.studio-what-we-do",
+        "sections.studio-meet-team",
+        "sections.studio-purpose",
+        "sections.studio-find-inside",
+        "sections.studio-footer"
+      ]
+    }
+  }
+}

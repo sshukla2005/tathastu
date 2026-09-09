@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_shared_list_items",
+  "info": {
+    "displayName": "List Item",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "text": { "type": "text", "required": true }
+  }
+}

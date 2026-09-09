@@ -831,6 +831,49 @@ export interface ApiStatStat extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiStudioPageStudioPage extends Struct.SingleTypeSchema {
+  collectionName: 'studio_pages';
+  info: {
+    description: 'Tathastu Studio page content managed via Dynamic Zone';
+    displayName: 'Studio Page';
+    pluralName: 'studio-pages';
+    singularName: 'studio-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::studio-page.studio-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'sections.studio-hero',
+        'sections.studio-connect',
+        'sections.studio-trusted',
+        'sections.studio-who-we-are',
+        'sections.studio-what-we-do',
+        'sections.studio-meet-team',
+        'sections.studio-purpose',
+        'sections.studio-find-inside',
+        'sections.studio-footer',
+      ]
+    >;
+    seoDescription: Schema.Attribute.Text;
+    seoTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
   collectionName: 'team_members';
   info: {
@@ -843,6 +886,7 @@ export interface ApiTeamMemberTeamMember extends Struct.CollectionTypeSchema {
     draftAndPublish: false;
   };
   attributes: {
+    bgColor: Schema.Attribute.String;
     bio: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1420,6 +1464,7 @@ declare module '@strapi/strapi' {
       'api::portfolio-item.portfolio-item': ApiPortfolioItemPortfolioItem;
       'api::site-setting.site-setting': ApiSiteSettingSiteSetting;
       'api::stat.stat': ApiStatStat;
+      'api::studio-page.studio-page': ApiStudioPageStudioPage;
       'api::team-member.team-member': ApiTeamMemberTeamMember;
       'api::testimonial.testimonial': ApiTestimonialTestimonial;
       'plugin::content-releases.release': PluginContentReleasesRelease;

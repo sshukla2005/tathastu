@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_sections_studio_what_we_dos",
+  "info": {
+    "displayName": "Studio What We Do",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "subtitle": { "type": "text" },
+    "cards": { "type": "component", "repeatable": true, "component": "shared.icon-card" },
+    "ctaLabel": { "type": "string" },
+    "ctaHref": { "type": "string" }
+  }
+}

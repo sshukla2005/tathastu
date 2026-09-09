@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_studio_footers",
+  "info": {
+    "displayName": "Studio Footer",
+    "icon": "layout"
+  },
+  "options": {},
+  "attributes": {
+    "taglineLine1": { "type": "string", "required": true },
+    "taglineLine2Plain": { "type": "string" },
+    "taglineHighlight": { "type": "string" },
+    "ctaText": { "type": "text" },
+    "subtextBefore": { "type": "string" },
+    "subtextHighlight1": { "type": "string" },
+    "subtextMiddle": { "type": "string" },
+    "subtextHighlight2": { "type": "string" }
+  }
+}

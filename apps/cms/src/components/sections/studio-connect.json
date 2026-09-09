@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sections_studio_connects",
+  "info": {
+    "displayName": "Studio Connect",
+    "icon": "connector"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "description": { "type": "text" },
+    "image": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] }
+  }
+}

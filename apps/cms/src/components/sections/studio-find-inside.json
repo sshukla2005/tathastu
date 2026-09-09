@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_sections_studio_find_insides",
+  "info": {
+    "displayName": "Studio Find Inside",
+    "icon": "search"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "headingHighlight": { "type": "string" },
+    "studioToggleLabel": { "type": "string", "default": "For Studios" },
+    "freelancerToggleLabel": { "type": "string", "default": "For Freelancers" },
+    "backgroundImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "studioContacts": { "type": "component", "repeatable": true, "component": "shared.contact-card" },
+    "freelancerContacts": { "type": "component", "repeatable": true, "component": "shared.contact-card" }
+  }
+}

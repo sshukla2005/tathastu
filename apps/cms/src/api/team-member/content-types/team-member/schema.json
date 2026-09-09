@@ -15,6 +15,7 @@
     "role": { "type": "string" },
     "photo": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
     "bio": { "type": "text" },
+    "bgColor": { "type": "string", "description": "Card background color (hex), used by sections like Studio Meet the Team" },
     "order": { "type": "integer", "default": 0 }
   }
 }

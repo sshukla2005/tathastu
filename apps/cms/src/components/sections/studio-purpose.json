@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_studio_purposes",
+  "info": {
+    "displayName": "Studio Purpose",
+    "icon": "bulletList"
+  },
+  "options": {},
+  "attributes": {
+    "headingPrefix": { "type": "string", "default": "Our" },
+    "headingHighlight": { "type": "string", "default": "Purpose" },
+    "subtitle": { "type": "text" },
+    "points": { "type": "component", "repeatable": true, "component": "shared.list-item" }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_sections_studio_heroes",
+  "info": {
+    "displayName": "Studio Hero",
+    "icon": "layout"
+  },
+  "options": {},
+  "attributes": {
+    "wordmarkLine1": { "type": "string", "default": "TATHASTU" },
+    "wordmarkLine2": { "type": "string", "default": "STUDIO" },
+    "heading": { "type": "string", "required": true },
+    "subtext": { "type": "string" },
+    "ctaLabel": { "type": "string" },
+    "ctaHref": { "type": "string" },
+    "backgroundImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "heroImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] }
+  }
+}

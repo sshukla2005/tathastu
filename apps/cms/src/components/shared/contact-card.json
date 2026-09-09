@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_shared_contact_cards",
+  "info": {
+    "displayName": "Contact Card",
+    "icon": "phone"
+  },
+  "options": {},
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "email": { "type": "string" },
+    "phone": { "type": "string" }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_shared_icon_cards",
+  "info": {
+    "displayName": "Icon Card",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true },
+    "icon": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] }
+  }
+}

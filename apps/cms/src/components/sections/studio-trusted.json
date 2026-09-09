@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_sections_studio_trusteds",
+  "info": {
+    "displayName": "Studio Trusted By",
+    "icon": "shield"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "subtitle": { "type": "text" },
+    "ctaLabel": { "type": "string" },
+    "ctaHref": { "type": "string" },
+    "backgroundImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] }
+  }
+}
