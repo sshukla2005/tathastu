@@ -1524,6 +1524,9 @@ export default async function StudioPage() {
           transform: translateY(-4px);
           box-shadow: 0 8px 20px rgba(214, 24, 20, 0.25);
         }
+        .studio-purpose-card:hover p {
+          font-weight: 700 !important;
+        }
         .studio-toggle-bar {
           display: flex;
           background-color: transparent;

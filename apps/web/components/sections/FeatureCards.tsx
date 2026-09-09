@@ -20,7 +20,6 @@ interface FeatureCardsProps {
   - Light gray background (~#eeeeee)
   - Centered heading "Why Choose Us?" (two-tone: "Why" black, "Choose Us?" blue)
   - 4 cards with FLAT VECTOR ILLUSTRATIONS (not icons), title bold centered, description gray centered
-  - "Client Focus" card: highlighted (light-blue bg + blue border)
   - No lucide icons, no hover gradient borders, no "Learn more →"
 */
 
@@ -185,9 +184,6 @@ export default function FeatureCards({ section }: FeatureCardsProps) {
           className="feature-cards-grid"
         >
           {section.cards.map((card, idx) => {
-            const isClientFocus =
-              isWhyChooseUs && card.title.toLowerCase().includes("client");
-
             const imagePath = isWhyChooseUs
               ? getImagePath(card.title, WHY_CHOOSE_IMAGES, "/images/why-choose-us/innovation.png")
               : getImagePath(card.title, WHAT_WE_DO_IMAGES, "/images/what-we-do/media-entertainment.jpg");
@@ -196,12 +192,10 @@ export default function FeatureCards({ section }: FeatureCardsProps) {
               <div
                 key={card.id || idx}
                 style={{
-                  backgroundColor: isClientFocus ? "#ddeeff" : "#FFFFFF",
+                  backgroundColor: "#FFFFFF",
                   borderRadius: "16px",
                   boxShadow: "0 2px 12px rgba(0,0,0,0.08)",
-                  border: isClientFocus
-                    ? "1.5px solid #4B95FF"
-                    : "1px solid #f0f0f0",
+                  border: "1px solid #f0f0f0",
                   borderBottom: "4px solid #4B95FF",
                   overflow: "hidden",
                   display: "flex",
@@ -277,7 +271,7 @@ export default function FeatureCards({ section }: FeatureCardsProps) {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @media (max-width: 1024px) {
           .feature-cards-grid {
             grid-template-columns: repeat(2, 1fr) !important;

@@ -205,6 +205,8 @@ export interface HeroSection {
 }
 
 export interface FeatureCardsSection {
+  heading: any;
+  subtext: string;
   __component: "sections.feature-cards";
   id: number;
   title: string;
