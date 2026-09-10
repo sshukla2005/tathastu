@@ -698,6 +698,48 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiIndustriesPageIndustriesPage
+  extends Struct.SingleTypeSchema {
+  collectionName: 'industries_pages';
+  info: {
+    description: 'Industries hub page content managed via Dynamic Zone';
+    displayName: 'Industries Page';
+    pluralName: 'industries-pages';
+    singularName: 'industries-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::industries-page.industries-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'sections.industries-hero',
+        'sections.industries-grid',
+        'sections.stats-band',
+        'sections.feature-cards',
+        'sections.cta-band',
+        'sections.testimonials',
+        'sections.client-logos',
+      ]
+    >;
+    seoDescription: Schema.Attribute.Text;
+    seoTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
   collectionName: 'industries';
   info: {
@@ -1502,6 +1544,7 @@ declare module '@strapi/strapi' {
       'api::client-logo.client-logo': ApiClientLogoClientLogo;
       'api::contact-page.contact-page': ApiContactPageContactPage;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::industries-page.industries-page': ApiIndustriesPageIndustriesPage;
       'api::industry.industry': ApiIndustryIndustry;
       'api::lead.lead': ApiLeadLead;
       'api::portfolio-item.portfolio-item': ApiPortfolioItemPortfolioItem;

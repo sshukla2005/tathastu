@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_sections_industries_grids",
+  "info": {
+    "displayName": "Industries Grid",
+    "icon": "grid"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "headingHighlight": { "type": "string" },
+    "subtitle": { "type": "text" },
+    "cards": { "type": "component", "repeatable": true, "component": "shared.industry-card" }
+  }
+}

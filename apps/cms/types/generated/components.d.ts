@@ -189,6 +189,34 @@ export interface SectionsHero extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsIndustriesGrid extends Struct.ComponentSchema {
+  collectionName: 'components_sections_industries_grids';
+  info: {
+    displayName: 'Industries Grid';
+    icon: 'grid';
+  };
+  attributes: {
+    cards: Schema.Attribute.Component<'shared.industry-card', true>;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    headingHighlight: Schema.Attribute.String;
+    subtitle: Schema.Attribute.Text;
+  };
+}
+
+export interface SectionsIndustriesHero extends Struct.ComponentSchema {
+  collectionName: 'components_sections_industries_heroes';
+  info: {
+    displayName: 'Industries Hero';
+    icon: 'layout';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    breadcrumbLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Industries'>;
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SectionsProductPortfolio extends Struct.ComponentSchema {
   collectionName: 'components_sections_product_portfolios';
   info: {
@@ -462,6 +490,20 @@ export interface SharedIconCard extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedIndustryCard extends Struct.ComponentSchema {
+  collectionName: 'components_shared_industry_cards';
+  info: {
+    displayName: 'Industry Card';
+    icon: 'briefcase';
+  };
+  attributes: {
+    href: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images'>;
+    isFeatured: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedListItem extends Struct.ComponentSchema {
   collectionName: 'components_shared_list_items';
   info: {
@@ -531,6 +573,8 @@ declare module '@strapi/strapi' {
       'sections.cta-band': SectionsCtaBand;
       'sections.feature-cards': SectionsFeatureCards;
       'sections.hero': SectionsHero;
+      'sections.industries-grid': SectionsIndustriesGrid;
+      'sections.industries-hero': SectionsIndustriesHero;
       'sections.product-portfolio': SectionsProductPortfolio;
       'sections.stats-band': SectionsStatsBand;
       'sections.studio-connect': SectionsStudioConnect;
@@ -549,6 +593,7 @@ declare module '@strapi/strapi' {
       'shared.footer-column': SharedFooterColumn;
       'shared.footer-link': SharedFooterLink;
       'shared.icon-card': SharedIconCard;
+      'shared.industry-card': SharedIndustryCard;
       'shared.list-item': SharedListItem;
       'shared.nav-item': SharedNavItem;
       'shared.program-card': SharedProgramCard;

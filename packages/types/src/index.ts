@@ -517,3 +517,39 @@ export interface AcademyMeetTeamSection {
   subtitle: string;
   members: TeamMember[];
 }
+
+// ─── Industries Page Dynamic Zone ─────────────────────────────────────────────
+
+export type IndustriesPageSection =
+  | IndustriesHeroSection
+  | IndustriesGridSection
+  | StatsBandSection
+  | FeatureCardsSection
+  | CtaBandSection
+  | TestimonialsSection
+  | ClientLogosSection;
+
+export interface IndustryCard {
+  id: number;
+  title: string;
+  image: StrapiMedia | null;
+  href: string;
+  isFeatured: boolean;
+}
+
+export interface IndustriesHeroSection {
+  __component: "sections.industries-hero";
+  id: number;
+  heading: string;
+  breadcrumbLabel: string;
+  backgroundImage: StrapiMedia | null;
+}
+
+export interface IndustriesGridSection {
+  __component: "sections.industries-grid";
+  id: number;
+  heading: string;
+  headingHighlight: string;
+  subtitle: string;
+  cards: IndustryCard[];
+}

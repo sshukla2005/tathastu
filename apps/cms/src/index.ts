@@ -7,6 +7,7 @@ const PUBLIC_FIND_ACTIONS = [
   "api::homepage.homepage.find",
   "api::studio-page.studio-page.find",
   "api::academy-page.academy-page.find",
+  "api::industries-page.industries-page.find",
   "api::site-setting.site-setting.find",
   "api::about-page.about-page.find",
   "api::contact-page.contact-page.find",
@@ -789,6 +790,105 @@ async function seedAcademyPage(strapi: Core.Strapi) {
   strapi.log.info("🌱 Academy page seeded successfully!");
 }
 
+/**
+ * Seeds the Industries hub page singleType with one component per section of
+ * the built Industries UI (apps/web/app/industries/page.tsx). Runs
+ * independently of seedDatabase() so it also backfills environments that
+ * were already seeded before the Industries Page content-type existed.
+ * Reuses the same generic sections (stats-band, feature-cards, cta-band,
+ * testimonials, client-logos) already used by the Homepage.
+ */
+async function seedIndustriesPage(strapi: Core.Strapi) {
+  const existing = await strapi.documents("api::industries-page.industries-page").findFirst({});
+  if (existing) {
+    strapi.log.info("🌱 Industries page already seeded. Skipping.");
+    return;
+  }
+
+  strapi.log.info("🌱 Seeding Industries page...");
+
+  const [stats, testimonials, clientLogos] = await Promise.all([
+    strapi.documents("api::stat.stat").findMany({ sort: "order:asc" }),
+    strapi.documents("api::testimonial.testimonial").findMany({ sort: "order:asc" }),
+    strapi.documents("api::client-logo.client-logo").findMany({ sort: "order:asc" }),
+  ]);
+
+  await strapi.documents("api::industries-page.industries-page").create({
+    data: {
+      seoTitle: "Industries We Serve — Tathastu",
+      seoDescription: "Discover our tailor-made technology solutions for Media & Entertainment, AEC, Education, and Manufacturing.",
+      sections: [
+        {
+          __component: "sections.industries-hero",
+          heading: "Industries",
+          breadcrumbLabel: "Industries",
+        },
+        {
+          __component: "sections.industries-grid",
+          heading: "Empowering Industries with Tailored",
+          headingHighlight: "Software Solutions",
+          subtitle: "Streamlined Software Solutions for Media & Entertainment, AEC, Manufacturing, Marketing, Education, and Government",
+          cards: [
+            { title: "Media and Entertainment", href: "/industries/media-and-entertainment", isFeatured: true },
+            { title: "AEC", href: "/industries/architecture-aec" },
+            { title: "Education", href: "/industries/education-and-training" },
+            { title: "Manufacturing", href: "/industries/manufacturing-and-visualization" },
+            { title: "Government", href: "/industries/government" },
+          ],
+        },
+        {
+          __component: "sections.stats-band",
+          heading: "Trusted by creative teams everywhere",
+          stats: stats.map((s) => s.documentId),
+        },
+        {
+          __component: "sections.feature-cards",
+          title: "Why Choose Us?",
+          subtitle: "Your Partner in Success—Combining Expertise, Innovation, and Unmatched Support to Provide Solutions That Help Your Business Thrive.",
+          cards: [
+            {
+              title: "Innovation",
+              description: "We deliver innovative tech solutions to help you deliver great results while managing your overall costs.",
+            },
+            {
+              title: "Client Focus",
+              description: "Doesn't matter how big or small your business is, Customer is always at the heart of our operations.",
+            },
+            {
+              title: "Expertise",
+              description: "Rely exclusively on our professionals' expertise for the best offers and solutions with their vast industry knowledge.",
+            },
+            {
+              title: "Reliability",
+              description: "Dependable and consistent solutions, ensuring quality results and trustworthiness every time.",
+            },
+          ],
+        },
+        {
+          __component: "sections.cta-band",
+          heading: "Design Support for All Your Creative Needs",
+          subtext: "Get a free introduction and discover how you and your team can change the way your source design forever.",
+          ctaLabel: "Request Demo",
+          ctaHref: "/contact?source=Demo&industry=industries",
+        },
+        {
+          __component: "sections.testimonials",
+          heading: "Words Of Trust",
+          subtitle: "Trusted by customers, backed by results.",
+          testimonials: testimonials.map((t) => t.documentId),
+        },
+        {
+          __component: "sections.client-logos",
+          logos: clientLogos.map((cl) => cl.documentId),
+        },
+      ],
+    },
+    status: "published",
+  });
+
+  strapi.log.info("🌱 Industries page seeded successfully!");
+}
+
 export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
@@ -797,5 +897,6 @@ export default {
     await seedDatabase(strapi);
     await seedStudioPage(strapi);
     await seedAcademyPage(strapi);
+    await seedIndustriesPage(strapi);
   },
 };

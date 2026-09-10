@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "industries_pages",
+  "info": {
+    "singularName": "industries-page",
+    "pluralName": "industries-pages",
+    "displayName": "Industries Page",
+    "description": "Industries hub page content managed via Dynamic Zone"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "seoTitle": { "type": "string" },
+    "seoDescription": { "type": "text" },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.industries-hero",
+        "sections.industries-grid",
+        "sections.stats-band",
+        "sections.feature-cards",
+        "sections.cta-band",
+        "sections.testimonials",
+        "sections.client-logos"
+      ]
+    }
+  }
+}
