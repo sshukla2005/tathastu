@@ -412,6 +412,22 @@ export interface SectionsTestimonials extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedBrandCard extends Struct.ComponentSchema {
+  collectionName: 'components_shared_brand_cards';
+  info: {
+    displayName: 'Brand Card';
+    icon: 'star';
+  };
+  attributes: {
+    category: Schema.Attribute.Enumeration<['Software', 'Hardware']> &
+      Schema.Attribute.DefaultTo<'Software'>;
+    description: Schema.Attribute.Text;
+    href: Schema.Attribute.String;
+    logo: Schema.Attribute.Media<'images'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SharedContactCard extends Struct.ComponentSchema {
   collectionName: 'components_shared_contact_cards';
   info: {
@@ -587,6 +603,7 @@ declare module '@strapi/strapi' {
       'sections.studio-what-we-do': SectionsStudioWhatWeDo;
       'sections.studio-who-we-are': SectionsStudioWhoWeAre;
       'sections.testimonials': SectionsTestimonials;
+      'shared.brand-card': SharedBrandCard;
       'shared.contact-card': SharedContactCard;
       'shared.course-card': SharedCourseCard;
       'shared.feature-card': SharedFeatureCard;

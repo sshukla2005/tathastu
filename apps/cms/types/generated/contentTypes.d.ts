@@ -753,6 +753,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
   };
   attributes: {
     body: Schema.Attribute.Blocks;
+    brands: Schema.Attribute.Component<'shared.brand-card', true>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;

@@ -31,6 +31,39 @@ const PUBLIC_FIND_ACTIONS = [
 
 const PUBLIC_CREATE_ACTIONS = ["api::lead.lead.create"];
 
+const INDUSTRIES_DATA = [
+  {
+    name: "Media & Entertainment",
+    slug: "media-and-entertainment",
+    shortDescription: "Cutting-edge tools for VFX, animation, and post-production professionals in film and broadcast.",
+    order: 1,
+  },
+  {
+    name: "Architecture & Design (AEC)",
+    slug: "architecture-aec",
+    shortDescription: "Powerful visualization and design software for architects, engineers, and construction professionals.",
+    order: 2,
+  },
+  {
+    name: "Education & Training",
+    slug: "education-and-training",
+    shortDescription: "Industry-standard software and learning tools to prepare the next generation of creative professionals.",
+    order: 3,
+  },
+  {
+    name: "Manufacturing & Visualization",
+    slug: "manufacturing-and-visualization",
+    shortDescription: "Advanced simulation and visualization solutions for product design and manufacturing workflows.",
+    order: 4,
+  },
+  {
+    name: "Government",
+    slug: "government",
+    shortDescription: "Technology solutions for government agencies and public sector organizations.",
+    order: 5,
+  },
+];
+
 async function setPublicPermissions(strapi: Core.Strapi) {
   const publicRole = await strapi
     .query("plugin::users-permissions.role")
@@ -140,39 +173,7 @@ async function seedDatabase(strapi: Core.Strapi) {
   }
 
   // 4. Industries
-  const industriesData = [
-    {
-      name: "Media & Entertainment",
-      slug: "media-and-entertainment",
-      shortDescription: "Cutting-edge tools for VFX, animation, and post-production professionals in film and broadcast.",
-      order: 1,
-    },
-    {
-      name: "Architecture & Design (AEC)",
-      slug: "architecture-aec",
-      shortDescription: "Powerful visualization and design software for architects, engineers, and construction professionals.",
-      order: 2,
-    },
-    {
-      name: "Education & Training",
-      slug: "education-and-training",
-      shortDescription: "Industry-standard software and learning tools to prepare the next generation of creative professionals.",
-      order: 3,
-    },
-    {
-      name: "Manufacturing & Visualization",
-      slug: "manufacturing-and-visualization",
-      shortDescription: "Advanced simulation and visualization solutions for product design and manufacturing workflows.",
-      order: 4,
-    },
-    {
-      name: "Government",
-      slug: "government",
-      shortDescription: "Technology solutions for government agencies and public sector organizations.",
-      order: 5,
-    },
-  ];
-  for (const ind of industriesData) {
+  for (const ind of INDUSTRIES_DATA) {
     await strapi.documents("api::industry.industry").create({ data: ind, status: "published" });
   }
 
@@ -889,6 +890,94 @@ async function seedIndustriesPage(strapi: Core.Strapi) {
   strapi.log.info("🌱 Industries page seeded successfully!");
 }
 
+/**
+ * Backfills any of the 5 core Industry entries missing from the database.
+ * Runs independently of seedDatabase() so it also backfills environments
+ * where seedDatabase() skipped (e.g. other data was already seeded before
+ * all 5 industries were added to INDUSTRIES_DATA) — this project's dev
+ * database is exactly that case: only "Media & Entertainment" existed.
+ */
+async function seedMissingIndustries(strapi: Core.Strapi) {
+  const existing = await strapi.documents("api::industry.industry").findMany({});
+  const existingSlugs = new Set(existing.map((ind) => ind.slug));
+
+  const missing = INDUSTRIES_DATA.filter((ind) => !existingSlugs.has(ind.slug));
+  if (missing.length === 0) {
+    strapi.log.info("🌱 All industries already seeded. Skipping.");
+    return;
+  }
+
+  strapi.log.info(`🌱 Seeding ${missing.length} missing industr${missing.length === 1 ? "y" : "ies"}...`);
+  for (const ind of missing) {
+    await strapi.documents("api::industry.industry").create({ data: ind, status: "published" });
+  }
+  strapi.log.info("🌱 Missing industries seeded successfully!");
+}
+
+/**
+ * Backfills the "brands" (partner/product) list on the Media & Entertainment
+ * industry — the content that used to live only in the one-off
+ * apps/web/app/industries/media-and-entertainment/page.tsx — now that
+ * apps/web/app/industries/[slug]/page.tsx renders every industry from this
+ * field. Runs independently of seedDatabase() so it also backfills
+ * environments where industries were already seeded before this field
+ * existed. Other industries (AEC, Education, Manufacturing, Government)
+ * intentionally start with an empty brand list until populated in Strapi.
+ */
+async function seedIndustryBrands(strapi: Core.Strapi) {
+  const [mediaAndEntertainment] = await strapi
+    .documents("api::industry.industry")
+    .findMany({ filters: { slug: "media-and-entertainment" }, populate: ["brands"] });
+
+  if (!mediaAndEntertainment) {
+    strapi.log.warn('🌱 Industry "media-and-entertainment" not found — skipping brand seed.');
+    return;
+  }
+
+  if (mediaAndEntertainment.brands?.length > 0) {
+    strapi.log.info("🌱 Industry brands already seeded. Skipping.");
+    return;
+  }
+
+  strapi.log.info("🌱 Seeding Media & Entertainment industry brands...");
+
+  await strapi.documents("api::industry.industry").update({
+    documentId: mediaAndEntertainment.documentId,
+    data: {
+      brands: [
+        {
+          name: "Adobe",
+          category: "Software" as const,
+          description:
+            "Changing the world through personalized digital experiences. Adobe empowers everyone, everywhere to imagine and create what inspires them.",
+          href: "/industries/media-and-entertainment/adobe",
+        },
+        {
+          name: "SideFX",
+          category: "Software" as const,
+          description:
+            "For over thirty five years, SideFX has provided artists with cutting-edge procedural 3D animation tools trusted across film, TV, and games.",
+        },
+        {
+          name: "RayFire",
+          category: "Software" as const,
+          description:
+            "RayFire is a leading provider of innovative FX plugins for Autodesk 3ds Max, established with a vision to redefine destruction and fragmentation effects.",
+        },
+        {
+          name: "Dell",
+          category: "Hardware" as const,
+          description:
+            "Dell Technologies is a global leader in technology solutions, offering a wide range of workstations built for creative production.",
+        },
+      ],
+    },
+    status: "published",
+  });
+
+  strapi.log.info("🌱 Industry brands seeded successfully!");
+}
+
 export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
@@ -898,5 +987,7 @@ export default {
     await seedStudioPage(strapi);
     await seedAcademyPage(strapi);
     await seedIndustriesPage(strapi);
+    await seedMissingIndustries(strapi);
+    await seedIndustryBrands(strapi);
   },
 };

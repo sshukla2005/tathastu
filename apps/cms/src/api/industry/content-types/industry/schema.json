@@ -17,6 +17,7 @@
     "icon": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images", "files"] },
     "heroImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
     "body": { "type": "blocks" },
-    "order": { "type": "integer", "default": 0 }
+    "order": { "type": "integer", "default": 0 },
+    "brands": { "type": "component", "repeatable": true, "component": "shared.brand-card" }
   }
 }

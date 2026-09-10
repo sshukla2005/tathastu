@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_shared_brand_cards",
+  "info": {
+    "displayName": "Brand Card",
+    "icon": "star"
+  },
+  "options": {},
+  "attributes": {
+    "name": { "type": "string", "required": true },
+    "category": { "type": "enumeration", "enum": ["Software", "Hardware"], "default": "Software" },
+    "logo": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "description": { "type": "text" },
+    "href": { "type": "string" }
+  }
+}

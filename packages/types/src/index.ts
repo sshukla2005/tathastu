@@ -108,6 +108,16 @@ export interface Industry {
   icon: StrapiMedia | null;
   heroImage: StrapiMedia | null;
   order: number;
+  brands: BrandCard[];
+}
+
+export interface BrandCard {
+  id: number;
+  name: string;
+  category: "Software" | "Hardware";
+  logo: StrapiMedia | null;
+  description: string;
+  href: string | null;
 }
 
 // ─── Testimonial ──────────────────────────────────────────────────────────────
