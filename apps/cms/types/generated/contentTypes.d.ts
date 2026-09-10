@@ -596,6 +596,46 @@ export interface ApiBrandBrand extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCareerApplicationCareerApplication
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'career_applications';
+  info: {
+    description: 'Job application submissions from the site-wide Apply Now form';
+    displayName: 'Career Application';
+    pluralName: 'career-applications';
+    singularName: 'career-application';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    cv: Schema.Attribute.Media<'files' | 'images'>;
+    email: Schema.Attribute.Email & Schema.Attribute.Required;
+    experience: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::career-application.career-application'
+    > &
+      Schema.Attribute.Private;
+    message: Schema.Attribute.Text;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    position: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    qualification: Schema.Attribute.String;
+    status: Schema.Attribute.Enumeration<
+      ['New', 'Reviewed', 'Shortlisted', 'Rejected', 'Hired']
+    > &
+      Schema.Attribute.DefaultTo<'New'>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCareerCareer extends Struct.CollectionTypeSchema {
   collectionName: 'careers';
   info: {
@@ -1745,6 +1785,7 @@ declare module '@strapi/strapi' {
       'api::academy-page.academy-page': ApiAcademyPageAcademyPage;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
       'api::brand.brand': ApiBrandBrand;
+      'api::career-application.career-application': ApiCareerApplicationCareerApplication;
       'api::career.career': ApiCareerCareer;
       'api::client-logo.client-logo': ApiClientLogoClientLogo;
       'api::contact-page.contact-page': ApiContactPageContactPage;

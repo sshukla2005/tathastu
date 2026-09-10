@@ -37,7 +37,7 @@ const PUBLIC_FIND_ACTIONS = [
   "api::courses-page.courses-page.find",
 ];
 
-const PUBLIC_CREATE_ACTIONS = ["api::lead.lead.create"];
+const PUBLIC_CREATE_ACTIONS = ["api::lead.lead.create", "api::career-application.career-application.create"];
 
 const INDUSTRIES_DATA = [
   {

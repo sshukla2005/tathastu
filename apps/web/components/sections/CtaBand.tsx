@@ -1,9 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { X } from "lucide-react";
+import { X, CheckCircle2, AlertCircle } from "lucide-react";
 import { CtaBandSection } from "@tathastu/types";
+
+const ALLOWED_CV_TYPES = [
+  "application/pdf",
+  "application/msword",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+];
+const MAX_CV_SIZE = 5 * 1024 * 1024; // 5MB
 
 interface CtaBandProps {
   section: CtaBandSection;
@@ -39,8 +46,14 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
     qualification: "",
     message: "",
   });
+  const [cvFile, setCvFile] = useState<File | null>(null);
   const [cvFileName, setCvFileName] = useState("");
+  const [fileError, setFileError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -48,9 +61,92 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/[^A-Za-z\s'-]/g, "");
+    setFormData({ ...formData, name: value });
+  };
+
+  const handleExperienceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/\D/g, "").slice(0, 2);
+    setFormData({ ...formData, experience: value });
+  };
+
+  const handleCvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setFileError(null);
+
+    if (!file) {
+      setCvFile(null);
+      setCvFileName("");
+      return;
+    }
+
+    const allowedTypes = [
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
+    if (!allowedTypes.includes(file.type)) {
+      setFileError("Please upload a PDF or Word document.");
+      setCvFile(null);
+      setCvFileName("");
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setFileError("File must be smaller than 5MB.");
+      setCvFile(null);
+      setCvFileName("");
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      return;
+    }
+
+    setCvFile(file);
+    setCvFileName(file.name);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+
+    if (!cvFile) {
+      setFileError("Please upload your CV.");
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const body = new FormData();
+      body.append("name", formData.name);
+      body.append("email", formData.email);
+      body.append("position", formData.position);
+      body.append("experience", formData.experience);
+      body.append("qualification", formData.qualification);
+      body.append("message", formData.message);
+      body.append("cv", cvFile);
+
+      const response = await fetch("/api/career-application", {
+        method: "POST",
+        body,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Something went wrong.");
+      }
+
+      setSubmitted(true);
+      setFormData({ name: "", email: "", position: "", experience: "", qualification: "", message: "" });
+      setCvFile(null);
+      setCvFileName("");
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    } catch (err: any) {
+      setError(err.message || "Failed to submit application. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -113,7 +209,7 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
             fontFamily: "'Open Sans', sans-serif",
           }}
         >
-          Get the Perfect Quote.
+          Apply Now
         </h2>
 
         {submitted ? (
@@ -125,9 +221,14 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
               fontSize: "18px",
               fontWeight: 700,
               fontFamily: "'Open Sans', sans-serif",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "12px",
             }}
           >
-            ✓ Thank you! We&apos;ll be in touch soon.
+            <CheckCircle2 size={40} />
+            <span>Thank you! Your application has been submitted. We&apos;ll be in touch soon.</span>
           </div>
         ) : (
           <form onSubmit={handleSubmit}>
@@ -137,8 +238,12 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
                 <input
                   type="text"
                   name="name"
+                  required
                   value={formData.name}
-                  onChange={handleChange}
+                  onChange={handleNameChange}
+                  placeholder="Enter Name"
+                  pattern="[A-Za-z\s'-]+"
+                  title="Please enter a valid name (letters only)"
                   style={FIELD_INPUT_STYLE}
                 />
               </div>
@@ -147,8 +252,10 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
                 <input
                   type="email"
                   name="email"
+                  required
                   value={formData.email}
                   onChange={handleChange}
+                  placeholder="Enter Email"
                   style={FIELD_INPUT_STYLE}
                 />
               </div>
@@ -157,8 +264,11 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
                 <input
                   type="text"
                   name="position"
+                  required
+                  minLength={2}
                   value={formData.position}
                   onChange={handleChange}
+                  placeholder="Position you're applying for"
                   style={FIELD_INPUT_STYLE}
                 />
               </div>
@@ -167,8 +277,14 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
                 <input
                   type="text"
                   name="experience"
+                  required
+                  inputMode="numeric"
+                  pattern="[0-9]{1,2}"
+                  maxLength={2}
+                  title="Please enter your years of experience as a number"
                   value={formData.experience}
-                  onChange={handleChange}
+                  onChange={handleExperienceChange}
+                  placeholder="e.g. 3"
                   style={FIELD_INPUT_STYLE}
                 />
               </div>
@@ -177,6 +293,8 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
                 <input
                   type="text"
                   name="qualification"
+                  required
+                  minLength={2}
                   placeholder="Qualification"
                   value={formData.qualification}
                   onChange={handleChange}
@@ -193,18 +311,22 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
                     background: "#E5E7EB",
                     color: "#374151",
                     cursor: "pointer",
+                    border: fileError ? "1.5px solid #EF4444" : FIELD_INPUT_STYLE.border,
                   }}
                 >
                   {cvFileName || "Browse..."}
                   <input
+                    ref={fileInputRef}
                     type="file"
                     name="cv"
-                    onChange={(e) =>
-                      setCvFileName(e.target.files?.[0]?.name || "")
-                    }
+                    accept=".pdf,.doc,.docx"
+                    onChange={handleCvChange}
                     style={{ display: "none" }}
                   />
                 </label>
+                <p style={{ fontSize: "12px", color: fileError ? "#EF4444" : "#6B7280", margin: "6px 0 0" }}>
+                  {fileError || "PDF or Word document, up to 5MB"}
+                </p>
               </div>
               <div className="cta-quote-full">
                 <label style={FIELD_LABEL_STYLE}>Message</label>
@@ -213,14 +335,38 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
                   rows={4}
                   value={formData.message}
                   onChange={handleChange}
+                  placeholder="Anything else you'd like us to know?"
                   style={{ ...FIELD_INPUT_STYLE, resize: "vertical" }}
                 />
               </div>
             </div>
 
+            {error && (
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  marginTop: "20px",
+                  padding: "14px 18px",
+                  background: "#FEF2F2",
+                  color: "#B91C1C",
+                  borderRadius: "12px",
+                  border: "1px solid #FEE2E2",
+                  fontFamily: "'Open Sans', sans-serif",
+                  fontSize: "14px",
+                  fontWeight: 600,
+                }}
+              >
+                <AlertCircle size={18} style={{ flexShrink: 0 }} />
+                <span>{error}</span>
+              </div>
+            )}
+
             <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "24px" }}>
               <button
                 type="submit"
+                disabled={loading}
                 style={{
                   padding: "14px 36px",
                   background: "linear-gradient(90deg, #1d385e 0%, #4b95ff 100%)",
@@ -230,10 +376,27 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
                   fontWeight: 700,
                   border: "none",
                   borderRadius: "999px",
-                  cursor: "pointer",
+                  cursor: loading ? "not-allowed" : "pointer",
+                  opacity: loading ? 0.7 : 1,
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "10px",
                 }}
               >
-                Send Message
+                {loading && (
+                  <span
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      border: "2px solid rgba(255,255,255,0.4)",
+                      borderTopColor: "#FFFFFF",
+                      borderRadius: "50%",
+                      display: "inline-block",
+                      animation: "cta-spin 0.7s linear infinite",
+                    }}
+                  />
+                )}
+                {loading ? "Submitting..." : "Submit Application"}
               </button>
             </div>
           </form>
@@ -241,6 +404,7 @@ function QuoteModal({ onClose }: { onClose: () => void }) {
       </div>
 
       <style>{`
+        @keyframes cta-spin { to { transform: rotate(360deg); } }
         .cta-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
         .cta-quote-full { grid-column: 1 / -1; }
         @media (max-width: 640px) {
