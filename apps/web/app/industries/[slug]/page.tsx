@@ -61,7 +61,7 @@ export default async function IndustryDetailPage({ params, searchParams }: Indus
   if (!siteSettings) return null;
 
   const heroImage = getStrapiMediaUrl(currentIndustry.heroImage?.url) || FALLBACK_HERO_IMAGE;
-  const brands = currentIndustry.brands || [];
+  const brands = [...(currentIndustry.brands || [])].sort((a, b) => a.order - b.order);
 
   const query = q.trim().toLowerCase();
   const filteredBrands = brands.filter((brand) => {
@@ -69,7 +69,7 @@ export default async function IndustryDetailPage({ params, searchParams }: Indus
     const matchesQuery =
       !query ||
       brand.name.toLowerCase().includes(query) ||
-      (brand.description || "").toLowerCase().includes(query);
+      (brand.shortDescription || "").toLowerCase().includes(query);
     return matchesCategory && matchesQuery;
   });
 
@@ -204,19 +204,19 @@ export default async function IndustryDetailPage({ params, searchParams }: Indus
                         </div>
                       </div>
                       <div className="flex flex-1 flex-col gap-2 p-5">
-                        <p className="text-sm leading-relaxed text-gray-500">{brand.description}</p>
+                        <p className="text-sm leading-relaxed text-gray-500">{brand.shortDescription}</p>
                       </div>
                     </>
                   );
 
-                  return brand.href ? (
-                    <Link key={brand.id ?? index} href={brand.href} className={cardClassName}>
+                  return (
+                    <Link
+                      key={brand.id ?? index}
+                      href={`/industries/${currentIndustry.slug}/${brand.slug}`}
+                      className={cardClassName}
+                    >
                       {cardContent}
                     </Link>
-                  ) : (
-                    <div key={brand.id ?? index} className={cardClassName}>
-                      {cardContent}
-                    </div>
                   );
                 })}
               </div>

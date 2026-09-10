@@ -27,6 +27,8 @@ const PUBLIC_FIND_ACTIONS = [
   "api::career.career.findOne",
   "api::team-member.team-member.find",
   "api::team-member.team-member.findOne",
+  "api::brand.brand.find",
+  "api::brand.brand.findOne",
 ];
 
 const PUBLIC_CREATE_ACTIONS = ["api::lead.lead.create"];
@@ -915,62 +917,132 @@ async function seedMissingIndustries(strapi: Core.Strapi) {
 }
 
 /**
- * Backfills the "brands" (partner/product) list on the Media & Entertainment
- * industry — the content that used to live only in the one-off
- * apps/web/app/industries/media-and-entertainment/page.tsx — now that
- * apps/web/app/industries/[slug]/page.tsx renders every industry from this
- * field. Runs independently of seedDatabase() so it also backfills
- * environments where industries were already seeded before this field
- * existed. Other industries (AEC, Education, Manufacturing, Government)
- * intentionally start with an empty brand list until populated in Strapi.
+ * Backfills Brand entries under the Media & Entertainment industry — the
+ * content that used to live only in the one-off
+ * apps/web/app/industries/media-and-entertainment/page.tsx (brand grid) and
+ * apps/web/app/industries/media-and-entertainment/adobe/page.tsx (Adobe's
+ * full detail content) — now that every brand routes through the single
+ * generic apps/web/app/industries/[slug]/[brand]/page.tsx template. Runs
+ * independently of seedDatabase() so it also backfills environments where
+ * industries were already seeded before the Brand content-type existed.
+ * Other industries (AEC, Education, Manufacturing, Government) intentionally
+ * start with no brands until populated in Strapi.
  */
 async function seedIndustryBrands(strapi: Core.Strapi) {
   const [mediaAndEntertainment] = await strapi
     .documents("api::industry.industry")
-    .findMany({ filters: { slug: "media-and-entertainment" }, populate: ["brands"] });
+    .findMany({ filters: { slug: "media-and-entertainment" } });
 
   if (!mediaAndEntertainment) {
     strapi.log.warn('🌱 Industry "media-and-entertainment" not found — skipping brand seed.');
     return;
   }
 
-  if (mediaAndEntertainment.brands?.length > 0) {
+  const existingBrands = await strapi
+    .documents("api::brand.brand")
+    .findMany({ filters: { industry: { documentId: mediaAndEntertainment.documentId } } });
+
+  if (existingBrands.length > 0) {
     strapi.log.info("🌱 Industry brands already seeded. Skipping.");
     return;
   }
 
   strapi.log.info("🌱 Seeding Media & Entertainment industry brands...");
 
-  await strapi.documents("api::industry.industry").update({
-    documentId: mediaAndEntertainment.documentId,
+  const clientLogos = await strapi.documents("api::client-logo.client-logo").findMany({ sort: "order:asc" });
+  const enquiryText =
+    'If you\'re looking for the right technology for smooth operation and stunning results, you don\'t have to look any further. Your search ends here!. Connect with us by clicking "Request a Demo" button';
+
+  await strapi.documents("api::brand.brand").create({
     data: {
-      brands: [
+      name: "Adobe",
+      slug: "adobe",
+      category: "Software" as const,
+      order: 1,
+      industry: mediaAndEntertainment.documentId,
+      shortDescription:
+        "Changing the world through personalized digital experiences. Adobe empowers everyone, everywhere to imagine and create what inspires them.",
+      aboutDescription:
+        "Changing the world through personalized digital experiences. Adobe empowers everyone, everywhere to imagine, create, and bring any digital experience to life. Founded December 1982 Adobe is making the world more creative and productive and truly is Industry Leader in creative world.",
+      apps: [{ label: "Photoshop" }, { label: "Illustrator" }, { label: "InDesign" }, { label: "Adobe Stock" }],
+      showcases: [
         {
-          name: "Adobe",
-          category: "Software" as const,
-          description:
-            "Changing the world through personalized digital experiences. Adobe empowers everyone, everywhere to imagine and create what inspires them.",
-          href: "/industries/media-and-entertainment/adobe",
+          title: "Photoshop",
+          subtitle:
+            "Create at the speed of imagination. Fire up your imagination with the most powerful Photoshop yet. Remove distractions from pics in a click. Get amazing photorealistic results with Generative Fill. And add more picture to your picture with Generative Expand. Now with the latest Adobe Firefly Image Model.",
+          featuresText:
+            "Create at the speed of imagination. Fire up your imagination with the most powerful Photoshop yet. Remove distractions from pics in a click. Get amazing photorealistic results with Generative Fill. And add more picture to your picture with Generative Expand. Now with the latest Adobe Firefly Image Model.",
+          enquiryText,
+          direction: "left" as const,
         },
         {
-          name: "SideFX",
-          category: "Software" as const,
-          description:
-            "For over thirty five years, SideFX has provided artists with cutting-edge procedural 3D animation tools trusted across film, TV, and games.",
+          title: "Illustrator",
+          subtitle:
+            "Create at the speed of imagination. Fire up your imagination with the most powerful Photoshop yet. Remove distractions from pics in a click. Get amazing photorealistic results with Generative Fill. And add more picture to your picture with Generative Expand. Now with the latest Adobe Firefly Image Model.",
+          featuresText:
+            "Arrange objects on a path. Vectorise drawings with more accuracy. Make realistic mockups in one click. Create and edit graphics online. Turn 3D designs into vectors. Fill shapes with detail and colour. Start with just Illustrator or get Illustrator and 20+ other apps with the Creative Cloud All Apps plan.",
+          enquiryText,
+          direction: "right" as const,
         },
         {
-          name: "RayFire",
-          category: "Software" as const,
-          description:
-            "RayFire is a leading provider of innovative FX plugins for Autodesk 3ds Max, established with a vision to redefine destruction and fragmentation effects.",
+          title: "InDesign",
+          subtitle:
+            "Design and publish print and digital documents that make an impact. Lay out flyers, posters, brochures, annual reports, digital magazines, eBooks, and more with InDesign — for consistent, professional layouts every time.",
+          featuresText:
+            "Create multi-page layouts with master pages and paragraph styles. Auto-flow text, embed interactive elements, and export directly to PDF, EPUB, or HTML. Collaborate in real time and package files for print with confidence.",
+          enquiryText,
+          direction: "left" as const,
         },
         {
-          name: "Dell",
-          category: "Hardware" as const,
-          description:
-            "Dell Technologies is a global leader in technology solutions, offering a wide range of workstations built for creative production.",
+          title: "Adobe Stock",
+          subtitle:
+            "Access millions of royalty-free images, videos, templates, and 3D assets — all fully licensed and ready to use. Search visually, integrate directly inside Creative Cloud apps, and find the perfect asset for every project.",
+          featuresText:
+            "Browse curated, royalty-free photos, illustrations, videos, and templates. Use visual search and Firefly-generated assets, license directly from within Photoshop or Illustrator, and stay fully compliant.",
+          enquiryText,
+          direction: "right" as const,
         },
       ],
+      clientLogos: clientLogos.map((cl) => cl.documentId),
+    },
+    status: "published",
+  });
+
+  await strapi.documents("api::brand.brand").create({
+    data: {
+      name: "SideFX",
+      slug: "sidefx",
+      category: "Software" as const,
+      order: 2,
+      industry: mediaAndEntertainment.documentId,
+      shortDescription:
+        "For over thirty five years, SideFX has provided artists with cutting-edge procedural 3D animation tools trusted across film, TV, and games.",
+    },
+    status: "published",
+  });
+
+  await strapi.documents("api::brand.brand").create({
+    data: {
+      name: "RayFire",
+      slug: "rayfire",
+      category: "Software" as const,
+      order: 3,
+      industry: mediaAndEntertainment.documentId,
+      shortDescription:
+        "RayFire is a leading provider of innovative FX plugins for Autodesk 3ds Max, established with a vision to redefine destruction and fragmentation effects.",
+    },
+    status: "published",
+  });
+
+  await strapi.documents("api::brand.brand").create({
+    data: {
+      name: "Dell",
+      slug: "dell",
+      category: "Hardware" as const,
+      order: 4,
+      industry: mediaAndEntertainment.documentId,
+      shortDescription:
+        "Dell Technologies is a global leader in technology solutions, offering a wide range of workstations built for creative production.",
     },
     status: "published",
   });

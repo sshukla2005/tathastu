@@ -18,6 +18,11 @@
     "heroImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
     "body": { "type": "blocks" },
     "order": { "type": "integer", "default": 0 },
-    "brands": { "type": "component", "repeatable": true, "component": "shared.brand-card" }
+    "brands": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::brand.brand",
+      "mappedBy": "industry"
+    }
   }
 }

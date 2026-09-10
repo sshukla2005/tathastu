@@ -555,6 +555,47 @@ export interface ApiBlogPostBlogPost extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBrandBrand extends Struct.CollectionTypeSchema {
+  collectionName: 'brands';
+  info: {
+    description: 'Partner/product brands showcased within an Industry (e.g. Adobe, SideFX, Dell)';
+    displayName: 'Brand';
+    pluralName: 'brands';
+    singularName: 'brand';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    aboutDescription: Schema.Attribute.Text;
+    apps: Schema.Attribute.Component<'shared.icon-card', true>;
+    category: Schema.Attribute.Enumeration<['Software', 'Hardware']> &
+      Schema.Attribute.DefaultTo<'Software'>;
+    clientLogos: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::client-logo.client-logo'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heroImage: Schema.Attribute.Media<'images'>;
+    industry: Schema.Attribute.Relation<'manyToOne', 'api::industry.industry'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::brand.brand'> &
+      Schema.Attribute.Private;
+    logo: Schema.Attribute.Media<'images'>;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    shortDescription: Schema.Attribute.Text;
+    showcases: Schema.Attribute.Component<'shared.app-showcase', true>;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCareerCareer extends Struct.CollectionTypeSchema {
   collectionName: 'careers';
   info: {
@@ -753,7 +794,7 @@ export interface ApiIndustryIndustry extends Struct.CollectionTypeSchema {
   };
   attributes: {
     body: Schema.Attribute.Blocks;
-    brands: Schema.Attribute.Component<'shared.brand-card', true>;
+    brands: Schema.Attribute.Relation<'oneToMany', 'api::brand.brand'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1541,6 +1582,7 @@ declare module '@strapi/strapi' {
       'api::about-page.about-page': ApiAboutPageAboutPage;
       'api::academy-page.academy-page': ApiAcademyPageAcademyPage;
       'api::blog-post.blog-post': ApiBlogPostBlogPost;
+      'api::brand.brand': ApiBrandBrand;
       'api::career.career': ApiCareerCareer;
       'api::client-logo.client-logo': ApiClientLogoClientLogo;
       'api::contact-page.contact-page': ApiContactPageContactPage;

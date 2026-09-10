@@ -108,16 +108,39 @@ export interface Industry {
   icon: StrapiMedia | null;
   heroImage: StrapiMedia | null;
   order: number;
-  brands: BrandCard[];
+  brands: Brand[];
 }
 
-export interface BrandCard {
+// ─── Brand (partner/product showcased within an Industry) ─────────────────────
+
+export interface Brand {
   id: number;
+  documentId: string;
   name: string;
+  slug: string;
   category: "Software" | "Hardware";
+  shortDescription: string;
   logo: StrapiMedia | null;
-  description: string;
-  href: string | null;
+  order: number;
+  heroImage: StrapiMedia | null;
+  aboutDescription: string;
+  apps: IconCard[];
+  showcases: AppShowcase[];
+  clientLogos: ClientLogo[];
+}
+
+export interface AppShowcase {
+  id: number;
+  icon: StrapiMedia | null;
+  title: string;
+  subtitle: string;
+  featuresHeading: string;
+  featuresImage: StrapiMedia | null;
+  featuresText: string;
+  enquiryHeading: string;
+  enquiryImage: StrapiMedia | null;
+  enquiryText: string;
+  direction: "left" | "right";
 }
 
 // ─── Testimonial ──────────────────────────────────────────────────────────────

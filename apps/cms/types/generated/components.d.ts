@@ -412,19 +412,26 @@ export interface SectionsTestimonials extends Struct.ComponentSchema {
   };
 }
 
-export interface SharedBrandCard extends Struct.ComponentSchema {
-  collectionName: 'components_shared_brand_cards';
+export interface SharedAppShowcase extends Struct.ComponentSchema {
+  collectionName: 'components_shared_app_showcases';
   info: {
-    displayName: 'Brand Card';
-    icon: 'star';
+    displayName: 'App Showcase';
+    icon: 'picture';
   };
   attributes: {
-    category: Schema.Attribute.Enumeration<['Software', 'Hardware']> &
-      Schema.Attribute.DefaultTo<'Software'>;
-    description: Schema.Attribute.Text;
-    href: Schema.Attribute.String;
-    logo: Schema.Attribute.Media<'images'>;
-    name: Schema.Attribute.String & Schema.Attribute.Required;
+    direction: Schema.Attribute.Enumeration<['left', 'right']> &
+      Schema.Attribute.DefaultTo<'left'>;
+    enquiryHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Enquiry'>;
+    enquiryImage: Schema.Attribute.Media<'images'>;
+    enquiryText: Schema.Attribute.Text;
+    featuresHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Features'>;
+    featuresImage: Schema.Attribute.Media<'images'>;
+    featuresText: Schema.Attribute.Text;
+    icon: Schema.Attribute.Media<'images'>;
+    subtitle: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -603,7 +610,7 @@ declare module '@strapi/strapi' {
       'sections.studio-what-we-do': SectionsStudioWhatWeDo;
       'sections.studio-who-we-are': SectionsStudioWhoWeAre;
       'sections.testimonials': SectionsTestimonials;
-      'shared.brand-card': SharedBrandCard;
+      'shared.app-showcase': SharedAppShowcase;
       'shared.contact-card': SharedContactCard;
       'shared.course-card': SharedCourseCard;
       'shared.feature-card': SharedFeatureCard;

@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_shared_app_showcases",
+  "info": {
+    "displayName": "App Showcase",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "icon": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "title": { "type": "string", "required": true },
+    "subtitle": { "type": "text" },
+    "featuresHeading": { "type": "string", "default": "Features" },
+    "featuresImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "featuresText": { "type": "text" },
+    "enquiryHeading": { "type": "string", "default": "Enquiry" },
+    "enquiryImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "enquiryText": { "type": "text" },
+    "direction": { "type": "enumeration", "enum": ["left", "right"], "default": "left" }
+  }
+}
