@@ -697,6 +697,85 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiEventPageEventPage extends Struct.SingleTypeSchema {
+  collectionName: 'event_pages';
+  info: {
+    description: 'Event hub page content managed via Dynamic Zone';
+    displayName: 'Event Page';
+    pluralName: 'event-pages';
+    singularName: 'event-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::event-page.event-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    sections: Schema.Attribute.DynamicZone<
+      [
+        'sections.event-hero',
+        'sections.event-upcoming',
+        'sections.event-past',
+        'sections.cta-band',
+      ]
+    >;
+    seoDescription: Schema.Attribute.Text;
+    seoTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEventEvent extends Struct.CollectionTypeSchema {
+  collectionName: 'events';
+  info: {
+    description: 'Past events, each with their own slug-addressable gallery detail page';
+    displayName: 'Event';
+    pluralName: 'events';
+    singularName: 'event';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    coverImage: Schema.Attribute.Media<'images'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    eventDate: Schema.Attribute.Date;
+    galleryBottomA: Schema.Attribute.Media<'images'>;
+    galleryBottomB: Schema.Attribute.Media<'images'>;
+    galleryCenter: Schema.Attribute.Media<'images'>;
+    galleryHeading: Schema.Attribute.String;
+    gallerySmall1: Schema.Attribute.Media<'images'>;
+    gallerySmall2: Schema.Attribute.Media<'images'>;
+    galleryTall1: Schema.Attribute.Media<'images'>;
+    galleryTall2: Schema.Attribute.Media<'images'>;
+    galleryText: Schema.Attribute.Text;
+    galleryWide: Schema.Attribute.Media<'images'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    summary: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
   collectionName: 'homepages';
   info: {
@@ -1586,6 +1665,8 @@ declare module '@strapi/strapi' {
       'api::career.career': ApiCareerCareer;
       'api::client-logo.client-logo': ApiClientLogoClientLogo;
       'api::contact-page.contact-page': ApiContactPageContactPage;
+      'api::event-page.event-page': ApiEventPageEventPage;
+      'api::event.event': ApiEventEvent;
       'api::homepage.homepage': ApiHomepageHomepage;
       'api::industries-page.industries-page': ApiIndustriesPageIndustriesPage;
       'api::industry.industry': ApiIndustryIndustry;

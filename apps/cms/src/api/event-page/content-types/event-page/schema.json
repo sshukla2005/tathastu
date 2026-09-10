@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "event_pages",
+  "info": {
+    "singularName": "event-page",
+    "pluralName": "event-pages",
+    "displayName": "Event Page",
+    "description": "Event hub page content managed via Dynamic Zone"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "seoTitle": { "type": "string" },
+    "seoDescription": { "type": "text" },
+    "sections": {
+      "type": "dynamiczone",
+      "components": [
+        "sections.event-hero",
+        "sections.event-upcoming",
+        "sections.event-past",
+        "sections.cta-band"
+      ]
+    }
+  }
+}

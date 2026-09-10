@@ -586,3 +586,61 @@ export interface IndustriesGridSection {
   subtitle: string;
   cards: IndustryCard[];
 }
+
+// ─── Event ──────────────────────────────────────────────────────────────────
+
+export interface Event {
+  id: number;
+  documentId: string;
+  title: string;
+  slug: string;
+  summary: string;
+  coverImage: StrapiMedia | null;
+  eventDate: string | null;
+  order: number;
+  galleryHeading: string;
+  galleryText: string;
+  galleryTall1: StrapiMedia | null;
+  gallerySmall1: StrapiMedia | null;
+  gallerySmall2: StrapiMedia | null;
+  galleryWide: StrapiMedia | null;
+  galleryCenter: StrapiMedia | null;
+  galleryTall2: StrapiMedia | null;
+  galleryBottomA: StrapiMedia | null;
+  galleryBottomB: StrapiMedia | null;
+}
+
+// ─── Event Page Dynamic Zone ──────────────────────────────────────────────────
+
+export type EventPageSection = EventHeroSection | EventUpcomingSection | EventPastSection | CtaBandSection;
+
+export interface EventBlock {
+  id: number;
+  heading: string;
+  text: string;
+  image: StrapiMedia | null;
+  isVideo: boolean;
+}
+
+export interface EventHeroSection {
+  __component: "sections.event-hero";
+  id: number;
+  heading: string;
+  backgroundImage: StrapiMedia | null;
+}
+
+export interface EventUpcomingSection {
+  __component: "sections.event-upcoming";
+  id: number;
+  heading: string;
+  headingHighlight: string;
+  blocks: EventBlock[];
+}
+
+export interface EventPastSection {
+  __component: "sections.event-past";
+  id: number;
+  heading: string;
+  headingHighlight: string;
+  events: Event[];
+}

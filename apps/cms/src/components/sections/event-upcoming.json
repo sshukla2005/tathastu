@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_sections_event_upcomings",
+  "info": {
+    "displayName": "Event Upcoming",
+    "icon": "calendar"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "default": "Upcoming" },
+    "headingHighlight": { "type": "string", "default": "Event" },
+    "blocks": { "type": "component", "repeatable": true, "component": "shared.event-block" }
+  }
+}

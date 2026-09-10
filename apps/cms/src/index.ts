@@ -29,6 +29,9 @@ const PUBLIC_FIND_ACTIONS = [
   "api::team-member.team-member.findOne",
   "api::brand.brand.find",
   "api::brand.brand.findOne",
+  "api::event-page.event-page.find",
+  "api::event.event.find",
+  "api::event.event.findOne",
 ];
 
 const PUBLIC_CREATE_ACTIONS = ["api::lead.lead.create"];
@@ -1050,6 +1053,116 @@ async function seedIndustryBrands(strapi: Core.Strapi) {
   strapi.log.info("🌱 Industry brands seeded successfully!");
 }
 
+/**
+ * Seeds the past Event entries — the content that used to live only in the
+ * static apps/web/app/event/details/page.tsx gallery — now that every past
+ * event routes through the generic apps/web/app/event/[slug]/page.tsx
+ * template. Runs independently of seedDatabase() so it also backfills
+ * environments that were already seeded before the Event content-type
+ * existed.
+ */
+async function seedEvents(strapi: Core.Strapi) {
+  const existing = await strapi.documents("api::event.event").findMany({});
+  if (existing.length > 0) {
+    strapi.log.info("🌱 Events already seeded. Skipping.");
+    return;
+  }
+
+  strapi.log.info("🌱 Seeding past events...");
+
+  const detailText =
+    "—black and white photographers who view the natural world not as a subject to be documented, but as a canvas for emotion, narrative, and art. Their work moves beyond the traditional bounds of wildlife photography, focusing not on species checklists or iconic sightings, but on moments—fleeting, unstaged, and alive with meaning.";
+
+  await strapi.documents("api::event.event").create({
+    data: {
+      title: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
+      slug: "past-event-1",
+      summary: detailText,
+      order: 1,
+      galleryHeading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+      galleryText:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    },
+    status: "published",
+  });
+
+  strapi.log.info("🌱 Past events seeded successfully!");
+}
+
+/**
+ * Seeds the Event hub page singleType with one component per section of the
+ * built Event UI (apps/web/app/event/page.tsx). Runs independently of
+ * seedDatabase() so it also backfills environments that were already seeded
+ * before the Event Page content-type existed.
+ */
+async function seedEventPage(strapi: Core.Strapi) {
+  const existing = await strapi.documents("api::event-page.event-page").findFirst({});
+  if (existing) {
+    strapi.log.info("🌱 Event page already seeded. Skipping.");
+    return;
+  }
+
+  strapi.log.info("🌱 Seeding Event page...");
+
+  const events = await strapi.documents("api::event.event").findMany({ sort: "order:asc" });
+
+  const introText =
+    '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.';
+  const detailText =
+    "—black and white photographers who view the natural world not as a subject to be documented, but as a canvas for emotion, narrative, and art. Their work moves beyond the traditional bounds of wildlife photography, focusing not on species checklists or iconic sightings, but on moments—fleeting, unstaged, and alive with meaning.";
+
+  await strapi.documents("api::event-page.event-page").create({
+    data: {
+      seoTitle: "Event — Tathastu",
+      seoDescription: "Explore our upcoming event.",
+      sections: [
+        {
+          __component: "sections.event-hero",
+          heading: "Event",
+        },
+        {
+          __component: "sections.event-upcoming",
+          heading: "Upcoming",
+          headingHighlight: "Event",
+          blocks: [
+            {
+              heading: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.",
+              text: introText,
+              isVideo: false,
+            },
+            {
+              heading: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
+              text: detailText,
+              isVideo: true,
+            },
+            {
+              heading: "Sed ut perspiciatis unde omnis iste natus error sit voluptatem.",
+              text: detailText,
+              isVideo: false,
+            },
+          ],
+        },
+        {
+          __component: "sections.event-past",
+          heading: "Past",
+          headingHighlight: "Event",
+          events: events.map((e) => e.documentId),
+        },
+        {
+          __component: "sections.cta-band",
+          heading: "Design Support for All Your Creative Needs",
+          subtext: "Get a free introduction and discover how you and your team can change the way your source design forever.",
+          ctaLabel: "Request Demo",
+          ctaHref: "/contact?source=Demo&industry=event",
+        },
+      ],
+    },
+    status: "published",
+  });
+
+  strapi.log.info("🌱 Event page seeded successfully!");
+}
+
 export default {
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
@@ -1061,5 +1174,7 @@ export default {
     await seedIndustriesPage(strapi);
     await seedMissingIndustries(strapi);
     await seedIndustryBrands(strapi);
+    await seedEvents(strapi);
+    await seedEventPage(strapi);
   },
 };

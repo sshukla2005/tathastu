@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_shared_event_blocks",
+  "info": {
+    "displayName": "Event Block",
+    "icon": "calendar"
+  },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "text": { "type": "text" },
+    "image": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "isVideo": { "type": "boolean", "default": false }
+  }
+}

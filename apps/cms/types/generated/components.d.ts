@@ -159,6 +159,46 @@ export interface SectionsCtaBand extends Struct.ComponentSchema {
   };
 }
 
+export interface SectionsEventHero extends Struct.ComponentSchema {
+  collectionName: 'components_sections_event_heroes';
+  info: {
+    displayName: 'Event Hero';
+    icon: 'layout';
+  };
+  attributes: {
+    backgroundImage: Schema.Attribute.Media<'images'>;
+    heading: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Event'>;
+  };
+}
+
+export interface SectionsEventPast extends Struct.ComponentSchema {
+  collectionName: 'components_sections_event_pasts';
+  info: {
+    displayName: 'Event Past';
+    icon: 'calendar';
+  };
+  attributes: {
+    events: Schema.Attribute.Relation<'oneToMany', 'api::event.event'>;
+    heading: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Past'>;
+    headingHighlight: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Event'>;
+  };
+}
+
+export interface SectionsEventUpcoming extends Struct.ComponentSchema {
+  collectionName: 'components_sections_event_upcomings';
+  info: {
+    displayName: 'Event Upcoming';
+    icon: 'calendar';
+  };
+  attributes: {
+    blocks: Schema.Attribute.Component<'shared.event-block', true>;
+    heading: Schema.Attribute.String & Schema.Attribute.DefaultTo<'Upcoming'>;
+    headingHighlight: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Event'>;
+  };
+}
+
 export interface SectionsFeatureCards extends Struct.ComponentSchema {
   collectionName: 'components_sections_feature_cards';
   info: {
@@ -464,6 +504,20 @@ export interface SharedCourseCard extends Struct.ComponentSchema {
   };
 }
 
+export interface SharedEventBlock extends Struct.ComponentSchema {
+  collectionName: 'components_shared_event_blocks';
+  info: {
+    displayName: 'Event Block';
+    icon: 'calendar';
+  };
+  attributes: {
+    heading: Schema.Attribute.String & Schema.Attribute.Required;
+    image: Schema.Attribute.Media<'images'>;
+    isVideo: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    text: Schema.Attribute.Text;
+  };
+}
+
 export interface SharedFeatureCard extends Struct.ComponentSchema {
   collectionName: 'components_shared_feature_cards';
   info: {
@@ -594,6 +648,9 @@ declare module '@strapi/strapi' {
       'sections.blog-teaser': SectionsBlogTeaser;
       'sections.client-logos': SectionsClientLogos;
       'sections.cta-band': SectionsCtaBand;
+      'sections.event-hero': SectionsEventHero;
+      'sections.event-past': SectionsEventPast;
+      'sections.event-upcoming': SectionsEventUpcoming;
       'sections.feature-cards': SectionsFeatureCards;
       'sections.hero': SectionsHero;
       'sections.industries-grid': SectionsIndustriesGrid;
@@ -613,6 +670,7 @@ declare module '@strapi/strapi' {
       'shared.app-showcase': SharedAppShowcase;
       'shared.contact-card': SharedContactCard;
       'shared.course-card': SharedCourseCard;
+      'shared.event-block': SharedEventBlock;
       'shared.feature-card': SharedFeatureCard;
       'shared.footer-column': SharedFooterColumn;
       'shared.footer-link': SharedFooterLink;
