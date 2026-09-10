@@ -2,23 +2,15 @@
 
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { FaqItem } from "@tathastu/types";
 
 const RED = "#E02020";
 
-const FAQS = [
-  {
-    q: "Do I need any prior experience to join this course?",
-    a: "No. This course is designed for complete beginners. You just need a creative mindset — we will teach you everything from scratch.",
-  },
-  {
-    q: "Which course I should prefer after Grade 12th?",
-    a: "Houdini is an excellent choice after Grade 12th if you're interested in VFX, animation, or game development. Our counselors can help you pick the right track.",
-  },
-  {
-    q: "How long is the Houdini certification course?",
-    a: "The course is 6 months long, covering everything from fundamentals to advanced production-level simulations.",
-  },
-];
+interface FaqSectionProps {
+  heading?: string;
+  headingHighlight?: string;
+  faqs: FaqItem[];
+}
 
 function FaqIllustration() {
   return (
@@ -123,8 +115,10 @@ function FaqIllustration() {
   );
 }
 
-export default function FaqSection() {
+export default function FaqSection({ heading = "Frequently Asked", headingHighlight = "Questions", faqs }: FaqSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  if (faqs.length === 0) return null;
 
   return (
     <section
@@ -146,7 +140,7 @@ export default function FaqSection() {
             fontFamily: "'Open Sans', sans-serif",
           }}
         >
-          Frequently Asked <span style={{ color: RED }}>Questions</span>
+          {heading} <span style={{ color: RED }}>{headingHighlight}</span>
         </h2>
 
         <div
@@ -164,11 +158,11 @@ export default function FaqSection() {
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-              {FAQS.map((faq, idx) => {
+              {faqs.map((faq, idx) => {
                 const isOpen = openIndex === idx;
                 return (
                   <div
-                    key={faq.q}
+                    key={faq.id ?? idx}
                     style={{
                       border: `1px solid ${isOpen ? "#FBD5D5" : "#EFEFEF"}`,
                       borderRadius: "12px",
@@ -198,7 +192,7 @@ export default function FaqSection() {
                           fontFamily: "'Open Sans', sans-serif",
                         }}
                       >
-                        {faq.q}
+                        {faq.question}
                       </span>
                       {isOpen ? (
                         <ChevronUp size={18} color="#0B0625" style={{ flexShrink: 0 }} />
@@ -217,7 +211,7 @@ export default function FaqSection() {
                             fontFamily: "'Open Sans', sans-serif",
                           }}
                         >
-                          {faq.a}
+                          {faq.answer}
                         </p>
                       </div>
                     )}

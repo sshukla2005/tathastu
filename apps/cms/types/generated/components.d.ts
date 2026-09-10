@@ -1,5 +1,77 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface CourseDetailsHoudini extends Struct.ComponentSchema {
+  collectionName: 'components_course_details_houdinis';
+  info: {
+    displayName: 'Houdini Course Details';
+    icon: 'book';
+  };
+  attributes: {
+    brochureFile: Schema.Attribute.Media<'files'>;
+    faqs: Schema.Attribute.Component<'shared.faq-item', true>;
+    faqsHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Frequently Asked'>;
+    faqsHighlight: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Questions'>;
+    highlightFeatures: Schema.Attribute.Component<
+      'shared.icon-text-item',
+      true
+    >;
+    highlightPoints: Schema.Attribute.Component<'shared.icon-text-item', true>;
+    highlightsHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Houdini Course in'>;
+    highlightsHighlight: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'(6 Months)'>;
+    highlightsImage: Schema.Attribute.Media<'images'>;
+    introHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Houdini'>;
+    introHighlight: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Course'>;
+    introImage: Schema.Attribute.Media<'images'>;
+    introParagraph1: Schema.Attribute.Text;
+    introParagraph2: Schema.Attribute.Text;
+    visitEmail: Schema.Attribute.String;
+    visitHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Visit Our Noida Center for a Free Demo'>;
+    visitPhone: Schema.Attribute.String;
+    visitSubheading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Book a Free Career Counseling Session'>;
+    whatYouGetHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'What You Get'>;
+    whatYouGetItems: Schema.Attribute.Component<'shared.icon-text-item', true>;
+    whatYouGetSubtitle: Schema.Attribute.String;
+    whoForHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Who Is This Course For?'>;
+    whoForItems: Schema.Attribute.Component<'shared.icon-text-item', true>;
+    whoForSubtitle: Schema.Attribute.String;
+  };
+}
+
+export interface CourseDetailsStandard extends Struct.ComponentSchema {
+  collectionName: 'components_course_details_standards';
+  info: {
+    displayName: 'Standard Course Details';
+    icon: 'book';
+  };
+  attributes: {
+    breakdownHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Course'>;
+    breakdownHighlight: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Breakdown'>;
+    breakdownIntro1: Schema.Attribute.Text;
+    breakdownIntro2: Schema.Attribute.Text;
+    breakdownIntro3: Schema.Attribute.Text;
+    modules: Schema.Attribute.Component<'shared.feature-card', true>;
+    trailerCtaLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Join The Course'>;
+    trailerHeading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Watch The Trailer'>;
+    trailerImage: Schema.Attribute.Media<'images'>;
+    trailerParagraph1: Schema.Attribute.Text;
+    trailerParagraph2: Schema.Attribute.Text;
+  };
+}
+
 export interface SectionsAcademyAbout extends Struct.ComponentSchema {
   collectionName: 'components_sections_academy_abouts';
   info: {
@@ -24,7 +96,7 @@ export interface SectionsAcademyCourses extends Struct.ComponentSchema {
     icon: 'play';
   };
   attributes: {
-    courses: Schema.Attribute.Component<'shared.course-card', true>;
+    courses: Schema.Attribute.Relation<'oneToMany', 'api::course.course'>;
     ctaHref: Schema.Attribute.String;
     ctaLabel: Schema.Attribute.String;
     heading: Schema.Attribute.String & Schema.Attribute.Required;
@@ -488,22 +560,6 @@ export interface SharedContactCard extends Struct.ComponentSchema {
   };
 }
 
-export interface SharedCourseCard extends Struct.ComponentSchema {
-  collectionName: 'components_shared_course_cards';
-  info: {
-    displayName: 'Course Card';
-    icon: 'play';
-  };
-  attributes: {
-    badge: Schema.Attribute.String;
-    description: Schema.Attribute.Text;
-    duration: Schema.Attribute.String;
-    image: Schema.Attribute.Media<'images'>;
-    isVideo: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
 export interface SharedEventBlock extends Struct.ComponentSchema {
   collectionName: 'components_shared_event_blocks';
   info: {
@@ -515,6 +571,18 @@ export interface SharedEventBlock extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images'>;
     isVideo: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     text: Schema.Attribute.Text;
+  };
+}
+
+export interface SharedFaqItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_faq_items';
+  info: {
+    displayName: 'FAQ Item';
+    icon: 'question';
+  };
+  attributes: {
+    answer: Schema.Attribute.Text;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -564,6 +632,21 @@ export interface SharedIconCard extends Struct.ComponentSchema {
   attributes: {
     icon: Schema.Attribute.Media<'images'>;
     label: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface SharedIconTextItem extends Struct.ComponentSchema {
+  collectionName: 'components_shared_icon_text_items';
+  info: {
+    displayName: 'Icon Text Item';
+    icon: 'star';
+  };
+  attributes: {
+    accentColor: Schema.Attribute.String;
+    emoji: Schema.Attribute.String;
+    icon: Schema.Attribute.Media<'images'>;
+    text: Schema.Attribute.Text;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -638,6 +721,8 @@ export interface SharedSocialLink extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'course-details.houdini': CourseDetailsHoudini;
+      'course-details.standard': CourseDetailsStandard;
       'sections.academy-about': SectionsAcademyAbout;
       'sections.academy-courses': SectionsAcademyCourses;
       'sections.academy-hero': SectionsAcademyHero;
@@ -669,12 +754,13 @@ declare module '@strapi/strapi' {
       'sections.testimonials': SectionsTestimonials;
       'shared.app-showcase': SharedAppShowcase;
       'shared.contact-card': SharedContactCard;
-      'shared.course-card': SharedCourseCard;
       'shared.event-block': SharedEventBlock;
+      'shared.faq-item': SharedFaqItem;
       'shared.feature-card': SharedFeatureCard;
       'shared.footer-column': SharedFooterColumn;
       'shared.footer-link': SharedFooterLink;
       'shared.icon-card': SharedIconCard;
+      'shared.icon-text-item': SharedIconTextItem;
       'shared.industry-card': SharedIndustryCard;
       'shared.list-item': SharedListItem;
       'shared.nav-item': SharedNavItem;

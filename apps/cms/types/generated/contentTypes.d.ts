@@ -697,6 +697,89 @@ export interface ApiContactPageContactPage extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
+  collectionName: 'courses';
+  info: {
+    description: 'Academy courses & videos, shared by the Academy hub teaser and the full Courses & Videos catalog page';
+    displayName: 'Course';
+    pluralName: 'courses';
+    singularName: 'course';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    badge: Schema.Attribute.String;
+    category: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text;
+    details: Schema.Attribute.DynamicZone<
+      ['course-details.standard', 'course-details.houdini']
+    > &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 1;
+          min: 0;
+        },
+        number
+      >;
+    duration: Schema.Attribute.String;
+    image: Schema.Attribute.Media<'images'>;
+    isVideo: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    level: Schema.Attribute.Enumeration<['Beginner', 'Intermediate']> &
+      Schema.Attribute.DefaultTo<'Beginner'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course.course'
+    > &
+      Schema.Attribute.Private;
+    order: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<0>;
+    publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'title'> & Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCoursesPageCoursesPage extends Struct.SingleTypeSchema {
+  collectionName: 'courses_pages';
+  info: {
+    description: 'Academy Courses & Videos catalog page \u2014 hero content; the course grid itself comes from the Course collection';
+    displayName: 'Courses & Videos Page';
+    pluralName: 'courses-pages';
+    singularName: 'courses-page';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    breadcrumbLabel: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Courses & Videos'>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    heading: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'Courses & Videos'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::courses-page.courses-page'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    seoDescription: Schema.Attribute.Text;
+    seoTitle: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEventPageEventPage extends Struct.SingleTypeSchema {
   collectionName: 'event_pages';
   info: {
@@ -1665,6 +1748,8 @@ declare module '@strapi/strapi' {
       'api::career.career': ApiCareerCareer;
       'api::client-logo.client-logo': ApiClientLogoClientLogo;
       'api::contact-page.contact-page': ApiContactPageContactPage;
+      'api::course.course': ApiCourseCourse;
+      'api::courses-page.courses-page': ApiCoursesPageCoursesPage;
       'api::event-page.event-page': ApiEventPageEventPage;
       'api::event.event': ApiEventEvent;
       'api::homepage.homepage': ApiHomepageHomepage;

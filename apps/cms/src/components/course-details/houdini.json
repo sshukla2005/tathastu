@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_course_details_houdinis",
+  "info": {
+    "displayName": "Houdini Course Details",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "introHeading": { "type": "string", "default": "Houdini" },
+    "introHighlight": { "type": "string", "default": "Course" },
+    "introParagraph1": { "type": "text" },
+    "introParagraph2": { "type": "text" },
+    "introImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "highlightsHeading": { "type": "string", "default": "Houdini Course in" },
+    "highlightsHighlight": { "type": "string", "default": "(6 Months)" },
+    "highlightsImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "highlightPoints": { "type": "component", "repeatable": true, "component": "shared.icon-text-item" },
+    "highlightFeatures": { "type": "component", "repeatable": true, "component": "shared.icon-text-item" },
+    "whatYouGetHeading": { "type": "string", "default": "What You Get" },
+    "whatYouGetSubtitle": { "type": "string" },
+    "whatYouGetItems": { "type": "component", "repeatable": true, "component": "shared.icon-text-item" },
+    "whoForHeading": { "type": "string", "default": "Who Is This Course For?" },
+    "whoForSubtitle": { "type": "string" },
+    "whoForItems": { "type": "component", "repeatable": true, "component": "shared.icon-text-item" },
+    "visitHeading": { "type": "string", "default": "Visit Our Noida Center for a Free Demo" },
+    "visitSubheading": { "type": "string", "default": "Book a Free Career Counseling Session" },
+    "visitPhone": { "type": "string" },
+    "visitEmail": { "type": "string" },
+    "brochureFile": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["files"] },
+    "faqsHeading": { "type": "string", "default": "Frequently Asked" },
+    "faqsHighlight": { "type": "string", "default": "Questions" },
+    "faqs": { "type": "component", "repeatable": true, "component": "shared.faq-item" }
+  }
+}

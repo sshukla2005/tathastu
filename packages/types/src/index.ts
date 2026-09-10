@@ -465,14 +465,96 @@ export interface ProgramCard {
   ctaHref: string;
 }
 
-export interface CourseCard {
+// ─── Course (Academy course/video catalog) ─────────────────────────────────────
+
+export interface Course {
   id: number;
+  documentId: string;
   title: string;
+  slug: string;
   image: StrapiMedia | null;
   description: string;
   duration: string;
   badge: string | null;
   isVideo: boolean;
+  category: string;
+  level: "Beginner" | "Intermediate";
+  order: number;
+  /** At most one entry — which component is present IS the course's type:
+   * course-details.houdini routes to the dedicated Houdini landing page,
+   * course-details.standard (or none) uses the generic course detail
+   * template. Picking one in the Strapi admin is how an editor chooses the
+   * course's type. */
+  details: CourseDetailsSection[];
+}
+
+export type CourseDetailsSection = CourseDetailsStandardSection | CourseDetailsHoudiniSection;
+
+export interface CourseDetailsStandardSection {
+  __component: "course-details.standard";
+  id: number;
+  trailerHeading: string;
+  trailerImage: StrapiMedia | null;
+  trailerParagraph1: string;
+  trailerParagraph2: string;
+  trailerCtaLabel: string;
+  breakdownHeading: string;
+  breakdownHighlight: string;
+  breakdownIntro1: string;
+  breakdownIntro2: string;
+  breakdownIntro3: string;
+  modules: FeatureCard[];
+}
+
+export interface IconTextItem {
+  id: number;
+  icon: StrapiMedia | null;
+  emoji: string | null;
+  title: string;
+  text: string;
+  accentColor: string | null;
+}
+
+export interface CourseDetailsHoudiniSection {
+  __component: "course-details.houdini";
+  id: number;
+  introHeading: string;
+  introHighlight: string;
+  introParagraph1: string;
+  introParagraph2: string;
+  introImage: StrapiMedia | null;
+  highlightsHeading: string;
+  highlightsHighlight: string;
+  highlightsImage: StrapiMedia | null;
+  highlightPoints: IconTextItem[];
+  highlightFeatures: IconTextItem[];
+  whatYouGetHeading: string;
+  whatYouGetSubtitle: string;
+  whatYouGetItems: IconTextItem[];
+  whoForHeading: string;
+  whoForSubtitle: string;
+  whoForItems: IconTextItem[];
+  visitHeading: string;
+  visitSubheading: string;
+  visitPhone: string;
+  visitEmail: string;
+  brochureFile: StrapiMedia | null;
+  faqsHeading: string;
+  faqsHighlight: string;
+  faqs: FaqItem[];
+}
+
+export interface FaqItem {
+  id: number;
+  question: string;
+  answer: string;
+}
+
+/** Where a course card should link — the dedicated Houdini landing page for
+ * that one course, or the generic per-course detail template otherwise. */
+export function getCourseHref(course: Pick<Course, "slug" | "details">): string {
+  const isHoudini = course.details?.some((d) => d.__component === "course-details.houdini");
+  return isHoudini ? "/academy/courses&videos/houdini-course" : `/academy/courses&videos/${course.slug}`;
 }
 
 export interface AcademyHeroSection {
@@ -527,7 +609,7 @@ export interface AcademyCoursesSection {
   heading: string;
   headingHighlight: string;
   subtitle: string;
-  courses: CourseCard[];
+  courses: Course[];
   ctaLabel: string;
   ctaHref: string;
 }

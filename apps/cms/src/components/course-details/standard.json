@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_course_details_standards",
+  "info": {
+    "displayName": "Standard Course Details",
+    "icon": "book"
+  },
+  "options": {},
+  "attributes": {
+    "trailerHeading": { "type": "string", "default": "Watch The Trailer" },
+    "trailerImage": { "type": "media", "multiple": false, "required": false, "allowedTypes": ["images"] },
+    "trailerParagraph1": { "type": "text" },
+    "trailerParagraph2": { "type": "text" },
+    "trailerCtaLabel": { "type": "string", "default": "Join The Course" },
+    "breakdownHeading": { "type": "string", "default": "Course" },
+    "breakdownHighlight": { "type": "string", "default": "Breakdown" },
+    "breakdownIntro1": { "type": "text" },
+    "breakdownIntro2": { "type": "text" },
+    "breakdownIntro3": { "type": "text" },
+    "modules": { "type": "component", "repeatable": true, "component": "shared.feature-card" }
+  }
+}

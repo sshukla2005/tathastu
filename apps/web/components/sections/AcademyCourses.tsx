@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { AcademyCoursesSection } from "@tathastu/types";
+import { AcademyCoursesSection, getCourseHref } from "@tathastu/types";
 import { getStrapiMediaUrl } from "@/lib/api";
 
 interface AcademyCoursesProps {
@@ -69,9 +69,9 @@ export default function AcademyCourses({ section }: AcademyCoursesProps) {
                 <h3 style={{ margin: 0, fontSize: "17px", fontWeight: 700, color: ABOUT_TEXT_PRIMARY }}>{course.title}</h3>
                 <p style={{ margin: 0, fontSize: "13px", color: ABOUT_TEXT_SECONDARY, lineHeight: 1.55 }}>
                   {course.description}{" "}
-                  <a href="#" style={{ color: RED, fontWeight: 600, textDecoration: "none" }} className="read-more-link">
+                  <Link href={getCourseHref(course)} style={{ color: RED, fontWeight: 600, textDecoration: "none" }} className="read-more-link">
                     read more...
-                  </a>
+                  </Link>
                 </p>
                 <span style={{ fontSize: "12px", fontWeight: 700, color: RED, letterSpacing: "0.04em", marginTop: "6px" }}>{course.duration}</span>
               </div>

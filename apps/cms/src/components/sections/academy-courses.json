@@ -9,7 +9,7 @@
     "heading": { "type": "string", "required": true },
     "headingHighlight": { "type": "string" },
     "subtitle": { "type": "text" },
-    "courses": { "type": "component", "repeatable": true, "component": "shared.course-card" },
+    "courses": { "type": "relation", "relation": "oneToMany", "target": "api::course.course" },
     "ctaLabel": { "type": "string" },
     "ctaHref": { "type": "string" }
   }

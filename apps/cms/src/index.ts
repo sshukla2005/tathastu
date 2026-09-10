@@ -32,6 +32,9 @@ const PUBLIC_FIND_ACTIONS = [
   "api::event-page.event-page.find",
   "api::event.event.find",
   "api::event.event.findOne",
+  "api::course.course.find",
+  "api::course.course.findOne",
+  "api::courses-page.courses-page.find",
 ];
 
 const PUBLIC_CREATE_ACTIONS = ["api::lead.lead.create"];
@@ -574,6 +577,331 @@ async function seedStudioPage(strapi: Core.Strapi) {
 }
 
 /**
+ * Seeds the Academy course catalog — shared by the Academy hub's "Latest
+ * Courses & Videos" teaser (sections.academy-courses, a relation into this
+ * collection) and the full apps/web/app/academy/courses&videos/page.tsx
+ * catalog page. Runs independently of seedDatabase() so it also backfills
+ * environments that were already seeded before the Course content-type
+ * existed.
+ */
+async function seedCourses(strapi: Core.Strapi) {
+  const existing = await strapi.documents("api::course.course").findMany({});
+  if (existing.length > 0) return existing;
+
+  strapi.log.info("🌱 Seeding Academy courses...");
+
+  const coursesData = [
+    {
+      title: "AI for Interior Design",
+      slug: "ai-for-interior-design",
+      description: "Create cinematic interior renders using AI — from rough sketches to fully",
+      duration: "7-Weeks",
+      badge: "NEW",
+      isVideo: false,
+      category: "AI",
+      level: "Intermediate" as const,
+      order: 1,
+    },
+    {
+      title: "Compositing in Nuke",
+      slug: "compositing-in-nuke",
+      description: "Learn compositing like a pro in this incredible Nuke course for FX Artists",
+      duration: "10-Weeks",
+      isVideo: false,
+      category: "Compositing",
+      level: "Intermediate" as const,
+      order: 2,
+    },
+    {
+      title: "Intro to Unreal Engine",
+      slug: "intro-to-unreal-engine",
+      description: "Learn the basics of Unreal Engine in this exciting game design course.",
+      duration: "8-Weeks",
+      isVideo: false,
+      category: "Unreal Engine",
+      level: "Intermediate" as const,
+      order: 3,
+    },
+    {
+      title: "Intro to Houdini FX",
+      slug: "intro-to-houdini-fx",
+      description: "Ready to get serious about your FX journey? Check out this intermediate",
+      duration: "12-Weeks",
+      isVideo: false,
+      category: "Houdini",
+      level: "Intermediate" as const,
+      order: 4,
+    },
+    {
+      title: "Coding Generative AI",
+      slug: "coding-generative-ai",
+      description: "A deep dive into applied generative AI, guiding students from foundational AI",
+      duration: "10-Weeks",
+      badge: "NEW",
+      isVideo: true,
+      category: "AI",
+      level: "Intermediate" as const,
+      order: 5,
+    },
+    {
+      title: "Unreal Engine Short Film",
+      slug: "unreal-engine-short-film",
+      description: "Learn how to create a short film using Unreal Engine.",
+      duration: "INSTANT ACCESS",
+      isVideo: false,
+      category: "Unreal Engine",
+      level: "Intermediate" as const,
+      order: 6,
+    },
+    {
+      title: "AI for Interior Design (Beginner)",
+      slug: "ai-for-interior-design-beginner",
+      description: "Create cinematic interior renders using AI — from rough sketches to fully",
+      duration: "7-Weeks",
+      badge: "NEW",
+      isVideo: false,
+      category: "AI",
+      level: "Beginner" as const,
+      order: 7,
+    },
+    {
+      title: "Compositing in Nuke (Beginner)",
+      slug: "compositing-in-nuke-beginner",
+      description: "Learn compositing like a pro in this incredible Nuke course for FX Artists",
+      duration: "10-Weeks",
+      isVideo: false,
+      category: "Compositing",
+      level: "Beginner" as const,
+      order: 8,
+    },
+  ];
+
+  const created: any[] = [];
+  for (const course of coursesData) {
+    created.push(await strapi.documents("api::course.course").create({ data: course, status: "published" }));
+  }
+
+  strapi.log.info("🌱 Academy courses seeded successfully!");
+  return created;
+}
+
+/**
+ * Backfills the "details" dynamic zone on the two courses that have their
+ * own hand-built landing pages — Intro to Houdini FX
+ * (apps/web/app/academy/courses&videos/houdini-course/page.tsx) and AI for
+ * Interior Design (apps/web/app/academy/courses&videos/ai-for-interior-design/page.tsx)
+ * — with the exact content those pages used to hardcode, now editable in
+ * Strapi. Which component ends up in "details" (course-details.houdini vs
+ * course-details.standard) IS the course type: picking one in the admin
+ * is how an editor chooses "Houdini" vs "standard" for a course, and the
+ * frontend's getCourseHref() routes based on which component is present.
+ * Runs independently of seedDatabase() so it also backfills environments
+ * that were already seeded before the "details" field existed.
+ */
+async function migrateCourseDetails(strapi: Core.Strapi) {
+  const [houdiniCourse] = await strapi
+    .documents("api::course.course")
+    .findMany({ filters: { slug: "intro-to-houdini-fx" }, populate: ["details"] });
+
+  if (houdiniCourse && houdiniCourse.details?.length === 0) {
+    strapi.log.info("🌱 Backfilling Houdini course details...");
+    await strapi.documents("api::course.course").update({
+      documentId: houdiniCourse.documentId,
+      data: {
+        details: [
+          {
+            __component: "course-details.houdini",
+            introHeading: "Houdini",
+            introHighlight: "Course",
+            introParagraph1:
+              "Some effects in movies look so real that it's hard to believe they were created on a computer — collapsing buildings, raging oceans, flying debris, or massive explosions.",
+            introParagraph2:
+              "Behind many of these scenes is one powerful tool: Houdini. Our Houdini Course in Noida is designed for students who want to move beyond basic 3D animation and step into the world of high-end VFX simulations. Here you will learn how professional artists build complex effects using procedural workflows and node-based systems used in real production studios.",
+            highlightsHeading: "Houdini Course in",
+            highlightsHighlight: "(6 Months)",
+            highlightPoints: [
+              {
+                title: "Master the Art of Visual Effects with the Best Houdini Course",
+                text: "Learn professional VFX workflows, procedural animation, simulation and production techniques used in films and games.",
+              },
+              {
+                title: "Why Houdini is the Industry Standard",
+                text: "Work with node-based workflows and build complex effects while developing strong technical and creative skills.",
+              },
+              {
+                title: "What You'll Learn: From Zero to Simulation Pro",
+                text: "Move from a complete beginner to a production-ready artist through practical classroom training and live projects.",
+              },
+            ],
+            highlightFeatures: [
+              { title: "6 Months", text: "Comprehensive, industry-focused training" },
+              { title: "Hands-on Learning", text: "Real-world projects and simulations" },
+              { title: "Industry-Ready Skills", text: "Workflows used in movies and games" },
+              { title: "Certified Program", text: "Boost your career with our certification" },
+            ],
+            whatYouGetHeading: "What You Get",
+            whatYouGetSubtitle: "Everything you need to become a professional Houdini artist",
+            whatYouGetItems: [
+              { title: "Course Level", text: "Beginner to Advanced", accentColor: "#4F6EF5" },
+              { title: "Mode", text: "Classroom (Offline)", accentColor: "#17B8C4" },
+              { title: "Live Creative Projects", text: "Work on real-world scenes", accentColor: "#22C55E" },
+              { title: "Portfolio Development", text: "Build a strong industry portfolio", accentColor: "#F59E0B" },
+              { title: "Certificate", text: "Yes, on Completion", accentColor: "#8B5CF6" },
+              { title: "Batch Options", text: "Weekday & Weekend", accentColor: "#EC4899" },
+            ],
+            whoForHeading: "Who Is This Course For?",
+            whoForSubtitle: "Everything you need to become a professional Houdini artist",
+            whoForItems: [
+              { emoji: "🧑‍💻", title: "Beginners in VFX", text: "Start your journey in visual effects from scratch.", accentColor: "#4B95FF" },
+              { emoji: "🧑‍🎨", title: "Aspiring 3D Artists", text: "Learn industry-standard tools and production workflows.", accentColor: "#22C55E" },
+              { emoji: "🎬", title: "Animation Students", text: "Upgrade your skills with powerful simulation techniques.", accentColor: "#F59E0B" },
+              { emoji: "🖥️", title: "Creative Professionals", text: "Boost your career and move into the VFX industry.", accentColor: "#8B5CF6" },
+            ],
+            visitHeading: "Visit Our Noida Center for a Free Demo",
+            visitSubheading: "Book a Free Career Counseling Session",
+            visitPhone: "+91 80104 85216",
+            visitEmail: "academy@tathastu.global",
+            faqsHeading: "Frequently Asked",
+            faqsHighlight: "Questions",
+            faqs: [
+              {
+                question: "Do I need any prior experience to join this course?",
+                answer: "No. This course is designed for complete beginners. You just need a creative mindset — we will teach you everything from scratch.",
+              },
+              {
+                question: "Which course I should prefer after Grade 12th?",
+                answer: "Houdini is an excellent choice after Grade 12th if you're interested in VFX, animation, or game development. Our counselors can help you pick the right track.",
+              },
+              {
+                question: "How long is the Houdini certification course?",
+                answer: "The course is 6 months long, covering everything from fundamentals to advanced production-level simulations.",
+              },
+            ],
+          },
+        ],
+      },
+      status: "published",
+    });
+  }
+
+  const [aiCourse] = await strapi
+    .documents("api::course.course")
+    .findMany({ filters: { slug: "ai-for-interior-design" }, populate: ["details"] });
+
+  if (aiCourse && aiCourse.details?.length === 0) {
+    strapi.log.info("🌱 Backfilling AI for Interior Design course details...");
+    await strapi.documents("api::course.course").update({
+      documentId: aiCourse.documentId,
+      data: {
+        details: [
+          {
+            __component: "course-details.standard",
+            trailerHeading: "Watch The Trailer",
+            trailerParagraph1:
+              "Curious about what you'll learn in this course? Check out the trailer to see all of the amazing techniques you'll learn inside AI For Interior Design.",
+            trailerParagraph2:
+              "In the final chapter, we introduce Nano Banana as an alternative workflow, applying everything covered in the course through a different approach to reinforce and expand your creative pipeline. Perfect for artists and designers who want to push AI beyond simple image generation into a fully controllable creative process.",
+            trailerCtaLabel: "Join The Course",
+            breakdownHeading: "Course",
+            breakdownHighlight: "Breakdown",
+            breakdownIntro1: "Create cinematic interior renders using AI — from rough sketches to fully realized scenes.",
+            breakdownIntro2:
+              "In this course, you'll build a complete workflow inside ComfyUI, transforming sketches into realistic interiors with full control over lighting, mood, and composition. You'll learn furniture integration, scene generation, camera control, relighting, and people integration — all the way through to high-end upscaling for production-ready results.",
+            breakdownIntro3:
+              "In the final chapter, we introduce Nano Banana as an alternative workflow, applying everything covered in the course through a different approach to reinforce and expand your creative pipeline. Perfect for artists and designers who want to push AI beyond simple image generation into a fully controllable creative pipeline.",
+            modules: [
+              {
+                title: "Week 1",
+                description:
+                  "Introduction To ComfyUI workflow. Setup ComfyUI Locally. Introduction To Node base setups in ComfyUI. Integrating Qwen Image Edit into Comfy UI. Advanced Qwen-image-Edit examples.",
+              },
+              {
+                title: "Week 2",
+                description:
+                  "Introduction To Sketch to Render Workflow. Hand-sketch and prompt structures. Translating CAD and 3D Art to different mood, style and lighting. Water color and Sketchup model.",
+              },
+              {
+                title: "Week 3",
+                description:
+                  "Custom Furniture integration and Scene generation. Custom furniture with Random scene and prompting. Multiple inputs / mood board with random scene. Custom furniture with custom scene. Using a 3D Model to Control placement, scale and orientation.",
+              },
+              {
+                title: "Week 4",
+                description:
+                  "Intro to Camera control. Camera control over Flat image (around 50 min). Generate multi-camera angle using Prompting. Generate multi-camera angle using 3D reference. Generating multi-camera angle using LoRa and Custom nodes.",
+              },
+              {
+                title: "Week 5",
+                description:
+                  "Realistic Scene Relighting Workflow. Relighting using prompting and LoRa. People integration based on references. Controlling Poses and placement.",
+              },
+              {
+                title: "Week 6",
+                description:
+                  "Introduction To Nano Banana. Integrating and setting up Nano Banana Inside ComfyUI. Sketch to render workflow. Furniture integration. Camera control. Relighting scene. People Integration.",
+              },
+            ],
+          },
+        ],
+      },
+      status: "published",
+    });
+  }
+}
+
+/**
+ * Seeds the Courses & Videos hub page singleType (hero content only — the
+ * course grid itself comes from the Course collection). Runs independently
+ * of seedDatabase() so it also backfills environments that were already
+ * seeded before the Courses Page content-type existed.
+ */
+async function seedCoursesPage(strapi: Core.Strapi) {
+  const existing = await strapi.documents("api::courses-page.courses-page").findFirst({});
+  if (existing) {
+    strapi.log.info("🌱 Courses page already seeded. Skipping.");
+    return;
+  }
+
+  strapi.log.info("🌱 Seeding Courses & Videos page...");
+
+  await strapi.documents("api::courses-page.courses-page").create({
+    data: {
+      seoTitle: "Courses & Videos — Tathastu Academy",
+      seoDescription: "Explore our newest tutorials, expert-led courses, and practical learning resources from Tathastu Academy.",
+      heading: "Courses & Videos",
+      breadcrumbLabel: "Courses & Videos",
+    },
+    status: "published",
+  });
+
+  strapi.log.info("🌱 Courses & Videos page seeded successfully!");
+}
+
+/**
+ * Backfills the "sections.academy-courses" relation on an already-seeded
+ * Academy page. That field used to be an embedded component and was
+ * migrated to a relation into the Course collection — existing environments
+ * seeded before the migration need their academy-page recreated so the
+ * section picks up real Course relations instead of sitting empty.
+ */
+async function migrateAcademyCoursesRelation(strapi: Core.Strapi) {
+  const academyPage = await strapi
+    .documents("api::academy-page.academy-page")
+    .findFirst({ populate: { sections: { on: { "sections.academy-courses": { populate: ["courses"] } } } } });
+
+  if (!academyPage) return; // seedAcademyPage() below will create it fresh.
+
+  const coursesSection = (academyPage.sections as any[])?.find((s) => s.__component === "sections.academy-courses");
+  if (coursesSection && coursesSection.courses?.length > 0) {
+    return; // Already migrated.
+  }
+
+  strapi.log.info("🌱 Migrating Academy page's courses section to the new Course relation...");
+  await strapi.documents("api::academy-page.academy-page").delete({ documentId: academyPage.documentId });
+  strapi.log.info("🌱 Academy page will be reseeded with real course relations.");
+}
+
+/**
  * Seeds the Academy Page singleType with one component per section of the
  * built Academy UI (apps/web/app/academy/page.tsx). Runs independently of
  * seedDatabase() so it also backfills environments that were already seeded
@@ -589,6 +917,8 @@ async function seedAcademyPage(strapi: Core.Strapi) {
   strapi.log.info("🌱 Seeding Academy page...");
 
   const members = await seedTeamMembers(strapi);
+  const courses = await seedCourses(strapi);
+  const teaserCourses = courses.filter((c) => c.level === "Intermediate").slice(0, 6);
 
   await strapi.documents("api::academy-page.academy-page").create({
     data: {
@@ -714,46 +1044,7 @@ async function seedAcademyPage(strapi: Core.Strapi) {
           heading: "Latest Courses &",
           headingHighlight: "Videos",
           subtitle: "Explore our newest tutorials, expert-led courses, and practical learning resources.",
-          courses: [
-            {
-              title: "AI for Interior Design",
-              description: "Create cinematic interior renders using AI — from rough sketches to fully",
-              duration: "7-Weeks",
-              badge: "NEW",
-              isVideo: false,
-            },
-            {
-              title: "Compositing in Nuke",
-              description: "Learn compositing like a pro in this incredible Nuke course for FX Artists",
-              duration: "10-Weeks",
-              isVideo: false,
-            },
-            {
-              title: "Intro to Unreal Engine",
-              description: "Learn the basics of Unreal Engine in this exciting game design course.",
-              duration: "8-Weeks",
-              isVideo: false,
-            },
-            {
-              title: "Intro to Houdini FX",
-              description: "Ready to get serious about your FX journey? Check out this intermediate",
-              duration: "12-Weeks",
-              isVideo: false,
-            },
-            {
-              title: "Coding Generative AI",
-              description: "A deep dive into applied generative AI, guiding students from foundational AI",
-              duration: "10-Weeks",
-              badge: "NEW",
-              isVideo: true,
-            },
-            {
-              title: "Unreal Engine Short Film",
-              description: "Learn how to create a short film using Unreal Engine.",
-              duration: "INSTANT ACCESS",
-              isVideo: false,
-            },
-          ],
+          courses: teaserCourses.map((c) => c.documentId),
           ctaLabel: "View All",
           ctaHref: "/academy/courses&videos",
         },
@@ -1170,7 +1461,10 @@ export default {
     await setPublicPermissions(strapi);
     await seedDatabase(strapi);
     await seedStudioPage(strapi);
+    await migrateAcademyCoursesRelation(strapi);
     await seedAcademyPage(strapi);
+    await seedCoursesPage(strapi);
+    await migrateCourseDetails(strapi);
     await seedIndustriesPage(strapi);
     await seedMissingIndustries(strapi);
     await seedIndustryBrands(strapi);

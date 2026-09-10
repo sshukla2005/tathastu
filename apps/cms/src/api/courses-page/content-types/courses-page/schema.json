@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "courses_pages",
+  "info": {
+    "singularName": "courses-page",
+    "pluralName": "courses-pages",
+    "displayName": "Courses & Videos Page",
+    "description": "Academy Courses & Videos catalog page — hero content; the course grid itself comes from the Course collection"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "seoTitle": { "type": "string" },
+    "seoDescription": { "type": "text" },
+    "heading": { "type": "string", "default": "Courses & Videos" },
+    "breadcrumbLabel": { "type": "string", "default": "Courses & Videos" }
+  }
+}
